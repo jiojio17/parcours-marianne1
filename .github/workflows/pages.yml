@@ -1,8 +1,10 @@
 name: Publier le site (GitHub Pages)
 
 # Construit le site (aucune dépendance) et le publie sur GitHub Pages.
+#
 # Prérequis, une seule fois : Settings → Pages → Source = « GitHub Actions ».
-# Ensuite, chaque push sur cette branche met le site à jour automatiquement.
+# Tant que ce n'est pas fait, ce workflow s'arrête proprement en affichant la marche
+# à suivre (aucun échec). Ensuite, chaque mise à jour du site le publie automatiquement.
 
 on:
   push:
@@ -26,7 +28,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  construire:
+  publier:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,35 +43,61 @@ jobs:
       - name: Contrôles du site
         run: |
           set -euo pipefail
-          test -f app/index.html
-          test -f app/manifest.webmanifest
-          test -f app/sw.js
-          test -f app/icons/icon-192.png
-          test -f app/icons/icon-512.png
+          for f in app/index.html app/manifest.webmanifest app/sw.js \
+                   app/icons/icon-192.png app/icons/icon-512.png app/404.html; do
+            test -f "$f" || { echo "Fichier manquant : $f"; exit 1; }
+          done
           node -e "
-            const fs=require('fs');
-            const q=fs.readFileSync('app/data/questions.js','utf8');
-            const s=fs.readFileSync('app/data/series.js','utf8');
-            const n=(q.match(/\"id\":/g)||[]).length;
-            const series=(s.match(/serie-/g)||[]).length;
+            const fs = require('fs');
+            const q = fs.readFileSync('app/data/questions.js', 'utf8');
+            const s = fs.readFileSync('app/data/series.js', 'utf8');
+            const n = (q.match(/\"id\":/g) || []).length;
+            const series = (s.match(/serie-/g) || []).length;
             console.log('questions dans la banque :', n);
-            console.log('séries :', series);
-            if (n < 400 || series < 40) process.exit(1);
+            console.log('séries d’examen :', series);
+            if (n < 400 || series < 40) { console.error('Contenu incomplet'); process.exit(1); }
           "
 
+      - name: Vérifier que GitHub Pages est activé
+        id: verif
+        run: |
+          code=$(curl -s -o /tmp/pages.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          echo "Réponse de l’API Pages : HTTP $code"
+          if [ "$code" = "200" ]; then
+            echo "actif=true" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages est activé : publication en cours."
+          else
+            echo "actif=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "## ⚙️ GitHub Pages doit être activé (une seule fois)"
+              echo
+              echo "1. Ouvrir **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
+              echo "2. Dans **Source**, choisir **GitHub Actions** (et non « Deploy from a branch »)."
+              echo "3. Revenir ici et relancer ce workflow (**Run workflow**)."
+              echo
+              echo "L’adresse publique du site sera : **https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
+              echo
+              echo "En attendant, le site est consultable via l’aperçu de travail et le paquet"
+              echo "\`dist/parcours-marianne-quiz.zip\` peut être déposé sur Cloudflare Pages."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::notice title=GitHub Pages non activé::Settings → Pages → Source = « GitHub Actions », puis relancer ce workflow."
+          fi
+
       - uses: actions/configure-pages@v5
-        id: pages
+        if: steps.verif.outputs.actif == 'true'
 
       - uses: actions/upload-pages-artifact@v3
+        if: steps.verif.outputs.actif == 'true'
         with:
           path: app
 
-  deployer:
-    needs: construire
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - id: deployment
+        if: steps.verif.outputs.actif == 'true'
         uses: actions/deploy-pages@v4
+
+      - name: Adresse du site
+        if: steps.verif.outputs.actif == 'true'
+        run: echo "Site publié : ${{ steps.deployment.outputs.page_url }}"
