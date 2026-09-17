@@ -1,0 +1,23 @@
+Fichiers récupérés : app-coach-online.js, app.js, data.js, exam-bank.js, icons, index.html, lesson-extras.js, manifest.json, style.css, sw.js, videos, videos-catalog.js
+OK   syntaxe app-coach-online.js
+OK   syntaxe app.js
+OK   syntaxe data.js
+OK   syntaxe exam-bank.js
+OK   syntaxe lesson-extras.js
+OK   syntaxe sw.js
+OK   syntaxe videos-catalog.js
+Banque non analysable : Unexpected non-whitespace character after JSON at position 102250 (line 2966 column 2)
+
+Statistiques :
+{
+  "leçons": 2,
+  "questions de leçon": 52,
+  "cartes mémo (facts)": 14,
+  "capsules": 22,
+  "durée totale capsules (min)": 105,
+  "enrichissements de leçon": 14,
+  "sous-titres VTT": 36,
+  "lignes de sous-titres": 1338
+}
+
+ATTENTION : banque d’examen absente ou illisible.
