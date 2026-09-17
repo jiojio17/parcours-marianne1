@@ -1,8 +1,9 @@
 name: Diagnostic activation Pages
 
 # Tentative d'activation automatique de GitHub Pages via l'API, avec le jeton
-# du workflow (permissions pages: write + id-token: write). Affiche les codes
-# HTTP obtenus pour chaque appel, afin de savoir si GitHub autorise l'agent.
+# du workflow (permissions pages: write + id-token: write). Le résultat est
+# écrit dans tools/diagnostic-pages.txt et committé, car les journaux de runs
+# ne sont pas toujours accessibles via l'API.
 
 on:
   push:
@@ -10,7 +11,7 @@ on:
       - '.github/workflows/pages-probe.yml'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,40 +19,55 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: État des lieux et tentative d'activation
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
           set -uo pipefail
+          DIAG=tools/diagnostic-pages.txt
+          mkdir -p tools
+          {
+            echo "Diagnostic GitHub Pages — $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            echo
+            echo "1) GET /repos/$REPO/pages (état actuel)"
+            curl -s -o /tmp/pages.json -w 'HTTP %{http_code}\n' \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/pages" || true
+            cat /tmp/pages.json 2>/dev/null; echo
+            echo
+            echo "2) PUT /repos/$REPO/environments/github-pages"
+            curl -s -o /tmp/env.json -w 'HTTP %{http_code}\n' -X PUT \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/environments/github-pages" \
+              -d '{}' || true
+            head -c 300 /tmp/env.json 2>/dev/null; echo
+            echo
+            echo "3) POST /repos/$REPO/pages (build_type: workflow)"
+            curl -s -o /tmp/create.json -w 'HTTP %{http_code}\n' -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/pages" \
+              -d '{"build_type":"workflow"}' || true
+            cat /tmp/create.json 2>/dev/null; echo
+            echo
+            echo "4) Vérification finale"
+            curl -s -w '\nHTTP %{http_code}\n' \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/pages" || true
+            echo
+            echo "fin du diagnostic"
+          } > "$DIAG" 2>&1
 
-          echo "=== 1) GET /repos/$REPO/pages (état actuel) ==="
-          curl -s -o /tmp/pages.json -w 'HTTP %{http_code}\n' \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/pages" || true
-          cat /tmp/pages.json 2>/dev/null; echo
+          cat "$DIAG"
 
-          echo "=== 2) PUT /repos/$REPO/environments/github-pages ==="
-          curl -s -o /tmp/env.json -w 'HTTP %{http_code}\n' -X PUT \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/environments/github-pages" \
-            -d '{}' || true
-          head -c 400 /tmp/env.json 2>/dev/null; echo
-
-          echo "=== 3) POST /repos/$REPO/pages (build_type: workflow) ==="
-          curl -s -o /tmp/create.json -w 'HTTP %{http_code}\n' -X POST \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/pages" \
-            -d '{"build_type":"workflow"}' || true
-          cat /tmp/create.json 2>/dev/null; echo
-
-          echo "=== 4) Vérification finale ==="
-          curl -s -w '\nHTTP %{http_code}\n' \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/pages" || true
-
-          echo "=== fin du diagnostic ==="
+          git config user.name "arena-agent[bot]"
+          git config user.email "arena-agent[bot]@users.noreply.github.com"
+          git add "$DIAG"
+          git commit -q -m "ci: diagnostic activation Pages" || echo "rien à committer"
+          git push
