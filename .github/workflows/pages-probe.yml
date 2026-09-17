@@ -1,0 +1,57 @@
+name: Diagnostic activation Pages
+
+# Tentative d'activation automatique de GitHub Pages via l'API, avec le jeton
+# du workflow (permissions pages: write + id-token: write). Affiche les codes
+# HTTP obtenus pour chaque appel, afin de savoir si GitHub autorise l'agent.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/pages-probe.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: État des lieux et tentative d'activation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+
+          echo "=== 1) GET /repos/$REPO/pages (état actuel) ==="
+          curl -s -o /tmp/pages.json -w 'HTTP %{http_code}\n' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pages" || true
+          cat /tmp/pages.json 2>/dev/null; echo
+
+          echo "=== 2) PUT /repos/$REPO/environments/github-pages ==="
+          curl -s -o /tmp/env.json -w 'HTTP %{http_code}\n' -X PUT \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/environments/github-pages" \
+            -d '{}' || true
+          head -c 400 /tmp/env.json 2>/dev/null; echo
+
+          echo "=== 3) POST /repos/$REPO/pages (build_type: workflow) ==="
+          curl -s -o /tmp/create.json -w 'HTTP %{http_code}\n' -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pages" \
+            -d '{"build_type":"workflow"}' || true
+          cat /tmp/create.json 2>/dev/null; echo
+
+          echo "=== 4) Vérification finale ==="
+          curl -s -w '\nHTTP %{http_code}\n' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pages" || true
+
+          echo "=== fin du diagnostic ==="
