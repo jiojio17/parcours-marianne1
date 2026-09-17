@@ -100,4 +100,5 @@ jobs:
 
       - name: Adresse du site
         if: steps.verif.outputs.actif == 'true'
-        run: echo "Site publié : ${{ steps.deployment.outputs.page_url }}"
+        run: |
+          echo "Site publié : ${{ steps.deployment.outputs.page_url }}"
