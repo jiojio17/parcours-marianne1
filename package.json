@@ -1,0 +1,17 @@
+{
+  "name": "parcours-marianne",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Entraînement à l'examen civique français : banque de questions, examens blancs chronométrés et révision par thème.",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build-quiz.mjs && node tools/export-markdown.mjs",
+    "start": "node tools/serve.mjs",
+    "dev": "node tools/build-quiz.mjs && node tools/serve.mjs",
+    "test": "node tools/smoke-test.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^30.1.0"
+  }
+}
