@@ -8,7 +8,7 @@ chronométrés** et révision par thème.
 
 | Fonction | Détail |
 | --- | --- |
-| **Examens blancs** | 40 séries de **40 questions en 40 minutes** (chronomètre, seuil de réussite 32/40 = 80 %) |
+| **Examens blancs** | 40 séries de **40 questions en 45 minutes** (chronomètre, seuil de réussite 32/40 = 80 %) |
 | **Tirage aléatoire** | un examen complet reconstruit à chaque partie, avec la répartition officielle (28 connaissances + 12 mises en situation) |
 | **Correction immédiate** | score global, score par thème, corrigé de chaque erreur avec l'explication de la règle |
 | **Révision par thème** | question par question, correction et explication après chaque réponse |
@@ -58,5 +58,4 @@ Le site fonctionne aussi sans serveur : ouvrir `app/index.html` dans un navigate
 
 Examen civique (décret n° 2025-1345 et arrêté du 10 octobre 2025) : **40 questions
 à choix multiples — 28 de connaissances et 12 mises en situation — en 45 minutes**,
-avec **80 % de bonnes réponses** (32/40) pour réussir. L'entraînement proposé ici est
-chronométré sur 40 minutes, à la demande, pour travailler la vitesse.
+avec **80 % de bonnes réponses** (32/40) pour réussir. Les examens blancs sont chronométrés sur cette durée officielle de 45 minutes.

@@ -35,7 +35,7 @@ elles sont conservées dans `documents/QUESTIONS-CIVIQUES.md` et plusieurs sont 
 | Élément | Examen officiel | Entraînement ici |
 | --- | --- | --- |
 | Questions | 40 (28 connaissances + 12 mises en situation) | idem |
-| Durée | 45 minutes | **40 minutes** (chronométré) |
+| Durée | 45 minutes | 45 minutes (chronométré) |
 | Réussite | 32/40 (80 %) | idem |
 | Support | ordinateur ou tablette en centre agréé | navigateur, sans document |
 

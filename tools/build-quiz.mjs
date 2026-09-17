@@ -28,7 +28,7 @@ const THEMES = {
 // Format officiel de l'examen civique (décret 2025-1345 / arrêté du 10 octobre 2025)
 const EXAM = {
   questions: 40,
-  durationMin: 40,      // durée demandée pour l'entraînement (officiel : 45 min)
+  durationMin: 45,      // durée officielle de l'épreuve
   pass: 32,             // 80 %
   knowledge: 28,
   situations: 12,

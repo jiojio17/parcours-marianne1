@@ -29,7 +29,7 @@ await nav('#/examen/aleatoire');
 const card = window.document.getElementById('qcard');
 ok('Examen : première question affichée', !!card && card.innerHTML.includes('question-text'));
 ok('Examen : 4 réponses proposées', card.querySelectorAll('.option').length === 4);
-ok('Examen : minuteur démarré', window.document.getElementById('timer').textContent.startsWith('40:') || /^\d+:\d\d$/.test(window.document.getElementById('timer').textContent), window.document.getElementById('timer').textContent);
+ok('Examen : minuteur démarré', window.document.getElementById('timer').textContent.startsWith('45:') || /^\d+:\d\d$/.test(window.document.getElementById('timer').textContent), window.document.getElementById('timer').textContent);
 ok('Examen : 40 pastilles de navigation', window.document.querySelectorAll('#qgrid button').length === 40);
 
 // 3. répondre à toutes les questions en cochant la bonne réponse (via les données)
