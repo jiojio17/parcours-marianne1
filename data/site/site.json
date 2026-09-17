@@ -75,6 +75,46 @@
       "vert foncé": "#2b6e59"
     }
   },
+  "telechargements": {
+    "page": "https://parcours-marianne-e1u.pages.dev/downloads",
+    "archives": [
+      {
+        "nom": "Application complète (capsules + affiches + sous-titres)",
+        "url": "https://parcours-marianne-e1u.pages.dev/downloads/parcours-marianne-application.zip"
+      },
+      {
+        "nom": "Capsules uniquement",
+        "url": "https://parcours-marianne-e1u.pages.dev/downloads/parcours-marianne-capsules.zip"
+      }
+    ],
+    "capsulesALaCarte": [
+      {
+        "titre": "Les symboles qui nous rassemblent",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-01/lecon-01.mp4"
+      },
+      {
+        "titre": "Droits et devoirs au quotidien",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-03/lecon-03.mp4"
+      },
+      {
+        "titre": "Le vote, étape par étape",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-05/lecon-05.mp4"
+      },
+      {
+        "titre": "La France dans l’Union européenne",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-08/lecon-08.mp4"
+      },
+      {
+        "titre": "Le travail dans un cadre commun",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-10/lecon-10.mp4"
+      },
+      {
+        "titre": "La répétition générale",
+        "url": "https://parcours-marianne-e1u.pages.dev/videos/lesson-14/lecon-14.mp4"
+      }
+    ],
+    "note": "La page de téléchargement du site est rendue côté client : le fichier downloads.html n’est pas servi séparément. Contenu et liens ci-dessus capturés depuis le site en ligne."
+  },
   "fichiers": [
     "index.html",
     "style.css",

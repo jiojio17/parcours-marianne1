@@ -13,7 +13,9 @@ chronométrés** et révision par thème.
 | **Tirage aléatoire** | un examen complet reconstruit à chaque partie, avec la répartition officielle (28 connaissances + 12 mises en situation) |
 | **Correction immédiate** | score global, score par thème, corrigé de chaque erreur avec l'explication de la règle |
 | **Révision par thème** | question par question, correction et explication après chaque réponse |
-| **Banque complète** | les 285 questions avec leurs quatre choix, la bonne réponse et le corrigé |
+| **Fiches** | les 14 fiches de révision du site (texte d'écoute, cartes mémoire, pièges) |
+| **Capsules** | les 22 capsules vidéo avec durées, thèmes et sous-titres |
+| **Banque complète** | les 472 questions avec leurs quatre choix, la bonne réponse et le corrigé |
 | **Historique** | meilleur score et liste des tentatives, stockés dans le navigateur |
 
 Tout est enregistré **uniquement dans le navigateur** (profil, statistiques, historique) :
@@ -21,15 +23,21 @@ aucune donnée n'est envoyée à un serveur, aucun compte n'est nécessaire.
 
 ## Contenu
 
-- **285 questions corrigées** : 44 « Vivre dans la société française », 83 « Histoire,
-  géographie et culture », 37 « Droits et devoirs », 55 « Système institutionnel et
-  politique », 36 « Principes et valeurs de la République », 30 mises en situation.
-- Les 255 questions de connaissances proviennent des **sujets d'entraînement**
-  (11 pages photographiées) du dossier Drive
-  « Exercices renouvellement » ; elles ont été retranscrites, puis complétées avec
-  **une bonne réponse et trois réponses fausses crédibles** et une explication.
-- Les **30 mises en situation** reproduisent le format officiel de l'examen
-  (12 par épreuve).
+- **472 questions corrigées**, issues de deux corpus fusionnés :
+  - **244 questions** des **sujets d'entraînement** (11 pages photographiées du dossier
+    Drive « Exercices renouvellement ») : 255 questions transcrites, complétées par une
+    bonne réponse, trois réponses fausses crédibles et une explication ;
+  - **228 questions** de la banque du site **« Marianne · Examen civique »**
+    (191 connaissances + 37 mises en situation), importées avec leurs explications et
+    leurs « pièges fréquents ».
+  - Après dédoublonnage : 472 questions retenues (41 doublons écartés, 41 explications
+    enrichies par recoupement des deux corpus).
+- **14 fiches de révision** reprises du site : objectif, texte d'écoute, 4 cartes mémoire,
+  rappel actif, mise en situation et piège fréquent (page « Fiches »).
+- **22 capsules vidéo** (105 min) : 18 révisions éclair et 4 mises en situation, avec
+  leurs 36 fichiers de sous-titres archivés (page « Capsules »).
+- **67 mises en situation** au total pour l'entraînement (12 dans chaque examen blanc).
+- Tout le contenu importé du site est documenté dans **`docs/EXTRACTION-SITE.md`**.
 
 ## Structure
 
@@ -37,17 +45,25 @@ aucune donnée n'est envoyée à un serveur, aucun compte n'est nécessaire.
 app/                     site statique (aucune dépendance, s'ouvre dans un navigateur)
   index.html             page unique + routage par ancre (#/examen/…, #/revision/…)
   styles.css
-  app.js                 moteur de quiz (chronomètre, correction, historique)
+  app.js                 moteur de quiz (chronomètre, correction, historique, parcours)
   data/questions.js      banque générée
   data/series.js         séries générées
-data/quizzes/            sources de la banque, rédigées à la main (JSON)
+  data/site.js           fiches, capsules et repères du site importé
+data/quizzes/            sources de la banque (JSON) : sujets transcrits + site importé
+data/site/               contenu du site importé, normalisé (leçons, capsules, banque)
+extraction/site/         fichiers du site d'origine, tels quels + 36 sous-titres
+  MANIFEST.md            empreintes et inventaire
+  STATS.json             statistiques de contenu
+  COMPLETUDE.json        contrôle de complétude vs service worker
 documents/               sujets d'entraînement d'origine + transcription + inventaire
-tools/build-quiz.mjs     génère app/data/*.js à partir de data/quizzes/*.json
+tools/build-quiz.mjs     fusionne et dédoublonne la banque, génère les séries
+tools/import-site.mjs    convertit le site extrait en données exploitables
 tools/serve.mjs          serveur statique local
 tools/smoke-test.mjs     test de bout en bout du parcours (jsdom)
 docs/QUIZZ.md            documentation du quiz et du format officiel
 docs/BANQUE-QUESTIONS.md  les 285 questions corrigées, version imprimable
 docs/DEPLOIEMENT.md      mise en ligne sur Cloudflare Pages (paquet prêt à déposer)
+docs/EXTRACTION-SITE.md  inventaire complet du site « Marianne · Examen civique »
 dist/                    paquet du site à déployer (généré par `npm run pack`)
 app/parcours             bilan de départ et programme personnalisé (dans app.js)
 ```

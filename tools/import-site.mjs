@@ -169,6 +169,22 @@ const siteInfo = {
       vert: '#3c8d75', 'vert foncé': '#2b6e59',
     },
   },
+  telechargements: {
+    page: SITE_ORIGIN + 'downloads',
+    archives: [
+      { nom: 'Application complète (capsules + affiches + sous-titres)', url: SITE_ORIGIN + 'downloads/parcours-marianne-application.zip' },
+      { nom: 'Capsules uniquement', url: SITE_ORIGIN + 'downloads/parcours-marianne-capsules.zip' },
+    ],
+    capsulesALaCarte: [
+      { titre: 'Les symboles qui nous rassemblent', url: SITE_ORIGIN + 'videos/lesson-01/lecon-01.mp4' },
+      { titre: 'Droits et devoirs au quotidien', url: SITE_ORIGIN + 'videos/lesson-03/lecon-03.mp4' },
+      { titre: 'Le vote, étape par étape', url: SITE_ORIGIN + 'videos/lesson-05/lecon-05.mp4' },
+      { titre: 'La France dans l’Union européenne', url: SITE_ORIGIN + 'videos/lesson-08/lecon-08.mp4' },
+      { titre: 'Le travail dans un cadre commun', url: SITE_ORIGIN + 'videos/lesson-10/lecon-10.mp4' },
+      { titre: 'La répétition générale', url: SITE_ORIGIN + 'videos/lesson-14/lecon-14.mp4' },
+    ],
+    note: 'La page de téléchargement du site est rendue côté client : le fichier downloads.html n’est pas servi séparément. Contenu et liens ci-dessus capturés depuis le site en ligne.',
+  },
   fichiers: [
     'index.html', 'style.css', 'app.js', 'data.js', 'exam-bank.js', 'lesson-extras.js',
     'videos-catalog.js', 'app-coach-online.js', 'manifest.json', 'sw.js', 'icons/icon.svg',
