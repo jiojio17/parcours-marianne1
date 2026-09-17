@@ -1,7 +1,7 @@
 # Extraction du site `parcours-marianne-e1u.pages.dev`
 
 Source : <https://parcours-marianne-e1u.pages.dev/>
-Récupéré le 2026-09-17 16:33 UTC par GitHub Actions.
+Récupéré le 2026-09-17 16:37 UTC par GitHub Actions.
 
 | Fichier | Taille | SHA-256 (12 premiers) |
 | --- | --- | --- |
@@ -9,6 +9,8 @@ Récupéré le 2026-09-17 16:33 UTC par GitHub Actions.
 | `app.js` | 54987 o | `f6614ac1025c` |
 | `data.js` | 24214 o | `0ea8f478636b` |
 | `exam-bank.js` | 105647 o | `1d451a71817e` |
+| `icons/icon-192.png` | 1737 o | `f6241e6c201e` |
+| `icons/icon-512.png` | 4858 o | `4f224b4b8ffc` |
 | `icons/icon.svg` | 568 o | `02e30a5f313b` |
 | `index.html` | 1105 o | `3cea560d5b12` |
 | `lesson-extras.js` | 6872 o | `a4c28c8a1167` |
