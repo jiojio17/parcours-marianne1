@@ -1,10 +1,17 @@
 name: Publier le site (GitHub Pages)
 
 # Construit le site (aucune dépendance) et le publie sur GitHub Pages.
-# `enablement: true` demande à l'action « configure-pages » de CRÉER le site Pages
-# si nécessaire : normalement, aucun clic préalable dans Settings n'est requis.
-# Si l'activation automatique est refusée par GitHub, le workflow s'arrête proprement en
-# expliquant la seule action manuelle possible (Settings → Pages → Source : GitHub Actions).
+#
+# Deux façons de publier :
+#   1. à chaque fois que le contenu change (app/, data/, tools/) ;
+#   2. toutes les 30 minutes (tâche planifiée) : dès que le site Pages existe,
+#      la publication se fait automatiquement, sans aucune action de personne.
+#
+# GitHub interdit à un workflow de CRÉER le site Pages (l'API répond 403
+# « Resource not accessible by integration », même avec pages: write).
+# La création se fait donc en 2 clics par le propriétaire du dépôt :
+#   Settings → Pages → Source = « GitHub Actions ».
+# Ensuite, plus rien à faire : ce workflow publie à chaque changement.
 
 on:
   push:
@@ -16,6 +23,8 @@ on:
       - 'data/**'
       - 'tools/**'
       - '.github/workflows/pages.yml'
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -58,32 +67,47 @@ jobs:
             if (n < 400 || series < 40) { console.error('Contenu incomplet'); process.exit(1); }
           "
 
-      - name: Activer GitHub Pages (création du site si besoin)
+      - name: Vérifier si GitHub Pages existe
+        id: etat
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          code=$(curl -s -o /tmp/pages.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          echo "HTTP $code"
+          if [ "$code" = "200" ]; then
+            echo "existe=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "existe=non" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Activer GitHub Pages (sans effet si déjà fait)
         id: pages
+        if: steps.etat.outputs.existe == 'oui'
         continue-on-error: true
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
-      - name: Repli si l'activation a été refusée
-        if: steps.pages.outcome == 'failure'
+      - name: Mode d'emploi (2 clics) si le site n'existe pas encore
+        if: steps.etat.outputs.existe != 'oui'
         run: |
           {
-            echo "## ⚙️ Une seule action manuelle est nécessaire"
+            echo "## ⚙️ Deux clics et c'est publié"
             echo
-            echo "GitHub a refusé l'activation automatique : seuls les administrateurs du dépôt"
-            echo "peuvent créer le site Pages."
+            echo "GitHub réserve la création du site à son propriétaire (l'API répond 403"
+            echo "pour tout workflow, même avec la permission \`pages: write\`)."
             echo
-            echo "1. Ouvrir **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
-            echo "2. Dans **Source**, choisir **GitHub Actions**."
-            echo "3. Relancer ce workflow (**Run workflow**)."
+            echo "1. Ouvre **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
+            echo "2. Sous **Source**, choisis **GitHub Actions** (puis **Save**)."
             echo
-            echo "Adresse publique : **https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
+            echo "C'est tout : ce workflow publie ensuite automatiquement, y compris via la"
+            echo "tâche planifiée toutes les 30 minutes. Aucune autre manipulation."
             echo
-            echo "En attendant, une adresse publique de secours est disponible :"
-            echo "celle du CDN jsDelivr (voir \`docs/DEPLOIEMENT.md\`)."
+            echo "Adresse du site une fois publié :"
+            echo "**https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
           } >> "$GITHUB_STEP_SUMMARY"
-          echo "::warning title=Activation manuelle requise::Settings → Pages → Source = « GitHub Actions », puis relancer ce workflow. En attendant, le site reste accessible via l'aperçu de travail, le paquet dist/ et le CDN jsDelivr."
+          echo "::warning title=2 clics : Settings → Pages → Source = GitHub Actions::La publication suivante sera automatique (toutes les 30 min)."
 
       - uses: actions/upload-pages-artifact@v3
         if: steps.pages.outcome == 'success'
