@@ -23,8 +23,6 @@ on:
       - 'data/**'
       - 'tools/**'
       - '.github/workflows/pages.yml'
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
