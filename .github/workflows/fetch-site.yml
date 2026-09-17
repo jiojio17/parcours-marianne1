@@ -34,7 +34,7 @@ jobs:
           mkdir -p extraction/site
           FILES="index.html style.css data.js lesson-extras.js exam-bank.js app.js \
                  app-coach-online.js videos-catalog.js manifest.json manifest.webmanifest \
-                 downloads.html sw.js robots.txt icons/icon.svg icons/icon-192.png icons/icon-512.png"
+                 downloads downloads.html sw.js robots.txt icons/icon.svg icons/icon-192.png icons/icon-512.png"
           for f in $FILES; do
             out="extraction/site/$f"
             mkdir -p "$(dirname "$out")"
@@ -117,77 +117,73 @@ jobs:
           node - <<'JS' 2>&1 | tee extraction/VERIFICATION.txt
           const fs = require('fs');
           const read = (f) => (fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '');
+          const evalData = (src, names) =>
+            new Function(src + ';return {' + names.map((n) => `'${n}': typeof ${n} !== 'undefined' ? ${n} : undefined`).join(',') + '};')();
+          const dir = 'extraction/site';
           const rapport = [];
           const stats = {};
-          const dir = 'extraction/site';
           const files = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
           rapport.push('Fichiers récupérés : ' + files.join(', '));
 
           for (const f of files.filter((f) => f.endsWith('.js'))) {
-            try {
-              new Function(read(dir + '/' + f));
-              rapport.push('OK   syntaxe ' + f);
-            } catch (e) {
-              rapport.push('ERREUR syntaxe ' + f + ' : ' + e.message);
-            }
+            try { new Function(read(dir + '/' + f)); rapport.push('OK   syntaxe ' + f); }
+            catch (e) { rapport.push('ERREUR syntaxe ' + f + ' : ' + e.message); }
           }
 
           try {
-            const bank = read(dir + '/exam-bank.js');
-            if (bank) {
-              const json = bank.replace(/^[\s\S]*?=\s*/, '').replace(/;\s*$/, '');
-              const arr = JSON.parse(json);
-              stats['questions exam-bank'] = arr.length;
-              stats['connaissance'] = arr.filter((q) => q.kind === 'connaissance').length;
-              stats['situation'] = arr.filter((q) => q.kind === 'situation').length;
-              const themes = [...new Set(arr.map((q) => q.theme))].sort();
-              stats['themes'] = themes.join(', ');
-              const sansExplication = arr.filter((q) => !q.explanation).length;
-              stats['sans explication'] = sansExplication;
-              const optionsKo = arr.filter((q) => !Array.isArray(q.options) || q.options.length !== 4).length;
-              stats['sans 4 options'] = optionsKo;
-            }
-          } catch (e) { rapport.push('Banque non analysable : ' + e.message); }
+            const { EXAM_BANK, EXAM_SETTINGS } = evalData(read(dir + '/exam-bank.js'), ['EXAM_BANK', 'EXAM_SETTINGS']);
+            stats['questions exam-bank'] = EXAM_BANK.length;
+            stats['connaissances'] = EXAM_BANK.filter((q) => q.kind === 'connaissance').length;
+            stats['mises en situation'] = EXAM_BANK.filter((q) => q.kind === 'situation').length;
+            stats['thèmes (1 à 5)'] = [...new Set(EXAM_BANK.map((q) => q.theme))].sort().join(', ');
+            stats['sans explication'] = EXAM_BANK.filter((q) => !q.explanation).length;
+            stats['avec piège rédigé'] = EXAM_BANK.filter((q) => q.why).length;
+            stats['options ≠ 4'] = EXAM_BANK.filter((q) => !Array.isArray(q.options) || q.options.length !== 4).length;
+            stats['format annoncé'] = JSON.stringify(EXAM_SETTINGS || {});
+          } catch (e) { rapport.push('exam-bank.js illisible : ' + e.message); }
 
           try {
-            const data = read(dir + '/data.js');
-            if (data) {
-              stats['leçons'] = (data.match(/\{id:\d+,videoMin/g) || []).length;
-              stats['questions de leçon'] = (data.match(/\bq:'/g) || []).length;
-              stats['cartes mémo (facts)'] = (data.match(/facts:\[/g) || []).length;
-            }
-          } catch (e) { rapport.push('data.js non analysable : ' + e.message); }
+            const d = evalData(read(dir + '/data.js'), ['DAYS', 'QUESTIONS', 'FLASHCARDS', 'SITUATIONS']);
+            stats['leçons'] = d.DAYS.length;
+            stats['questions de leçons'] = d.QUESTIONS.length;
+            stats['cartes mémoire'] = d.FLASHCARDS.length;
+            stats['mises en situation (leçons)'] = d.SITUATIONS.length;
+          } catch (e) { rapport.push('data.js illisible : ' + e.message); }
 
           try {
-            const cat = read(dir + '/videos-catalog.js');
-            if (cat) {
-              const j = cat.replace(/^[\s\S]*?=\s*/, '').replace(/;\s*$/, '');
-              const arr = JSON.parse(j);
-              stats['capsules'] = arr.length;
-              stats['durée totale capsules (min)'] = Math.round(arr.reduce((n, v) => n + (v.duration || 0), 0) / 60);
-            }
-          } catch (e) { rapport.push('catalogue vidéo non analysable : ' + e.message); }
+            const x = evalData(read(dir + '/lesson-extras.js'), ['LESSON_EXTRAS']);
+            stats['enrichissements de leçon'] = Object.keys(x.LESSON_EXTRAS).length;
+          } catch (e) { rapport.push('lesson-extras.js illisible : ' + e.message); }
 
           try {
-            const extras = read(dir + '/lesson-extras.js');
-            if (extras) stats['enrichissements de leçon'] = (extras.match(/warmup:/g) || []).length;
-          } catch (e) {}
+            const v = evalData(read(dir + '/videos-catalog.js'), ['VIDEO_CATALOG']);
+            stats['capsules'] = v.VIDEO_CATALOG.length;
+            stats['durée totale capsules (min)'] = Math.round(v.VIDEO_CATALOG.reduce((n, c) => n + (c.duration || 0), 0) / 60);
+            stats['questions traitées en capsules'] = v.VIDEO_CATALOG.reduce((n, c) => n + (c.count || 0), 0);
+          } catch (e) { rapport.push('videos-catalog.js illisible : ' + e.message); }
 
           const vdir = dir + '/videos';
           if (fs.existsSync(vdir)) {
             const vtt = fs.readdirSync(vdir).filter((f) => f.endsWith('.vtt'));
             stats['sous-titres VTT'] = vtt.length;
-            let lignes = 0;
-            for (const f of vtt) lignes += fs.readFileSync(vdir + '/' + f, 'utf8').split('\n').length;
+            let lignes = 0, mots = 0;
+            for (const f of vtt) {
+              const t = fs.readFileSync(vdir + '/' + f, 'utf8');
+              lignes += t.split('\n').length;
+              mots += t.split(/\s+/).filter(Boolean).length;
+            }
             stats['lignes de sous-titres'] = lignes;
+            stats['mots de sous-titres'] = mots;
           }
 
           rapport.push('', 'Statistiques :', JSON.stringify(stats, null, 2));
           console.log(rapport.join('\n'));
           fs.writeFileSync('extraction/STATS.json', JSON.stringify(stats, null, 2));
-          if (!stats['questions exam-bank']) console.log('\nATTENTION : banque d’examen absente ou illisible.');
-          JS
-          echo "Rapport écrit dans extraction/VERIFICATION.txt"
+
+      - name: Convertir le contenu extrait en données exploitables
+        run: |
+          set -euo pipefail
+          node tools/import-site.mjs
 
       - name: Écrire le manifeste d'extraction
         run: |
