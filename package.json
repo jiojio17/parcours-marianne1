@@ -9,7 +9,9 @@
     "start": "node tools/serve.mjs",
     "dev": "node tools/build-quiz.mjs && node tools/serve.mjs",
     "test": "node tools/smoke-test.mjs",
-    "pack": "python3 tools/pack.py"
+    "pack": "python3 tools/pack.py",
+    "mono": "node tools/build-mono.mjs",
+    "test:mono": "node tools/build-mono.mjs && node tools/test-mono.mjs"
   },
   "license": "MIT",
   "devDependencies": {
