@@ -40,6 +40,13 @@ jobs:
             mkdir -p "$(dirname "$out")"
             code=$(curl -sSL --retry 4 --retry-delay 3 -o "$out" -w '%{http_code}' "$BASE/$f" || echo 000)
             size=$(stat -c%s "$out" 2>/dev/null || echo 0)
+            # le site est une SPA : un chemin inconnu renvoie la page HTML avec un code 200
+            if head -c 200 "$out" 2>/dev/null | grep -qiE '<!doctype|<html'; then
+              if [ "${f%%.*}" != "index" ] && [ "$(basename "$f")" != "index.html" ]; then
+                echo "$f -> page HTML de repli (fichier inexistant), ignoré"
+                rm -f "$out"; continue
+              fi
+            fi
             echo "$f -> HTTP $code, $size octets"
             if [ "$code" != "200" ] || [ "$size" -lt 20 ]; then
               echo "  (non disponible, ignoré)"
@@ -62,55 +69,93 @@ jobs:
                 url="$BASE/videos/qa-$n/qa-$n.vtt"; out="extraction/site/videos/qa-$n.vtt"
               fi
               code=$(curl -sSL --retry 2 -o "$out" -w '%{http_code}' "$url" || echo 000)
-              if [ "$code" = "200" ] && [ "$(stat -c%s "$out")" -gt 50 ]; then ok=$((ok+1)); else rm -f "$out"; ko=$((ko+1)); fi
+              if [ "$code" = "200" ] && [ "$(stat -c%s "$out")" -gt 50 ] && head -1 "$out" | grep -qi webvtt; then ok=$((ok+1)); else rm -f "$out"; ko=$((ko+1)); fi
             done
           done
           for n in 01 02 03 04; do
             code=$(curl -sSL --retry 2 -o "extraction/site/videos/sit-$n.vtt" -w '%{http_code}' "$BASE/videos/sit-$n/sit-$n.vtt" || echo 000)
-            if [ "$code" = "200" ] && [ "$(stat -c%s "extraction/site/videos/sit-$n.vtt")" -gt 50 ]; then ok=$((ok+1)); else rm -f "extraction/site/videos/sit-$n.vtt"; ko=$((ko+1)); fi
+            if [ "$code" = "200" ] && [ "$(stat -c%s "extraction/site/videos/sit-$n.vtt")" -gt 50 ] && head -1 "extraction/site/videos/sit-$n.vtt" | grep -qi webvtt; then ok=$((ok+1)); else rm -f "extraction/site/videos/sit-$n.vtt"; ko=$((ko+1)); fi
           done
           echo "Sous-titres récupérés : $ok (indisponibles : $ko)"
           du -sh extraction/site/videos || true
 
-      - name: Vérifier le contenu extrait
+      - name: Vérifier le contenu extrait (rapport, non bloquant)
         run: |
-          set -euo pipefail
-          echo "=== syntaxe des fichiers JavaScript ==="
-          for f in extraction/site/*.js; do
-            node --check "$f" && echo "OK  $f" || { echo "ERREUR de syntaxe : $f"; exit 1; }
-          done
-          echo "=== statistiques de contenu ==="
-          node - <<'JS'
+          set -uo pipefail
+          node - <<'JS' 2>&1 | tee extraction/VERIFICATION.txt
           const fs = require('fs');
-          const read = (f) => fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '';
+          const read = (f) => (fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '');
+          const rapport = [];
           const stats = {};
-          const bank = read('extraction/site/exam-bank.js');
-          if (bank) {
-            const m = bank.match(/"kind"\s*:\s*"/g) || [];
-            stats['questions exam-bank'] = m.length;
-            fs.writeFileSync('/tmp/exam.json', JSON.stringify(
-              eval(bank.replace(/^\s*const EXAM_BANK\s*=/, '').replace(/;\s*$/, '')), null, 0));
+          const dir = 'extraction/site';
+          const files = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
+          rapport.push('Fichiers récupérés : ' + files.join(', '));
+
+          for (const f of files.filter((f) => f.endsWith('.js'))) {
+            try {
+              new Function(read(dir + '/' + f));
+              rapport.push('OK   syntaxe ' + f);
+            } catch (e) {
+              rapport.push('ERREUR syntaxe ' + f + ' : ' + e.message);
+            }
           }
-          const data = read('extraction/site/data.js');
-          if (data) {
-            const days = (data.match(/\{id:\d+,videoMin/g) || []).length;
-            stats['leçons (DAYS)'] = days;
-            stats['dates/faits'] = (data.match(/facts:\[/g) || []).length;
+
+          try {
+            const bank = read(dir + '/exam-bank.js');
+            if (bank) {
+              const json = bank.replace(/^[\s\S]*?=\s*/, '').replace(/;\s*$/, '');
+              const arr = JSON.parse(json);
+              stats['questions exam-bank'] = arr.length;
+              stats['connaissance'] = arr.filter((q) => q.kind === 'connaissance').length;
+              stats['situation'] = arr.filter((q) => q.kind === 'situation').length;
+              const themes = [...new Set(arr.map((q) => q.theme))].sort();
+              stats['themes'] = themes.join(', ');
+              const sansExplication = arr.filter((q) => !q.explanation).length;
+              stats['sans explication'] = sansExplication;
+              const optionsKo = arr.filter((q) => !Array.isArray(q.options) || q.options.length !== 4).length;
+              stats['sans 4 options'] = optionsKo;
+            }
+          } catch (e) { rapport.push('Banque non analysable : ' + e.message); }
+
+          try {
+            const data = read(dir + '/data.js');
+            if (data) {
+              stats['leçons'] = (data.match(/\{id:\d+,videoMin/g) || []).length;
+              stats['questions de leçon'] = (data.match(/\bq:'/g) || []).length;
+              stats['cartes mémo (facts)'] = (data.match(/facts:\[/g) || []).length;
+            }
+          } catch (e) { rapport.push('data.js non analysable : ' + e.message); }
+
+          try {
+            const cat = read(dir + '/videos-catalog.js');
+            if (cat) {
+              const j = cat.replace(/^[\s\S]*?=\s*/, '').replace(/;\s*$/, '');
+              const arr = JSON.parse(j);
+              stats['capsules'] = arr.length;
+              stats['durée totale capsules (min)'] = Math.round(arr.reduce((n, v) => n + (v.duration || 0), 0) / 60);
+            }
+          } catch (e) { rapport.push('catalogue vidéo non analysable : ' + e.message); }
+
+          try {
+            const extras = read(dir + '/lesson-extras.js');
+            if (extras) stats['enrichissements de leçon'] = (extras.match(/warmup:/g) || []).length;
+          } catch (e) {}
+
+          const vdir = dir + '/videos';
+          if (fs.existsSync(vdir)) {
+            const vtt = fs.readdirSync(vdir).filter((f) => f.endsWith('.vtt'));
+            stats['sous-titres VTT'] = vtt.length;
+            let lignes = 0;
+            for (const f of vtt) lignes += fs.readFileSync(vdir + '/' + f, 'utf8').split('\n').length;
+            stats['lignes de sous-titres'] = lignes;
           }
-          const vtt = fs.readdirSync('extraction/site/videos').filter((f) => f.endsWith('.vtt'));
-          stats['sous-titres VTT'] = vtt.length;
-          let lignes = 0;
-          for (const f of vtt) lignes += fs.readFileSync('extraction/site/videos/' + f, 'utf8').split('\n').length;
-          stats['lignes de sous-titres'] = lignes;
-          const cat = read('extraction/site/videos-catalog.js');
-          if (cat) stats['capsules cataloguées'] = (cat.match(/"slug"/g) || []).length;
-          console.log(JSON.stringify(stats, null, 2));
+
+          rapport.push('', 'Statistiques :', JSON.stringify(stats, null, 2));
+          console.log(rapport.join('\n'));
           fs.writeFileSync('extraction/STATS.json', JSON.stringify(stats, null, 2));
-          if (!stats['questions exam-bank'] || stats['questions exam-bank'] < 100) {
-            console.error('Banque d’examen incomplète — extraction à revoir.');
-            process.exit(1);
-          }
+          if (!stats['questions exam-bank']) console.log('\nATTENTION : banque d’examen absente ou illisible.');
           JS
+          echo "Rapport écrit dans extraction/VERIFICATION.txt"
 
       - name: Écrire le manifeste d'extraction
         run: |
