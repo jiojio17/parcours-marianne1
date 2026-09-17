@@ -34,7 +34,8 @@ jobs:
           mkdir -p extraction/site
           FILES="index.html style.css data.js lesson-extras.js exam-bank.js app.js \
                  app-coach-online.js videos-catalog.js manifest.json manifest.webmanifest \
-                 downloads downloads.html sw.js robots.txt icons/icon.svg icons/icon-192.png icons/icon-512.png"
+                 downloads downloads.html _redirects _headers sw.js robots.txt \
+                 icons/icon.svg icons/icon-192.png icons/icon-512.png"
           for f in $FILES; do
             out="extraction/site/$f"
             mkdir -p "$(dirname "$out")"
