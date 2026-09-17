@@ -1,0 +1,31 @@
+Fichiers récupérés : app-coach-online.js, app.js, data.js, exam-bank.js, icons, index.html, lesson-extras.js, manifest.json, style.css, sw.js, videos, videos-catalog.js
+OK   syntaxe app-coach-online.js
+OK   syntaxe app.js
+OK   syntaxe data.js
+OK   syntaxe exam-bank.js
+OK   syntaxe lesson-extras.js
+OK   syntaxe sw.js
+OK   syntaxe videos-catalog.js
+
+Statistiques :
+{
+  "questions exam-bank": 228,
+  "connaissances": 191,
+  "mises en situation": 37,
+  "thèmes (1 à 5)": "1, 2, 3, 4, 5",
+  "sans explication": 0,
+  "avec piège rédigé": 9,
+  "options ≠ 4": 0,
+  "format annoncé": "{\"total\":40,\"duration\":45,\"passing\":32}",
+  "leçons": 14,
+  "questions de leçons": 46,
+  "cartes mémoire": 56,
+  "mises en situation (leçons)": 6,
+  "enrichissements de leçon": 14,
+  "capsules": 22,
+  "durée totale capsules (min)": 105,
+  "questions traitées en capsules": 228,
+  "sous-titres VTT": 36,
+  "lignes de sous-titres": 1338,
+  "mots de sous-titres": 13225
+}

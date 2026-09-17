@@ -1,0 +1,2867 @@
+[
+  {
+    "id": "SC-001",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quelle est la devise de la République française ?",
+    "options": [
+      "Liberté, Égalité, Fraternité",
+      "Travail, Famille, Patrie",
+      "Paix, Justice, Progrès",
+      "Unité, Force, Honneur"
+    ],
+    "correct": 0,
+    "why": "C’est la devise officielle, inscrite à l’article 2 de la Constitution, héritée de la Révolution de 1789. Piège : « Travail, Famille, Patrie » était la devise du régime de Vichy (1940-1944) — piège classique !"
+  },
+  {
+    "id": "SC-002",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Où peut-on voir la devise de la République ?",
+    "options": [
+      "Sur les bâtiments publics (mairies, écoles, tribunaux)",
+      "Uniquement sur les billets de banque",
+      "Dans les églises",
+      "Sur les plaques d’immatriculation"
+    ],
+    "correct": 0,
+    "why": "« Liberté, Égalité, Fraternité » est inscrite sur le fronton des bâtiments publics."
+  },
+  {
+    "id": "SC-003",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quelles sont les couleurs du drapeau français ?",
+    "options": [
+      "Bleu, blanc, rouge",
+      "Rouge, jaune, vert",
+      "Bleu, jaune, rouge",
+      "Bleu, blanc, vert"
+    ],
+    "correct": 0,
+    "why": "Le drapeau tricolore bleu-blanc-rouge est l’emblème national depuis la Révolution."
+  },
+  {
+    "id": "SC-004",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quel est le nom de l’hymne national français ?",
+    "options": [
+      "La Marseillaise",
+      "Le Chant du départ",
+      "L’Ode à la Joie",
+      "La Parisienne"
+    ],
+    "correct": 0,
+    "why": "La Marseillaise, composée par Rouget de Lisle en 1792. L’Ode à la Joie est l’hymne… européen."
+  },
+  {
+    "id": "SC-005",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qui a composé la Marseillaise ?",
+    "options": [
+      "Rouget de Lisle",
+      "Victor Hugo",
+      "Beethoven",
+      "Mozart"
+    ],
+    "correct": 0,
+    "why": "Claude Joseph Rouget de Lisle, officier, l’a composée à Strasbourg en avril 1792. Beethoven a composé l’hymne européen."
+  },
+  {
+    "id": "SC-006",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Complétez : « Allons enfants de la patrie… »",
+    "options": [
+      "… le jour de gloire est arrivé",
+      "… la victoire est à nous",
+      "… le soleil se lève",
+      "… la République nous appelle"
+    ],
+    "correct": 0,
+    "why": "C’est le premier vers de la Marseillaise, composée en 1792."
+  },
+  {
+    "id": "SC-007",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qui est Marianne ?",
+    "options": [
+      "La figure symbolique de la République française",
+      "La première reine de France",
+      "Une héroïne de la guerre de 1914",
+      "L’épouse de Napoléon"
+    ],
+    "correct": 0,
+    "why": "Marianne est une figure imaginaire : son buste trône dans toutes les mairies. Elle porte le bonnet phrygien, symbole de liberté. Piège : Jeanne d’Arc et Simone Veil sont des personnalités réelles, pas le symbole de la République."
+  },
+  {
+    "id": "SC-008",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Que porte Marianne sur la tête ?",
+    "options": [
+      "Le bonnet phrygien",
+      "Une couronne royale",
+      "Un casque de guerre",
+      "Un chapeau de paille"
+    ],
+    "correct": 0,
+    "why": "Le bonnet phrygien : dans l’Antiquité, il était porté par les esclaves libérés. Il symbolise donc la liberté."
+  },
+  {
+    "id": "SC-009",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Sur quel document peut-on voir Marianne ?",
+    "options": [
+      "Sur les timbres, les pièces de monnaie et les documents officiels",
+      "Uniquement sur le passeport",
+      "Sur les plaques de rue",
+      "Sur les billets d’avion"
+    ],
+    "correct": 0,
+    "why": "Marianne est partout : timbres-poste, pièces, cartes officielles… et son buste dans les mairies."
+  },
+  {
+    "id": "SC-010",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quel animal symbolise traditionnellement la France ?",
+    "options": [
+      "Le coq",
+      "L’aigle",
+      "L’ours",
+      "Le lion"
+    ],
+    "correct": 0,
+    "why": "Le coq gaulois ! En latin, « gallus » désignait à la fois le coq et le Gaulois. Il figure sur les maillots de sport."
+  },
+  {
+    "id": "SC-011",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Lequel de ces éléments n’est PAS un symbole officiel inscrit dans la Constitution ?",
+    "options": [
+      "Le coq",
+      "Le drapeau tricolore",
+      "La Marseillaise",
+      "La devise Liberté, Égalité, Fraternité"
+    ],
+    "correct": 0,
+    "why": "L’article 2 cite le drapeau, l’hymne et la devise. Le coq et Marianne sont des symboles traditionnels, pas constitutionnels."
+  },
+  {
+    "id": "SC-012",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quelle est la date de la fête nationale française ?",
+    "options": [
+      "Le 14 juillet",
+      "Le 4 juillet",
+      "Le 11 novembre",
+      "Le 1er mai"
+    ],
+    "correct": 0,
+    "why": "Le 14 juillet : prise de la Bastille (1789) et fête de la Fédération (1790). Chaque année : défilé, bals et feux d’artifice. Piège : Le 4 juillet, c’est la fête nationale… américaine. Piège fréquent !"
+  },
+  {
+    "id": "SC-013",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qu’est-ce qui est traditionnellement organisé le 14 juillet sur les Champs-Élysées ?",
+    "options": [
+      "Un défilé militaire",
+      "Un carnaval",
+      "Un marché de Noël",
+      "Une course cycliste"
+    ],
+    "correct": 0,
+    "why": "Le défilé militaire du 14 juillet descend les Champs-Élysées chaque année devant le président de la République."
+  },
+  {
+    "id": "SC-014",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Peut-on brûler publiquement un drapeau français ?",
+    "options": [
+      "Non, c’est un délit puni par la loi",
+      "Oui, c’est la liberté d’expression",
+      "Oui, si c’est pour une manifestation",
+      "Oui, le dimanche seulement"
+    ],
+    "correct": 0,
+    "why": "L’outrage au drapeau national est un délit : jusqu’à 1 500 € d’amende. Respecter les symboles, c’est respecter la Nation."
+  },
+  {
+    "id": "SC-015",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Que signifie la « fraternité » dans la devise ?",
+    "options": [
+      "La solidarité entre les citoyens",
+      "L’amitié entre voisins seulement",
+      "L’amour de la famille",
+      "Le partage de l’argent"
+    ],
+    "correct": 0,
+    "why": "Se voir comme des semblables, membres d’une même communauté : on veille les uns sur les autres."
+  },
+  {
+    "id": "SC-016",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Que signifie « égalité » dans la devise républicaine ?",
+    "options": [
+      "Les mêmes droits et devoirs pour tous, sans distinction",
+      "Gagner le même salaire que tout le monde",
+      "Porter les mêmes vêtements",
+      "Habiter dans le même quartier"
+    ],
+    "correct": 0,
+    "why": "Mêmes droits, mêmes devoirs, quelle que soit l’origine, le sexe ou la religion (article 1er de la Constitution)."
+  },
+  {
+    "id": "SC-017",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quelle est la langue officielle de la République française ?",
+    "options": [
+      "Le français",
+      "L’anglais",
+      "Il n’y a pas de langue officielle",
+      "Le français et le basque"
+    ],
+    "correct": 0,
+    "why": "L’article 2 de la Constitution : « La langue de la République est le français »."
+  },
+  {
+    "id": "SC-018",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qu’est-ce que la laïcité ?",
+    "options": [
+      "La liberté de croire ou de ne pas croire",
+      "L’interdiction de toutes les religions",
+      "Une religion officielle de l’État",
+      "L’obligation d’être athée"
+    ],
+    "correct": 0,
+    "why": "La laïcité garantit la liberté de conscience : chacun peut croire, ne pas croire, changer de religion. Piège : La laïcité n’interdit PAS la religion : elle la protège, tout en gardant l’État neutre."
+  },
+  {
+    "id": "SC-019",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "En quelle année la loi de séparation des Églises et de l’État a-t-elle été votée ?",
+    "options": [
+      "1905",
+      "1789",
+      "1882",
+      "1958"
+    ],
+    "correct": 0,
+    "why": "Le 9 décembre 1905 : la République ne reconnaît, ne salarie ni ne subventionne aucun culte."
+  },
+  {
+    "id": "SC-020",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Que prévoit la loi du 9 décembre 1905 ?",
+    "options": [
+      "La séparation des Églises et de l’État, la neutralité de l’État et la liberté de conscience",
+      "L’école obligatoire",
+      "Le droit de vote des femmes",
+      "L’abolition de la peine de mort"
+    ],
+    "correct": 0,
+    "why": "C’est le texte fondateur de la laïcité française : l’État est neutre, chacun est libre de croire."
+  },
+  {
+    "id": "SC-021",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quel est le « jour de la laïcité » en France ?",
+    "options": [
+      "Le 9 décembre",
+      "Le 14 juillet",
+      "Le 1er janvier",
+      "Le 11 novembre"
+    ],
+    "correct": 0,
+    "why": "Le 9 décembre, anniversaire de la loi de 1905, est la journée de la laïcité."
+  },
+  {
+    "id": "SC-022",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Selon la laïcité, que signifie la neutralité de l’État ?",
+    "options": [
+      "L’État ne privilégie aucune religion et traite tous les citoyens de manière égale",
+      "L’État interdit les religions",
+      "L’État choisit une religion pour les citoyens",
+      "L’État finance toutes les religions"
+    ],
+    "correct": 0,
+    "why": "Neutre ne veut pas dire hostile : l’État protège la liberté religieuse sans favoriser personne."
+  },
+  {
+    "id": "SC-023",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qui doit respecter la neutralité religieuse dans les services publics ?",
+    "options": [
+      "Les agents publics (fonctionnaires)",
+      "Les usagers dans la rue",
+      "Les enfants à la maison",
+      "Personne"
+    ],
+    "correct": 0,
+    "why": "Les agents publics ne manifestent pas leur religion au travail. Les usagers, eux, restent libres de leurs tenues."
+  },
+  {
+    "id": "SC-024",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Un élève peut-il porter un signe religieux ostensible dans une école publique ?",
+    "options": [
+      "Non, la loi de 2004 l’interdit dans les écoles publiques",
+      "Oui, toujours",
+      "Oui, s’il a plus de 15 ans",
+      "Seulement le vendredi"
+    ],
+    "correct": 0,
+    "why": "La loi du 15 mars 2004 interdit les signes religieux ostensibles à l’école publique : l’école reste un espace neutre et apaisé."
+  },
+  {
+    "id": "SC-025",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Une personne peut-elle changer librement de religion en France ?",
+    "options": [
+      "Oui, c’est la liberté de conscience",
+      "Non, c’est interdit",
+      "Oui, mais avec une autorisation du préfet",
+      "Seulement une fois dans sa vie"
+    ],
+    "correct": 0,
+    "why": "La liberté de conscience inclut le droit de croire, de ne plus croire ou de changer de religion."
+  },
+  {
+    "id": "SC-026",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Comment appelle-t-on une personne qui ne croit en aucun dieu ?",
+    "options": [
+      "Une personne athée",
+      "Une personne pratiquante",
+      "Une personne croyante",
+      "Une personne laïque"
+    ],
+    "correct": 0,
+    "why": "Athée = qui ne croit en aucun dieu. La laïcité protège autant les croyants que les athées."
+  },
+  {
+    "id": "SC-027",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Quelle institution doit rester neutre en matière de religion ?",
+    "options": [
+      "L’État et ses services publics (mairies, écoles, hôpitaux, tribunaux)",
+      "Les restaurants",
+      "Les entreprises privées",
+      "Les familles"
+    ],
+    "correct": 0,
+    "why": "Neutralité pour l’État et ses agents ; liberté pour les citoyens dans l’espace public."
+  },
+  {
+    "id": "SC-028",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qu’est-ce que l’antisémitisme ?",
+    "options": [
+      "Une forme de racisme dirigée contre les personnes juives, punie par la loi",
+      "Une religion",
+      "Un parti politique",
+      "Une fête traditionnelle"
+    ],
+    "correct": 0,
+    "why": "L’antisémitisme est un délit. Les contenus haineux peuvent être signalés sur la plateforme Pharos."
+  },
+  {
+    "id": "SC-029",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qu’est-ce que la liberté d’association ?",
+    "options": [
+      "Le droit de créer ou de rejoindre librement une association",
+      "Le droit de voter",
+      "Le droit de grève",
+      "Le droit de rester chez soi"
+    ],
+    "correct": 0,
+    "why": "Garantie par la loi du 1er juillet 1901 : culturelle, sportive, caritative… chacun peut s’associer librement."
+  },
+  {
+    "id": "SC-030",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "En France, il est possible pour l’État de financer :",
+    "options": [
+      "Aucun culte (l’État ne salarie ni ne subventionne de religion)",
+      "Toutes les religions",
+      "Seulement une religion officielle",
+      "Les religions majoritaires"
+    ],
+    "correct": 0,
+    "why": "Article 2 de la loi de 1905. (Exception historique : l’Alsace-Moselle, restée sous le concordat de 1801.)"
+  },
+  {
+    "id": "SC-031",
+    "theme": "valeurs",
+    "source": "site",
+    "themeOrigine": "Principes et valeurs",
+    "q": "Qu’est-ce que la Charte de la laïcité à l’école (2013) ?",
+    "options": [
+      "Un document affiché dans les établissements qui rappelle les règles de la laïcité",
+      "Un diplôme de fin de collège",
+      "Un manuel de religion",
+      "Une chanson patriotique"
+    ],
+    "correct": 0,
+    "why": "Affichée dans toutes les écoles publiques depuis 2013, elle rappelle neutralité, liberté de conscience et refus du prosélytisme."
+  },
+  {
+    "id": "SC-032",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quel est le régime politique de la France aujourd’hui ?",
+    "options": [
+      "La Ve République",
+      "Une monarchie",
+      "Un Empire",
+      "La IVe République"
+    ],
+    "correct": 0,
+    "why": "La Ve République, fondée en 1958 par le général de Gaulle, est notre régime actuel."
+  },
+  {
+    "id": "SC-033",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui est élu lors des élections présidentielles ?",
+    "options": [
+      "Le président de la République",
+      "Le Premier ministre",
+      "Le maire",
+      "Les députés"
+    ],
+    "correct": 0,
+    "why": "Le président est élu au suffrage universel direct par tous les électeurs inscrits."
+  },
+  {
+    "id": "SC-034",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Pour combien de temps le président de la République est-il élu ?",
+    "options": [
+      "5 ans",
+      "7 ans",
+      "4 ans",
+      "6 ans"
+    ],
+    "correct": 0,
+    "why": "5 ans : c’est le « quinquennat », en place depuis le référendum de 2000 (avant : 7 ans)."
+  },
+  {
+    "id": "SC-035",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Où réside le président de la République ?",
+    "options": [
+      "Au palais de l’Élysée",
+      "À l’hôtel de Matignon",
+      "Au palais du Luxembourg",
+      "Au château de Versailles"
+    ],
+    "correct": 0,
+    "why": "L’Élysée = le président. Matignon = le Premier ministre. Le Luxembourg = le Sénat. Bien distinguer !"
+  },
+  {
+    "id": "SC-036",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui dirige l’action du Gouvernement ?",
+    "options": [
+      "Le Premier ministre",
+      "Le président de la République",
+      "Le maire de Paris",
+      "Le préfet"
+    ],
+    "correct": 0,
+    "why": "Article 21 de la Constitution : le Premier ministre dirige l’action du Gouvernement et veille à l’exécution des lois."
+  },
+  {
+    "id": "SC-037",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui est élu lors des élections législatives ?",
+    "options": [
+      "Les députés",
+      "Le président",
+      "Les maires",
+      "Les sénateurs"
+    ],
+    "correct": 0,
+    "why": "Les législatives élisent les députés, qui siègent à l’Assemblée nationale au palais Bourbon."
+  },
+  {
+    "id": "SC-038",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Combien de députés composent l’Assemblée nationale ?",
+    "options": [
+      "577",
+      "348",
+      "300",
+      "650"
+    ],
+    "correct": 0,
+    "why": "577 députés à l’Assemblée nationale. Astuce mémo : le Sénat compte 348 sénateurs, les deux ensemble = le Parlement. Piège : 348, c’est le nombre de sénateurs au Sénat — le piège préféré de l’examen !"
+  },
+  {
+    "id": "SC-039",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Pour combien de temps les députés sont-ils élus ?",
+    "options": [
+      "5 ans",
+      "6 ans",
+      "4 ans",
+      "7 ans"
+    ],
+    "correct": 0,
+    "why": "Députés : 5 ans. Sénateurs : 6 ans. Maires et conseils municipaux : 6 ans. Président : 5 ans."
+  },
+  {
+    "id": "SC-040",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Pour combien de temps les sénateurs sont-ils élus ?",
+    "options": [
+      "6 ans",
+      "5 ans",
+      "9 ans",
+      "4 ans"
+    ],
+    "correct": 0,
+    "why": "6 ans, renouvelés par moitié tous les 3 ans. Ils siègent au palais du Luxembourg."
+  },
+  {
+    "id": "SC-041",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Comment les sénateurs sont-ils élus ?",
+    "options": [
+      "Au suffrage universel indirect, par des grands électeurs",
+      "Au suffrage universel direct",
+      "Par le président",
+      "Par tirage au sort"
+    ],
+    "correct": 0,
+    "why": "Les sénateurs sont choisis par un collège de grands électeurs (élus locaux) : suffrage indirect."
+  },
+  {
+    "id": "SC-042",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui vote les lois ?",
+    "options": [
+      "Le Parlement (Assemblée nationale et Sénat)",
+      "Le président tout seul",
+      "Le préfet",
+      "Les maires"
+    ],
+    "correct": 0,
+    "why": "Le Parlement, composé de DEUX chambres : l’Assemblée nationale et le Sénat. Le président promulgue ensuite les lois."
+  },
+  {
+    "id": "SC-043",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui est élu lors des élections municipales ?",
+    "options": [
+      "Les conseillers municipaux (qui élisent ensuite le maire)",
+      "Le maire directement",
+      "Le préfet",
+      "Les ministres"
+    ],
+    "correct": 0,
+    "why": "Les habitants élisent les conseillers municipaux ; CEUX-CI choisissent ensuite le maire parmi eux."
+  },
+  {
+    "id": "SC-044",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Comment le maire d’une commune est-il désigné ?",
+    "options": [
+      "Élu par le conseil municipal parmi ses membres",
+      "Nommé par le président",
+      "Élu directement par les habitants",
+      "Tiré au sort"
+    ],
+    "correct": 0,
+    "why": "Les électeurs votent pour une liste de conseillers ; les conseillers élus choisissent leur maire. Mandat de 6 ans."
+  },
+  {
+    "id": "SC-045",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui représente l’État dans un département ?",
+    "options": [
+      "Le préfet",
+      "Le maire",
+      "Le député",
+      "Le président de région"
+    ],
+    "correct": 0,
+    "why": "Le préfet est nommé par l’État : il veille à l’application des lois dans le département. Le maire, lui, dirige la commune."
+  },
+  {
+    "id": "SC-046",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Combien y a-t-il de départements en France ?",
+    "options": [
+      "101",
+      "96",
+      "18",
+      "350"
+    ],
+    "correct": 0,
+    "why": "101 départements : 96 en métropole + 5 d’outre-mer (Guadeloupe, Martinique, Guyane, La Réunion, Mayotte). Piège : 96 = seulement la métropole. 18 = le nombre de régions. Ne pas mélanger !"
+  },
+  {
+    "id": "SC-047",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Comment la France est-elle organisée administrativement ?",
+    "options": [
+      "Communes, départements et régions",
+      "Provinces et royaumes",
+      "États et cantons",
+      "10 grandes provinces"
+    ],
+    "correct": 0,
+    "why": "≈ 35 000 communes, 101 départements, 18 régions (13 en métropole + 5 outre-mer)."
+  },
+  {
+    "id": "SC-048",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "À quel âge a-t-on le droit de voter en France ?",
+    "options": [
+      "18 ans",
+      "16 ans",
+      "21 ans",
+      "25 ans"
+    ],
+    "correct": 0,
+    "why": "La majorité civile et le droit de vote sont à 18 ans. À 16 ans : le recensement citoyen en mairie."
+  },
+  {
+    "id": "SC-049",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Le vote en France est-il obligatoire ?",
+    "options": [
+      "Non, c’est un droit civique, pas une obligation",
+      "Oui, sous peine d’amende",
+      "Oui, pour les présidentielles",
+      "Seulement pour les moins de 50 ans"
+    ],
+    "correct": 0,
+    "why": "Pas d’obligation légale, mais voter est un acte essentiel : c’est la voix du peuple !"
+  },
+  {
+    "id": "SC-050",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "À qui appartient la souveraineté nationale ?",
+    "options": [
+      "Au peuple, qui l’exerce par ses représentants et par référendum",
+      "Au président",
+      "À l’armée",
+      "Aux riches propriétaires"
+    ],
+    "correct": 0,
+    "why": "Article 3 de la Constitution : le pouvoir vient du peuple — par ses représentants élus ou par référendum."
+  },
+  {
+    "id": "SC-051",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quels sont les trois pouvoirs séparés dans la République ?",
+    "options": [
+      "Exécutif, législatif, judiciaire",
+      "Police, armée, justice",
+      "Maire, préfet, président",
+      "Économique, social, culturel"
+    ],
+    "correct": 0,
+    "why": "Exécutif (applique les lois), législatif (vote les lois), judiciaire (juge). Leur séparation protège nos libertés."
+  },
+  {
+    "id": "SC-052",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qu’est-ce qu’un État de droit ?",
+    "options": [
+      "Un État où tous, citoyens et dirigeants, sont soumis à la loi",
+      "Un État dirigé par les juges",
+      "Un État sans loi",
+      "Un État militaire"
+    ],
+    "correct": 0,
+    "why": "Personne n’est au-dessus de la loi, pas même le président ou les ministres. La justice est indépendante."
+  },
+  {
+    "id": "SC-053",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Le président de la République a-t-il tous les pouvoirs ?",
+    "options": [
+      "Non, ses pouvoirs sont limités par la Constitution et la séparation des pouvoirs",
+      "Oui, absolument tous",
+      "Oui, pendant la guerre",
+      "Oui, s’il a la majorité"
+    ],
+    "correct": 0,
+    "why": "En démocratie, personne n’a tous les pouvoirs : le Parlement vote les lois, la justice juge, le Conseil constitutionnel veille."
+  },
+  {
+    "id": "SC-054",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui sanctionne l’auteur d’un vol ?",
+    "options": [
+      "La justice (les tribunaux)",
+      "La police",
+      "Le maire",
+      "Le président"
+    ],
+    "correct": 0,
+    "why": "La police enquête, mais seul un juge peut prononcer une sanction : c’est la séparation des pouvoirs."
+  },
+  {
+    "id": "SC-055",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Peut-on modifier la Constitution ?",
+    "options": [
+      "Oui, par un vote du Parlement suivi d’un référendum ou d’un vote du Congrès",
+      "Non, jamais",
+      "Oui, par le président seul",
+      "Oui, par un décret du préfet"
+    ],
+    "correct": 0,
+    "why": "La révision demande l’accord des deux chambres, puis référendum ou Congrès (à Versailles, 3/5 des voix). Exemple : inscrire l’IVG, 2024."
+  },
+  {
+    "id": "SC-056",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Où s’inscrit-on sur les listes électorales si l’on n’a pas internet ?",
+    "options": [
+      "À la mairie de sa commune",
+      "À la préfecture de police",
+      "À la poste",
+      "Au commissariat"
+    ],
+    "correct": 0,
+    "why": "La mairie tient les listes électorales. On peut aussi s’inscrire en ligne sur service-public.fr."
+  },
+  {
+    "id": "SC-057",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Qui est le Défenseur des droits ?",
+    "options": [
+      "Une autorité indépendante qui défend les citoyens face aux administrations et lutte contre les discriminations",
+      "Un policier de quartier",
+      "Un juge d’instruction",
+      "Un ministre"
+    ],
+    "correct": 0,
+    "why": "On peut le saisir gratuitement — par exemple en cas de discrimination à l’embauche ou par une administration."
+  },
+  {
+    "id": "SC-058",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Combien de pays font partie de l’Union européenne ?",
+    "options": [
+      "27",
+      "28",
+      "15",
+      "50"
+    ],
+    "correct": 0,
+    "why": "27 États membres depuis le départ du Royaume-Uni (Brexit, 2020). La France en fait partie."
+  },
+  {
+    "id": "SC-059",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quel pays est sorti de l’Union européenne en 2020 ?",
+    "options": [
+      "Le Royaume-Uni",
+      "La Suisse",
+      "La Turquie",
+      "La Norvège"
+    ],
+    "correct": 0,
+    "why": "Le Brexit : le Royaume-Uni a quitté l’UE en janvier 2020. La Suisse et la Norvège n’ont jamais été membres."
+  },
+  {
+    "id": "SC-060",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quelle est la devise de l’Union européenne ?",
+    "options": [
+      "« Unie dans la diversité »",
+      "« Liberté, Égalité, Fraternité »",
+      "« Un peuple, un but »",
+      "« Paix et travail »"
+    ],
+    "correct": 0,
+    "why": "« Unie dans la diversité » : des peuples unis pour la paix, fiers de leurs cultures différentes."
+  },
+  {
+    "id": "SC-061",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quel est l’hymne de l’Union européenne ?",
+    "options": [
+      "L’Ode à la Joie de Beethoven",
+      "La Marseillaise",
+      "Le Chant des partisans",
+      "God Save the King"
+    ],
+    "correct": 0,
+    "why": "L’Ode à la Joie (9e symphonie de Beethoven), adopté en 1985. Astuce : UE = Beethoven, France = Rouget de Lisle."
+  },
+  {
+    "id": "SC-062",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Que représente le drapeau européen ?",
+    "options": [
+      "12 étoiles dorées en cercle sur fond bleu",
+      "27 étoiles sur fond blanc",
+      "Une croix rouge",
+      "Des rayures bleues et blanches"
+    ],
+    "correct": 0,
+    "why": "12 étoiles, symbole d’unité — pas le nombre de pays membres ! Astuce : 12 comme les mois de l’année."
+  },
+  {
+    "id": "SC-063",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Où siège le Parlement européen ?",
+    "options": [
+      "À Strasbourg",
+      "À Paris",
+      "À Bruxelles uniquement",
+      "À Luxembourg"
+    ],
+    "correct": 0,
+    "why": "Strasbourg, en France ! (Des travaux ont aussi lieu à Bruxelles.) La Commission européenne, elle, est à Bruxelles."
+  },
+  {
+    "id": "SC-064",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quel traité a fondé l’Union européenne ?",
+    "options": [
+      "Le traité de Maastricht (1992)",
+      "Le traité de Versailles (1919)",
+      "Le traité de Rome seul (1957)",
+      "Le traité de Paris (1945)"
+    ],
+    "correct": 0,
+    "why": "Maastricht, signé en 1992, entré en vigueur en 1993 : naissance de l’UE et de la citoyenneté européenne."
+  },
+  {
+    "id": "SC-065",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Quand est célébrée la journée de l’Europe ?",
+    "options": [
+      "Le 9 mai",
+      "Le 8 mai",
+      "Le 14 juillet",
+      "Le 11 novembre"
+    ],
+    "correct": 0,
+    "why": "Le 9 mai, en souvenir de la déclaration Schuman du 9 mai 1950. (Le 8 mai = victoire de 1945.)"
+  },
+  {
+    "id": "SC-066",
+    "theme": "institutions",
+    "source": "site",
+    "themeOrigine": "Institutions",
+    "q": "Les citoyens européens résidant en France peuvent-ils voter aux élections locales ?",
+    "options": [
+      "Oui, aux élections municipales et européennes",
+      "Non, jamais",
+      "Oui, à toutes les élections",
+      "Uniquement aux présidentielles"
+    ],
+    "correct": 0,
+    "why": "Ils peuvent voter et être élus conseillers municipaux (mais pas maire). Les élections nationales restent réservées aux Français."
+  },
+  {
+    "id": "SC-067",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quel texte énonce les droits et devoirs fondamentaux des personnes en France ?",
+    "options": [
+      "La Déclaration des droits de l’homme et du citoyen",
+      "Le Code de la route",
+      "La Bible",
+      "Le règlement intérieur des écoles"
+    ],
+    "correct": 0,
+    "why": "La Déclaration des droits de l’homme et du citoyen, adoptée le 26 août 1789 pendant la Révolution. Valeur constitutionnelle."
+  },
+  {
+    "id": "SC-068",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "De quelle année date la Déclaration des droits de l’homme et du citoyen ?",
+    "options": [
+      "1789",
+      "1905",
+      "1958",
+      "1945"
+    ],
+    "correct": 0,
+    "why": "1789, l’année de la Révolution française. « Les hommes naissent et demeurent libres et égaux en droits » (article 1er)."
+  },
+  {
+    "id": "SC-069",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quelle citation vient de la Déclaration des droits de l’homme de 1789 ?",
+    "options": [
+      "« Les hommes naissent et demeurent libres et égaux en droits »",
+      "« Travail, famille, patrie »",
+      "« Un pour tous, tous pour un »",
+      "« Paix aux hommes de bonne volonté »"
+    ],
+    "correct": 0,
+    "why": "C’est son article 1er — le fondement de l’égalité républicaine."
+  },
+  {
+    "id": "SC-070",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "La liberté d’expression, en France, c’est :",
+    "options": [
+      "Exprimer ses idées librement, dans les limites fixées par la loi",
+      "Dire absolument tout, même des insultes racistes",
+      "Un droit réservé aux journalistes",
+      "Le droit de mentir"
+    ],
+    "correct": 0,
+    "why": "Liberté réelle MAIS encadrée : la loi interdit la diffamation, l’injure raciste et l’appel à la violence. Mes droits s’arrêtent là où commencent ceux des autres."
+  },
+  {
+    "id": "SC-071",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Pour quel motif la liberté d’expression peut-elle être limitée ?",
+    "options": [
+      "Pour protéger les droits des autres et l’ordre public (haine, diffamation, violence)",
+      "Pour empêcher les critiques du gouvernement",
+      "Parce qu’un voisin n’est pas d’accord",
+      "Elle ne peut jamais être limitée"
+    ],
+    "correct": 0,
+    "why": "La loi punit la provocation à la haine, la diffamation et l’apologie du terrorisme. On peut critiquer le pouvoir, c’est normal en démocratie !"
+  },
+  {
+    "id": "SC-072",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "L’article 4 de la Déclaration de 1789 dit que la liberté consiste à « pouvoir faire tout ce qui ne nuit pas à autrui ». Que signifie cela ?",
+    "options": [
+      "Ma liberté s’arrête où commence celle des autres",
+      "Je peux tout faire sans règles",
+      "Les autres doivent me laisser tranquille",
+      "La liberté n’existe pas"
+    ],
+    "correct": 0,
+    "why": "Chacun est libre, mais dans le respect des autres et de la loi. C’est le cœur de la vie en société."
+  },
+  {
+    "id": "SC-073",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "La peine de mort en France est :",
+    "options": [
+      "Abolie depuis 1981",
+      "Toujours appliquée",
+      "Appliquée uniquement pour les crimes graves",
+      "Décidée par les préfets"
+    ],
+    "correct": 0,
+    "why": "Abolie en 1981 sous l’impulsion de Robert Badinter (présidence Mitterrand). La France défend l’abolition universelle."
+  },
+  {
+    "id": "SC-074",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Une femme peut-elle voter en France ?",
+    "options": [
+      "Oui, depuis 1944-1945 comme les hommes",
+      "Non",
+      "Uniquement si son mari est d’accord",
+      "Depuis 2020 seulement"
+    ],
+    "correct": 0,
+    "why": "Les femmes votent depuis 1945 (droit obtenu en avril 1944). L’égalité des droits est un principe de la République."
+  },
+  {
+    "id": "SC-075",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Une femme peut-elle travailler sans l’autorisation de son mari ?",
+    "options": [
+      "Oui, toujours : les droits ne dépendent pas du mari",
+      "Non",
+      "Uniquement avec son accord écrit",
+      "Seulement à temps partiel"
+    ],
+    "correct": 0,
+    "why": "Femmes et hommes ont exactement les mêmes droits : travailler, ouvrir un compte, voyager, créer une entreprise."
+  },
+  {
+    "id": "SC-076",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Est-il légal d’être marié à plusieurs personnes en même temps en France ?",
+    "options": [
+      "Non, la polygamie est interdite",
+      "Oui, avec une autorisation",
+      "Oui, selon certaines religions",
+      "Oui, pour les personnes riches"
+    ],
+    "correct": 0,
+    "why": "Le Code civil impose la monogamie : une seule personne à la fois. La bigamie est un délit."
+  },
+  {
+    "id": "SC-077",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Le mariage entre deux personnes de même sexe est :",
+    "options": [
+      "Légal depuis la loi de 2013",
+      "Interdit",
+      "Légal seulement à Paris",
+      "Toléré mais sans valeur"
+    ],
+    "correct": 0,
+    "why": "Depuis le 17 mai 2013, le mariage est ouvert aux couples de même sexe, avec les mêmes droits (dont l’adoption)."
+  },
+  {
+    "id": "SC-078",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "L’avortement (IVG) en France est :",
+    "options": [
+      "Un droit garanti par la Constitution, pris en charge à 100 %",
+      "Interdit",
+      "Autorisé seulement avec accord du mari",
+      "Réservé aux plus de 30 ans"
+    ],
+    "correct": 0,
+    "why": "Droit depuis la loi Veil de 1975, inscrit dans la Constitution en mars 2024 — une première mondiale. Remboursé intégralement."
+  },
+  {
+    "id": "SC-079",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Qui a fait adopter la loi autorisant l’avortement en 1975 ?",
+    "options": [
+      "Simone Veil",
+      "Marie Curie",
+      "Jeanne d’Arc",
+      "George Sand"
+    ],
+    "correct": 0,
+    "why": "Simone Veil, ministre de la Santé et rescapée d’Auschwitz. Elle est entrée au Panthéon en 2018. Piège : Marie Curie = scientifique, prix Nobel. Ne pas confondre — les deux sont tombées à l’examen !"
+  },
+  {
+    "id": "SC-080",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Le divorce en France est :",
+    "options": [
+      "Possible, à la demande d’un seul ou des deux époux",
+      "Interdit",
+      "Réservé aux hommes",
+      "Décidé par la famille"
+    ],
+    "correct": 0,
+    "why": "Depuis 1975, le divorce par consentement mutuel existe. Un seul époux peut aussi divorcer. La loi protège la liberté de chacun."
+  },
+  {
+    "id": "SC-081",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Jeter une bouteille ou un mégot dans la rue est :",
+    "options": [
+      "Interdit et passible d’une amende",
+      "Autorisé",
+      "Autorisé le week-end",
+      "Accepté s’il n’y a pas de poubelle"
+    ],
+    "correct": 0,
+    "why": "Déposer ses déchets sur la voie publique est une infraction. Respecter l’espace public, c’est le respecter pour tous."
+  },
+  {
+    "id": "SC-082",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Pourquoi doit-on trier ses déchets ?",
+    "options": [
+      "Pour protéger l’environnement et recycler",
+      "C’est obligatoire pour les étrangers seulement",
+      "Pour payer moins d’impôts",
+      "Ce n’est pas obligatoire"
+    ],
+    "correct": 0,
+    "why": "La Charte de l’environnement (inscrite dans la Constitution) fait de la protection de la planète un devoir d’intérêt général."
+  },
+  {
+    "id": "SC-083",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Que doit faire une personne témoin d’un accident ?",
+    "options": [
+      "Alerter les secours et porter assistance dans la mesure de ses moyens",
+      "Continuer sa route",
+      "Filmer la scène",
+      "Attendre que quelqu’un d’autre agisse"
+    ],
+    "correct": 0,
+    "why": "La non-assistance à personne en danger est un délit : on appelle le 15 (SAMU), le 18 (pompiers), le 17 (police) ou le 112 (européen)."
+  },
+  {
+    "id": "SC-084",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quel numéro appelle le SAMU (urgence médicale) ?",
+    "options": [
+      "Le 15",
+      "Le 17",
+      "Le 18",
+      "Le 12"
+    ],
+    "correct": 0,
+    "why": "15 = SAMU (médecin). 18 = pompiers. 17 = police. 112 = numéro unique valable dans toute l’Europe. 114 = SMS pour les sourds et malentendants."
+  },
+  {
+    "id": "SC-085",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quel numéro appelle la police en France ?",
+    "options": [
+      "Le 17",
+      "Le 15",
+      "Le 18",
+      "Le 119"
+    ],
+    "correct": 0,
+    "why": "17 = police/gendarmerie. 119 = enfance en danger. 112 = urgence européenne. À retenir par cœur !"
+  },
+  {
+    "id": "SC-086",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quel numéro appelle les pompiers ?",
+    "options": [
+      "Le 18",
+      "Le 15",
+      "Le 17",
+      "Le 112 seulement"
+    ],
+    "correct": 0,
+    "why": "18 = pompiers (feu, accidents, personne en danger). En Europe entière, le 112 marche aussi partout."
+  },
+  {
+    "id": "SC-087",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Face aux ordres des policiers ou gendarmes, il faut :",
+    "options": [
+      "Obéir et présenter ses documents si demandé",
+      "S’enfuir",
+      "Discuter leurs ordres",
+      "Les ignorer"
+    ],
+    "correct": 0,
+    "why": "La police et la gendarmerie assurent l’ordre public et notre sécurité. On coopère calmement."
+  },
+  {
+    "id": "SC-088",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quel est le rôle de la police et de la gendarmerie ?",
+    "options": [
+      "Protéger les personnes et les biens, faire respecter la loi",
+      "Fabriquer les lois",
+      "Gérer les écoles",
+      "Dresser les impôts"
+    ],
+    "correct": 0,
+    "why": "Elles assurent la sécurité et l’ordre public. Ce sont les tribunaux, pas la police, qui punissent."
+  },
+  {
+    "id": "SC-089",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Que risque une personne qui ne respecte pas la loi ?",
+    "options": [
+      "Des sanctions : amendes, voire prison, selon la gravité",
+      "Rien du tout",
+      "Juste un avertissement amical",
+      "Une augmentation d’impôts"
+    ],
+    "correct": 0,
+    "why": "L’État de droit : la même loi pour tous, et des sanctions proportionnées en cas d’infraction (amende, délit, crime)."
+  },
+  {
+    "id": "SC-090",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Si l’on considère une loi injuste, on peut :",
+    "options": [
+      "La contester par les voies légales : recours, manifestations, vote",
+      "La désobéir tranquillement",
+      "Menacer les élus",
+      "Ne plus payer d’impôts"
+    ],
+    "correct": 0,
+    "why": "On ne choisit pas ses lois : mais la démocratie offre des moyens pacifiques pour les faire changer (vote, pétitions, manifestations, recours)."
+  },
+  {
+    "id": "SC-091",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Qu’a-t-on le droit de faire en France quelle que soit sa nationalité ?",
+    "options": [
+      "Bénéficier des droits fondamentaux (dignité, justice, sécurité) et respecter les lois",
+      "Voter aux présidentielles",
+      "Être maire",
+      "Devenir policier"
+    ],
+    "correct": 0,
+    "why": "Certains droits sont pour tous (vivre dignement, être jugé équitablement…) ; le vote national, lui, est lié à la citoyenneté française."
+  },
+  {
+    "id": "SC-092",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Payer ses impôts est :",
+    "options": [
+      "Un devoir qui finance les services publics pour tous",
+      "Une option",
+      "Réservé aux riches",
+      "Interdit aux femmes"
+    ],
+    "correct": 0,
+    "why": "Écoles, hôpitaux, routes, sécurité… : l’impôt finance la vie commune. C’est un pilier de la solidarité nationale."
+  },
+  {
+    "id": "SC-093",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Le droit de grève est :",
+    "options": [
+      "Un droit inscrit dans la Constitution, pour défendre ses revendications professionnelles",
+      "Interdit",
+      "Réservé aux syndicats étrangers",
+      "Un délit"
+    ],
+    "correct": 0,
+    "why": "Droit constitutionnel pour tous les salariés, privés comme publics, dans le cadre prévu par la loi."
+  },
+  {
+    "id": "SC-094",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Se syndiquer est :",
+    "options": [
+      "Un droit pour tous les travailleurs, sans condition de nationalité",
+      "Interdit aux étrangers",
+      "Réservé aux fonctionnaires",
+      "Interdit en entreprise"
+    ],
+    "correct": 0,
+    "why": "Tout travailleur peut adhérer à un syndicat. Un employeur qui punit un salarié syndiqué commet un délit."
+  },
+  {
+    "id": "SC-095",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "Quels biens de l’armée et du pays… Les cimetières militaires et monuments aux morts :",
+    "options": [
+      "Ils honorent les soldats morts pour la France, on les respecte",
+      "Ce sont des parcs de jeux",
+      "Ils datent de Napoléon seulement",
+      "Ils n’ont aucune importance"
+    ],
+    "correct": 0,
+    "why": "Respecter la mémoire des morts pour la France fait partie des valeurs de la Nation (ex : l’Arc de triomphe, le 11 novembre)."
+  },
+  {
+    "id": "SC-096",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "La violence physique ou psychologique envers ses enfants est :",
+    "options": [
+      "Interdite par la loi depuis 2019",
+      "Autorisée pour punir",
+      "Légale à la maison",
+      "Acceptée dans certaines cultures en France"
+    ],
+    "correct": 0,
+    "why": "L’article 371-1 du Code civil : l’autorité parentale s’exerce SANS violences physiques ou psychologiques. Le 119 permet de signaler un enfant en danger."
+  },
+  {
+    "id": "SC-097",
+    "theme": "droits",
+    "source": "site",
+    "themeOrigine": "Droits et devoirs",
+    "q": "La répudiation de sa femme (décider seul de « répudier » son épouse) est :",
+    "options": [
+      "Interdite : seule la justice et la loi décident d’un divorce",
+      "Encadrée mais possible",
+      "Légale le dimanche",
+      "Acceptée selon les religions"
+    ],
+    "correct": 0,
+    "why": "En France, nul ne peut mettre fin à un mariage par une simple parole : le divorce suit les règles du Code civil, à égalité entre les époux."
+  },
+  {
+    "id": "SC-098",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "En quelle année a commencé la Révolution française ?",
+    "options": [
+      "1789",
+      "1914",
+      "1848",
+      "1804"
+    ],
+    "correct": 0,
+    "why": "1789 : prise de la Bastille le 14 juillet, Déclaration des droits de l’homme en août. Fin de la monarchie absolue."
+  },
+  {
+    "id": "SC-099",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel roi de France a été guillotiné pendant la Révolution ?",
+    "options": [
+      "Louis XVI",
+      "Louis XIV",
+      "François Ier",
+      "Henri IV"
+    ],
+    "correct": 0,
+    "why": "Louis XVI, guillotiné le 21 janvier 1793. (Louis XIV = le « Roi-Soleil » de Versailles, 100 ans avant.)"
+  },
+  {
+    "id": "SC-100",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Où les rois de France étaient-ils couronnés ?",
+    "options": [
+      "À Reims",
+      "À Paris",
+      "À Versailles",
+      "À Lyon"
+    ],
+    "correct": 0,
+    "why": "À la cathédrale de Reims, la « cité des sacres », du baptême de Clovis (496) à Charles X (1825). Ils étaient enterrés à Saint-Denis."
+  },
+  {
+    "id": "SC-101",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "En quelle année Napoléon Ier est-il devenu empereur ?",
+    "options": [
+      "1804",
+      "1789",
+      "1815",
+      "1918"
+    ],
+    "correct": 0,
+    "why": "Sacré à Notre-Dame le 2 décembre 1804. Il laisse le Code civil, toujours en vigueur, et l’Arc de triomphe."
+  },
+  {
+    "id": "SC-102",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel texte célèbre a été adopté sous Napoléon Ier ?",
+    "options": [
+      "Le Code civil",
+      "La Déclaration de 1789",
+      "La Constitution de 1958",
+      "Le traité de Maastricht"
+    ],
+    "correct": 0,
+    "why": "Le Code civil de 1804 (« Code Napoléon ») règle la famille, les biens, les contrats — c’est encore notre référence."
+  },
+  {
+    "id": "SC-103",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "La Première Guerre mondiale a eu lieu :",
+    "options": [
+      "De 1914 à 1918",
+      "De 1939 à 1945",
+      "De 1870 à 1871",
+      "De 1804 à 1815"
+    ],
+    "correct": 0,
+    "why": "1914-1918 : « la Grande Guerre », 1,4 million de morts français. L’armistice est signé le 11 novembre 1918 — jour férié."
+  },
+  {
+    "id": "SC-104",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "La Seconde Guerre mondiale a eu lieu :",
+    "options": [
+      "De 1939 à 1945",
+      "De 1914 à 1918",
+      "De 1954 à 1962",
+      "De 1800 à 1815"
+    ],
+    "correct": 0,
+    "why": "1939-1945. La France occupée par l’Allemagne nazie de 1940 à 1944, puis libérée (Débarquement le 6 juin 1944 en Normandie)."
+  },
+  {
+    "id": "SC-105",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Où a eu lieu le Débarquement allié de 1944 ?",
+    "options": [
+      "En Normandie",
+      "En Bretagne",
+      "Sur la Côte d’Azur",
+      "Dans le Nord"
+    ],
+    "correct": 0,
+    "why": "Le 6 juin 1944 (« D-Day »), les Alliés débarquent sur les plages de Normandie (Utah, Omaha…). Début de la Libération."
+  },
+  {
+    "id": "SC-106",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Que fête-t-on le 8 mai ?",
+    "options": [
+      "La victoire de 1945, la fin de la Seconde Guerre mondiale en Europe",
+      "L’armistice de 1914-1918",
+      "La fête du travail",
+      "La fête nationale"
+    ],
+    "correct": 0,
+    "why": "Le 8 mai 1945 : victoire des Alliés sur l’Allemagne nazie. (Le 11 novembre, lui, célèbre l’armistice de 1918.)"
+  },
+  {
+    "id": "SC-107",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Que commémore le 11 novembre ?",
+    "options": [
+      "L’armistice de la Première Guerre mondiale (1918)",
+      "La fête nationale",
+      "La victoire de 1945",
+      "La journée de l’Europe"
+    ],
+    "correct": 0,
+    "why": "Le 11 novembre 1918 : fin de la Grande Guerre. Jour férié de mémoire, avec la flamme ravivée sous l’Arc de triomphe."
+  },
+  {
+    "id": "SC-108",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "De quand date l’appel à la résistance du général de Gaulle ?",
+    "options": [
+      "Du 18 juin 1940",
+      "Du 14 juillet 1789",
+      "Du 8 mai 1945",
+      "Du 11 novembre 1918"
+    ],
+    "correct": 0,
+    "why": "Le 18 juin 1940, à la BBC de Londres : « Honneur à ceux qui refusent la défaite » — de Gaulle appelle à continuer le combat."
+  },
+  {
+    "id": "SC-109",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Jean Moulin ?",
+    "options": [
+      "Un héros de la Résistance pendant la Seconde Guerre mondiale",
+      "Un roi de France",
+      "Un peintre",
+      "Un chanteur"
+    ],
+    "correct": 0,
+    "why": "Jean Moulin a uni la Résistance pour de Gaulle ; arrêté et torturé, il meurt en 1943 sans avoir parlé."
+  },
+  {
+    "id": "SC-110",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qu’est-ce que la Shoah ?",
+    "options": [
+      "L’extermination de 6 millions de Juifs par les nazis pendant la Seconde Guerre mondiale",
+      "Une fête juive",
+      "Une région de France",
+      "Une bataille de 1914"
+    ],
+    "correct": 0,
+    "why": "Le génocide des Juifs d’Europe : 6 millions de victimes, dont 76 000 déportés de France. Un devoir de mémoire."
+  },
+  {
+    "id": "SC-111",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui a fondé la Ve République en 1958 ?",
+    "options": [
+      "Le général de Gaulle",
+      "Napoléon",
+      "François Mitterrand",
+      "Georges Pompidou"
+    ],
+    "correct": 0,
+    "why": "1958 : de Gaulle fait adopter la Constitution de la Ve République, notre régime actuel, et en devient le premier président."
+  },
+  {
+    "id": "SC-112",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Depuis quelle année les Français élisent-ils le président au suffrage universel direct ?",
+    "options": [
+      "1962",
+      "1958",
+      "1789",
+      "2000"
+    ],
+    "correct": 0,
+    "why": "Référendum de 1962 voulu par de Gaulle. Avant, le président était choisi par un collège de grands électeurs."
+  },
+  {
+    "id": "SC-113",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "En quelle année l’esclavage a-t-il été définitivement aboli en France ?",
+    "options": [
+      "1848",
+      "1789",
+      "1905",
+      "1945"
+    ],
+    "correct": 0,
+    "why": "Abolition définitive en 1848 grâce à Victor Schœlcher. (Une première abolition en 1794 avait été annulée par Napoléon en 1802.)"
+  },
+  {
+    "id": "SC-114",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel grand port français participait à la traite des êtres humains (esclavage) au XVIIIe siècle ?",
+    "options": [
+      "Nantes",
+      "Marseille",
+      "Calais",
+      "Bordeaux seulement"
+    ],
+    "correct": 0,
+    "why": "Nantes était le principal port négrier français, avant Bordeaux. En 2012, la ville a inauguré un Mémorial d’abolition. Le 10 mai est la journée nationale de commémoration."
+  },
+  {
+    "id": "SC-115",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui a rendu l’école gratuite, laïque et obligatoire ?",
+    "options": [
+      "Jules Ferry",
+      "Napoléon",
+      "Victor Hugo",
+      "De Gaulle"
+    ],
+    "correct": 0,
+    "why": "Les lois Jules Ferry de 1881 (gratuité) et 1882 (obligation et laïcité). C’est pourquoi tant d’écoles portent son nom."
+  },
+  {
+    "id": "SC-116",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Le 1er mai, en France, c’est :",
+    "options": [
+      "La fête du Travail",
+      "La fête nationale",
+      "L’armistice",
+      "La journée de l’Europe"
+    ],
+    "correct": 0,
+    "why": "Fête du Travail (journée de 8 heures, conquête ouvrière) ; on offre traditionnellement un brin de muguet."
+  },
+  {
+    "id": "SC-117",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle organisation internationale fut créée en 1945 après la guerre ?",
+    "options": [
+      "L’ONU",
+      "L’Union européenne",
+      "L’OTAN seulement",
+      "La francophonie"
+    ],
+    "correct": 0,
+    "why": "L’Organisation des Nations unies, pour maintenir la paix. La France est membre permanent de son Conseil de sécurité."
+  },
+  {
+    "id": "SC-118",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "En quelle année l’euro est-elle devenue la monnaie utilisée en France ?",
+    "options": [
+      "2002",
+      "1992",
+      "1999",
+      "2020"
+    ],
+    "correct": 0,
+    "why": "Pièces et billets en euro depuis janvier 2002, en remplacement du franc. Aujourd’hui, 20 pays de l’UE partagent l’euro."
+  },
+  {
+    "id": "SC-119",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "La CECA, première étape de la construction européenne (1951), portait sur :",
+    "options": [
+      "Le charbon et l’acier",
+      "Le blé et le vin",
+      "Les avions",
+      "La défense nucléaire"
+    ],
+    "correct": 0,
+    "why": "Mettre en commun charbon et acier entre France et Allemagne pour rendre la guerre impossible : l’idée de Robert Schuman."
+  },
+  {
+    "id": "SC-120",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel fleuve traverse Paris ?",
+    "options": [
+      "La Seine",
+      "La Loire",
+      "Le Rhône",
+      "La Garonne"
+    ],
+    "correct": 0,
+    "why": "La Seine traverse Paris (775 km, embouchure au Havre). La Loire est le plus long fleuve, le Rhône passe à Lyon."
+  },
+  {
+    "id": "SC-121",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel océan borde la côte ouest de la France ?",
+    "options": [
+      "L’océan Atlantique",
+      "La mer Méditerranée",
+      "La mer du Nord",
+      "L’océan Indien"
+    ],
+    "correct": 0,
+    "why": "L’Atlantique à l’ouest ; la Méditerranée au sud ; la Manche au nord, entre la France et l’Angleterre."
+  },
+  {
+    "id": "SC-122",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle mer sépare la France de l’Angleterre ?",
+    "options": [
+      "La Manche",
+      "La Méditerranée",
+      "La mer du Nord",
+      "L’Adriatique"
+    ],
+    "correct": 0,
+    "why": "La Manche — traversée par le tunnel sous la Manche depuis 1994 (Paris-Londres en train !)."
+  },
+  {
+    "id": "SC-123",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle chaîne de montagnes sépare la France de l’Espagne ?",
+    "options": [
+      "Les Pyrénées",
+      "Les Alpes",
+      "Le Jura",
+      "Les Vosges"
+    ],
+    "correct": 0,
+    "why": "Les Pyrénées au sud-ouest. (Les Alpes, elles, séparent la France de l’Italie — avec le Mont-Blanc.)"
+  },
+  {
+    "id": "SC-124",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle chaîne de montagnes se trouve entre la France et l’Italie ?",
+    "options": [
+      "Les Alpes",
+      "Les Pyrénées",
+      "Le Massif central",
+      "Les Vosges"
+    ],
+    "correct": 0,
+    "why": "Les Alpes, où culmine le Mont-Blanc (4 808 m), le plus haut sommet d’Europe occidentale."
+  },
+  {
+    "id": "SC-125",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle est la plus haute montagne de France ?",
+    "options": [
+      "Le Mont-Blanc",
+      "Le Mont Ventoux",
+      "Le Puy de Dôme",
+      "Le pic du Midi"
+    ],
+    "correct": 0,
+    "why": "Le Mont-Blanc, 4 808 mètres, dans les Alpes près de Chamonix. Premiers JO d’hiver là-bas en 1924 !"
+  },
+  {
+    "id": "SC-126",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle grande ville est le chef-lieu de la région Auvergne-Rhône-Alpes ?",
+    "options": [
+      "Lyon",
+      "Grenoble",
+      "Clermont-Ferrand",
+      "Saint-Étienne"
+    ],
+    "correct": 0,
+    "why": "Lyon, troisième ville de France, réputée pour sa gastronomie et sa fête des Lumières."
+  },
+  {
+    "id": "SC-127",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle est le premier port maritime de France ?",
+    "options": [
+      "Marseille",
+      "Le Havre",
+      "Calais",
+      "Nantes"
+    ],
+    "correct": 0,
+    "why": "Marseille (port Marseille-Fos) : 1er port de France en tonnage, sur la Méditerranée. Fondée par les Grecs sous le nom de Massalia !"
+  },
+  {
+    "id": "SC-128",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "De quelle ville la fusée Ariane décolle-t-elle ?",
+    "options": [
+      "Kourou, en Guyane française",
+      "Toulouse",
+      "Paris",
+      "Cayenne uniquement"
+    ],
+    "correct": 0,
+    "why": "Kourou, en Guyane (Amérique du Sud, près de l’équateur) : le Centre spatial guyanais — un fierté spatiale européenne."
+  },
+  {
+    "id": "SC-129",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel département français a une frontière terrestre avec le Brésil ?",
+    "options": [
+      "La Guyane",
+      "La Guadeloupe",
+      "La Réunion",
+      "Mayotte"
+    ],
+    "correct": 0,
+    "why": "La Guyane, en Amérique du Sud : 730 km de frontière avec le Brésil. Le plus grand département de France !"
+  },
+  {
+    "id": "SC-130",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle île française se trouve dans l’océan Indien ?",
+    "options": [
+      "La Réunion",
+      "La Guadeloupe",
+      "La Corse",
+      "La Martinique"
+    ],
+    "correct": 0,
+    "why": "La Réunion (974), au large de Madagascar. Mayotte aussi. Corse : Méditerranée. Guadeloupe et Martinique : les Antilles (Caraïbes)."
+  },
+  {
+    "id": "SC-131",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Les Antilles françaises regroupent :",
+    "options": [
+      "La Guadeloupe et la Martinique",
+      "La Réunion et Mayotte",
+      "La Corse et la Sicile",
+      "La Bretagne et la Normandie"
+    ],
+    "correct": 0,
+    "why": "Dans la mer des Caraïbes : Guadeloupe (971) et Martinique (972). Destinations tropicales et départements français."
+  },
+  {
+    "id": "SC-132",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel est le 101e et plus récent département français ?",
+    "options": [
+      "Mayotte",
+      "La Réunion",
+      "La Guadeloupe",
+      "La Martinique"
+    ],
+    "correct": 0,
+    "why": "Mayotte, dans l’océan Indien, département depuis 2011 après un vote à 95 % en sa faveur."
+  },
+  {
+    "id": "SC-133",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Combien de régions compte la France métropolitaine ?",
+    "options": [
+      "13",
+      "18",
+      "22",
+      "8"
+    ],
+    "correct": 0,
+    "why": "13 régions en métropole, 18 en tout avec les 5 régions d’outre-mer (depuis la réforme de 2016)."
+  },
+  {
+    "id": "SC-134",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle est la population approximative de la France ?",
+    "options": [
+      "Environ 68 millions d’habitants",
+      "100 millions",
+      "30 millions",
+      "10 millions"
+    ],
+    "correct": 0,
+    "why": "≈ 68 millions (métropole + outre-mer) : le 2e pays le plus peuplé de l’Union européenne, après l’Allemagne."
+  },
+  {
+    "id": "SC-135",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel monument sur une île en Normandie est célèbre dans le monde ?",
+    "options": [
+      "Le Mont-Saint-Michel",
+      "Le château de Chambord",
+      "Le pont du Gard",
+      "Le palais Idéal"
+    ],
+    "correct": 0,
+    "why": "Le Mont-Saint-Michel et son abbaye médiévale : classé UNESCO, ~3 millions de visiteurs par an."
+  },
+  {
+    "id": "SC-136",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Dans quel musée parisien peut-on voir la Joconde ?",
+    "options": [
+      "Le Louvre",
+      "Le musée d’Orsay",
+      "Le Centre Pompidou",
+      "Le Palais de Tokyo"
+    ],
+    "correct": 0,
+    "why": "Le Louvre : le plus grand musée d’art du monde. La Joconde de Léonard de Vinci y est la star absolue."
+  },
+  {
+    "id": "SC-137",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Pour quelle occasion la tour Eiffel a-t-elle été construite ?",
+    "options": [
+      "L’Exposition universelle de 1889",
+      "Le centenaire de la République en 1958",
+      "Les Jeux olympiques de 1900 seulement",
+      "La visite de la reine d’Angleterre"
+    ],
+    "correct": 0,
+    "why": "Elle célébrait les 100 ans de la Révolution ! 330 m, presque démolie après 20 ans, sauvée grâce à la radio. 7 M de visiteurs par an."
+  },
+  {
+    "id": "SC-138",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel château près de Paris symbolise le pouvoir de Louis XIV ?",
+    "options": [
+      "Versailles",
+      "Chambord",
+      "Chenonceau",
+      "Fontainebleau seulement"
+    ],
+    "correct": 0,
+    "why": "Le château de Versailles : le Roi-Soleil y installa sa cour en 1682, symbole de l’absolutisme et du rayonnement français."
+  },
+  {
+    "id": "SC-139",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Où peut-on voir des peintures préhistoriques en France ?",
+    "options": [
+      "À la grotte de Lascaux, en Dordogne",
+      "À Versailles",
+      "Au Louvre",
+      "Au Mont-Saint-Michel"
+    ],
+    "correct": 0,
+    "why": "Lascaux : ~17 000 ans d’histoire, découverte en 1940, « chapelle Sixtine de la Préhistoire ». (La grotte Chauvet, en Ardèche, est encore plus vieille.)"
+  },
+  {
+    "id": "SC-140",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui a peint « La Liberté guidant le peuple » ?",
+    "options": [
+      "Eugène Delacroix",
+      "Claude Monet",
+      "Auguste Renoir",
+      "Paul Cézanne"
+    ],
+    "correct": 0,
+    "why": "Delacroix, 1830 : la Liberté brandit le drapeau tricolore sur une barricade. Ce tableau a inspiré l’image de Marianne. Visible au Louvre."
+  },
+  {
+    "id": "SC-141",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel peintre français est le fondateur de l’impressionnisme (les Nymphéas) ?",
+    "options": [
+      "Claude Monet",
+      "Paul Cézanne",
+      "Auguste Rodin",
+      "Delacroix"
+    ],
+    "correct": 0,
+    "why": "Claude Monet. Son « Impression, soleil levant » a donné son nom au mouvement. Ses Nymphéas : au musée de l’Orangerie, à Paris."
+  },
+  {
+    "id": "SC-142",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Auguste Rodin ?",
+    "options": [
+      "Un sculpteur célèbre (Le Penseur)",
+      "Un écrivain",
+      "Un chanteur",
+      "Un roi"
+    ],
+    "correct": 0,
+    "why": "Rodin, père de la sculpture moderne : Le Penseur, Le Baiser… Son musée est à Paris."
+  },
+  {
+    "id": "SC-143",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Molière ?",
+    "options": [
+      "Un dramaturge français, le père de la comédie française",
+      "Un peintre",
+      "Un roi de France",
+      "Un cuisinier"
+    ],
+    "correct": 0,
+    "why": "Molière (XVIIe siècle) : L’Avare, Le Malade imaginaire, Tartuffe… On l’appelle le père de la comédie — et même « la langue de Molière » = le français."
+  },
+  {
+    "id": "SC-144",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Victor Hugo ?",
+    "options": [
+      "Un très grand écrivain français (Les Misérables, Notre-Dame de Paris)",
+      "Un peintre",
+      "Un général",
+      "Un chanteur"
+    ],
+    "correct": 0,
+    "why": "Poète, romancier, combattant politique (contre la peine de mort et la misère). Ses funérailles en 1885 : 2 millions de personnes. Il repose au Panthéon."
+  },
+  {
+    "id": "SC-145",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Marie Curie ?",
+    "options": [
+      "Une physicienne et chimiste, double prix Nobel",
+      "Une reine",
+      "Une chanteuse",
+      "Une résistante de 1940"
+    ],
+    "correct": 0,
+    "why": "D’origine polonaise, naturalisée française : SEULE personne avec deux Nobel dans deux sciences (physique 1903, chimie 1911). Première femme professeur à la Sorbonne."
+  },
+  {
+    "id": "SC-146",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Simone de Beauvoir ?",
+    "options": [
+      "Une écrivaine et philosophe féministe (Le Deuxième Sexe)",
+      "Une reine de France",
+      "Une scientifique",
+      "Une peintre"
+    ],
+    "correct": 0,
+    "why": "Le Deuxième Sexe (1949) est un texte fondateur du féminisme moderne. Compagne de Jean-Paul Sartre."
+  },
+  {
+    "id": "SC-147",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui fut la première femme élue à l’Académie française ?",
+    "options": [
+      "Marguerite Yourcenar",
+      "George Sand",
+      "Simone Veil",
+      "Édith Piaf"
+    ],
+    "correct": 0,
+    "why": "Marguerite Yourcenar, en 1980 (Mémoires d’Hadrien). L’Académie française, gardienne de la langue, date de 1635."
+  },
+  {
+    "id": "SC-148",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était George Sand ?",
+    "options": [
+      "Une écrivaine française du XIXe siècle",
+      "Une reine",
+      "Une chanteuse",
+      "Une scientifique"
+    ],
+    "correct": 0,
+    "why": "Écrivaine célèbre (son vrai nom : Aurore Dupin) — engagée pour les femmes ; elle écrivit sous un pseudo « masculin » pour être publiée."
+  },
+  {
+    "id": "SC-149",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Albert Camus ?",
+    "options": [
+      "Un écrivain et philosophe, prix Nobel de littérature (L’Étranger)",
+      "Un roi",
+      "Un peintre",
+      "Un cuisinier"
+    ],
+    "correct": 0,
+    "why": "Nobel de littérature 1957. Né en Algérie, auteur de L’Étranger et La Peste."
+  },
+  {
+    "id": "SC-150",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Joséphine Baker ?",
+    "options": [
+      "Une artiste et résistante franco-américaine, entrée au Panthéon",
+      "Une reine",
+      "Une scientifique",
+      "Une nageuse"
+    ],
+    "correct": 0,
+    "why": "Star du music-hall, résistante pendant l’Occupation, militante contre le racisme : entrée au Panthéon en 2021."
+  },
+  {
+    "id": "SC-151",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Combien de personnes parlent français dans le monde ?",
+    "options": [
+      "Environ 300 millions",
+      "3 millions",
+      "30 millions",
+      "1 milliard"
+    ],
+    "correct": 0,
+    "why": "≈ 300 millions de francophones sur 5 continents : une des langues les plus parlées au monde, en forte croissance."
+  },
+  {
+    "id": "SC-152",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle cathédrale a été en partie détruite par un incendie en 2019 ?",
+    "options": [
+      "Notre-Dame de Paris",
+      "La cathédrale de Reims",
+      "La basilique de Saint-Denis",
+      "Le Mont-Saint-Michel"
+    ],
+    "correct": 0,
+    "why": "Notre-Dame : incendie le 15 avril 2019, rouverte en décembre 2024 après un magnifique chantier national."
+  },
+  {
+    "id": "SC-153",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel compositeur français du « Clair de lune » est un monument de la musique ?",
+    "options": [
+      "Claude Debussy",
+      "Charles Aznavour",
+      "Beethoven",
+      "Mozart"
+    ],
+    "correct": 0,
+    "why": "Debussy (1862-1918), figure de la « musique impressionniste ». (Aznavour : chanteur ; Beethoven et Mozart : pas français.)"
+  },
+  {
+    "id": "SC-154",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Charles Baudelaire ?",
+    "options": [
+      "Un poète français (Les Fleurs du mal)",
+      "Un roi",
+      "Un peintre",
+      "Un sportif"
+    ],
+    "correct": 0,
+    "why": "Poète du XIXe siècle, auteur des Fleurs du mal, l’un des recueils de poésie les plus célèbres du monde."
+  },
+  {
+    "id": "SC-155",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Qui était Jean de La Fontaine ?",
+    "options": [
+      "L’auteur des Fables (ex. Le Corbeau et le Renard)",
+      "Un général",
+      "Un chanteur",
+      "Un architecte"
+    ],
+    "correct": 0,
+    "why": "Ses Fables (XVIIe siècle), avec leurs animaux et leurs morales, sont apprises par cœur dans toutes les écoles de France."
+  },
+  {
+    "id": "SC-156",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quand peut-on visiter gratuitement des lieux culturels en France ?",
+    "options": [
+      "Lors des Journées européennes du patrimoine (septembre)",
+      "Jamais",
+      "Uniquement le 25 décembre",
+      "Le matin du dimanche uniquement"
+    ],
+    "correct": 0,
+    "why": "3e week-end de septembre : châteaux, ministères, sites fermés au public ouvrent gratuitement leurs portes. (Et le 1er dimanche du mois dans beaucoup de musées.)"
+  },
+  {
+    "id": "SC-157",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quel plat est une spécialité de la cuisine française ?",
+    "options": [
+      "Le bœuf bourguignon",
+      "Les sushis",
+      "Le paella",
+      "Le kebab"
+    ],
+    "correct": 0,
+    "why": "Bœuf bourguignon, ratatouille, coq au vin, bouillabaisse de Marseille… Le repas gastronomique français est inscrit à l’UNESCO depuis 2010 !"
+  },
+  {
+    "id": "SC-158",
+    "theme": "histoire",
+    "source": "site",
+    "themeOrigine": "Histoire et culture",
+    "q": "Quelle fête est une tradition française ?",
+    "options": [
+      "La fête de la musique, le 21 juin",
+      "Halloween est une fête nationale",
+      "Thanksgiving",
+      "La Saint-Valentin est une fête nationale"
+    ],
+    "correct": 0,
+    "why": "Le 21 juin, des musiciens amateurs jouent partout dans les rues — une fête française devenue mondiale !"
+  },
+  {
+    "id": "SC-159",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Où faut-il déclarer la naissance d’un enfant ?",
+    "options": [
+      "À la mairie du lieu de naissance, dans les 5 jours",
+      "À la préfecture, dans les 3 mois",
+      "À l’hôpital seulement",
+      "Nulle part, c’est automatique"
+    ],
+    "correct": 0,
+    "why": "Le service d’état civil de la mairie enregistre la naissance : obligation de 5 jours (jour de l’accouchement non compris)."
+  },
+  {
+    "id": "SC-160",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quel mariage est reconnu par l’État français ?",
+    "options": [
+      "Uniquement le mariage civil, célébré à la mairie",
+      "Le mariage religieux",
+      "Le mariage traditionnel",
+      "Toutes les formes de mariage"
+    ],
+    "correct": 0,
+    "why": "Seul le mariage civil, célébré par un officier d’état civil à la mairie, a une valeur juridique. Le religieux peut s’ajouter ensuite, librement."
+  },
+  {
+    "id": "SC-161",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "En cas de divorce, qui exerce l’autorité parentale ?",
+    "options": [
+      "Les deux parents, ensemble, sauf décision contraire du juge",
+      "Le père uniquement",
+      "La mère uniquement",
+      "Les grands-parents"
+    ],
+    "correct": 0,
+    "why": "Le divorce ne change pas les droits des parents : les deux continuent de protéger et d’éduquer l’enfant, dans SON intérêt."
+  },
+  {
+    "id": "SC-162",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "L’école est obligatoire en France :",
+    "options": [
+      "De 3 à 16 ans (instruction), avec formation obligatoire jusqu’à 18 ans",
+      "De 6 à 14 ans",
+      "Pas d’âge limite",
+      "Seulement jusqu’à 10 ans"
+    ],
+    "correct": 0,
+    "why": "Depuis 2019 : l’instruction démarre à 3 ans (maternelle incluse). De 16 à 18 ans : obligation de formation (lycée, apprentissage…)."
+  },
+  {
+    "id": "SC-163",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Si un enfant est absent de l’école, quel motif est accepté ?",
+    "options": [
+      "La maladie de l’enfant, un décès familial ou une convocation officielle",
+      "Les courses avec ses parents",
+      "La fatigue",
+      "Un anniversaire"
+    ],
+    "correct": 0,
+    "why": "Seuls les motifs légitimes sont acceptés (maladie avec justificatif, deuil, convocation). L’école est un droit de l’enfant !"
+  },
+  {
+    "id": "SC-164",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Où les parents inscrivent-ils leur enfant à l’école publique ?",
+    "options": [
+      "À la mairie de leur commune",
+      "À la préfecture",
+      "À l’ambassade",
+      "Directement chez le maître seulement"
+    ],
+    "correct": 0,
+    "why": "L’inscription se fait à la mairie, qui attribue l’école du secteur (carte scolaire)."
+  },
+  {
+    "id": "SC-165",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Après l’école primaire, les élèves vont :",
+    "options": [
+      "Au collège",
+      "Au lycée",
+      "À l’université",
+      "Au travail"
+    ],
+    "correct": 0,
+    "why": "Collège (11-15 ans) : 6e, 5e, 4e, 3e ; puis lycée jusqu’au baccalauréat, le diplôme de fin de lycée."
+  },
+  {
+    "id": "SC-166",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quel diplôme obtient-on à la fin du lycée ?",
+    "options": [
+      "Le baccalauréat",
+      "Le brevet",
+      "Le permis de conduire",
+      "Le BTS"
+    ],
+    "correct": 0,
+    "why": "Le « bac », créé en 1808 ! (Le brevet, lui, se passe en fin de collège.)"
+  },
+  {
+    "id": "SC-167",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Un enfant qui ne parle pas encore français :",
+    "options": [
+      "Est scolarisé normalement et reçoit un accompagnement pour apprendre le français",
+      "Ne peut pas aller à l’école",
+      "Doit d’abord apprendre le français seul à la maison",
+      "Va dans une école privée uniquement"
+    ],
+    "correct": 0,
+    "why": "Le droit à l’éducation est pour TOUS les enfants résidant en France ; des classes spéciales (UPE2A) les aident à apprendre le français."
+  },
+  {
+    "id": "SC-168",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Un enfant en situation de handicap :",
+    "options": [
+      "A le droit d’être scolarisé dans l’école de son secteur, avec aménagements",
+      "Ne peut pas aller à l’école publique",
+      "Doit être éduqué à la maison",
+      "Va seulement en institut"
+    ],
+    "correct": 0,
+    "why": "L’école inclusive (loi de 2005) : chaque enfant a droit à sa place à l’école, avec un accompagnement adapté si besoin (MDPH, AESH)."
+  },
+  {
+    "id": "SC-169",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Les parents d’élèves ont le droit de :",
+    "options": [
+      "Élire des représentants, participer aux conseils et rencontrer les enseignants",
+      "Intervenir dans les cours",
+      "Refuser le programme scolaire",
+      "Critiquer les cours de religion"
+    ],
+    "correct": 0,
+    "why": "Les parents font partie de la communauté éducative — élections de représentants en octobre, réunions, conseils d’école."
+  },
+  {
+    "id": "SC-170",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quels risques des parents qui ne respectent pas l’obligation d’instruction de leurs enfants ?",
+    "options": [
+      "Jusqu’à 2 ans de prison et 30 000 € d’amende",
+      "Aucun risque",
+      "Une simple amende de 10 €",
+      "La perte des allocations"
+    ],
+    "correct": 0,
+    "why": "L’instruction de 3 à 16 ans est une obligation légale sérieuse, qui protège le droit de l’enfant à apprendre."
+  },
+  {
+    "id": "SC-171",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Auprès de quel organisme demander le remboursement des frais de santé ?",
+    "options": [
+      "À l’Assurance maladie (Sécurité sociale)",
+      "À la mairie",
+      "À la police",
+      "À la banque"
+    ],
+    "correct": 0,
+    "why": "L’Assurance maladie rembourse une partie des soins ; la carte Vitale atteste de vos droits ; la mutuelle complète ce qui reste."
+  },
+  {
+    "id": "SC-172",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "À quoi sert la carte Vitale ?",
+    "options": [
+      "À obtenir le remboursement des frais de santé",
+      "À payer ses courses",
+      "À voter",
+      "À prendre le bus"
+    ],
+    "correct": 0,
+    "why": "La carte verte Vitale : le praticien l’insère, vos remboursements arrivent automatiquement sur votre compte."
+  },
+  {
+    "id": "SC-173",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "À quoi sert une mutuelle ?",
+    "options": [
+      "À compléter les remboursements de l’Assurance maladie",
+      "À remplacer la Sécurité sociale",
+      "À payer les impôts",
+      "À assurer sa voiture"
+    ],
+    "correct": 0,
+    "why": "Assurance maladie de base + mutuelle (complémentaire santé) = l’essentiel du reste à charge couvert."
+  },
+  {
+    "id": "SC-174",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "L’inscription à l’Assurance maladie est :",
+    "options": [
+      "Obligatoire pour toute personne résidant en France de manière stable",
+      "Interdite aux étrangers",
+      "Uniquement pour les salariés",
+      "Uniquement pour les plus de 18 ans"
+    ],
+    "correct": 0,
+    "why": "Protection universelle maladie (PUMa) : toute personne résidant stablement en France a droit à la prise en charge de ses frais de santé."
+  },
+  {
+    "id": "SC-175",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Le SMIC, c’est :",
+    "options": [
+      "Le salaire minimum légal horaire",
+      "Un impôt",
+      "Une banque",
+      "Un type de contrat"
+    ],
+    "correct": 0,
+    "why": "Salaire Minimum Interprofessionnel de Croissance : en dessous, aucun employeur ne peut payer. Revalorisé chaque année."
+  },
+  {
+    "id": "SC-176",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quelle est la durée légale du travail par semaine ?",
+    "options": [
+      "35 heures",
+      "40 heures",
+      "30 heures",
+      "48 heures"
+    ],
+    "correct": 0,
+    "why": "35 heures depuis 2000. Au-delà : heures supplémentaires majorées en salaire."
+  },
+  {
+    "id": "SC-177",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quelle est la première démarche pour chercher un emploi ?",
+    "options": [
+      "S’inscrire à France Travail (ex-Pôle emploi)",
+      "Écrire au président",
+      "Appeler le 17",
+      "Se rendre à l’ambassade"
+    ],
+    "correct": 0,
+    "why": "France Travail accompagne la recherche d’emploi et verse les allocations chômage si vous y avez droit."
+  },
+  {
+    "id": "SC-178",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Le travail non déclaré (« au noir ») est :",
+    "options": [
+      "Interdit : c’est un délit qui prive le salarié de protection",
+      "Toléré",
+      "Légal le soir",
+      "Légal entre voisins"
+    ],
+    "correct": 0,
+    "why": "Sanctions sévères pour l’employeur et absence de couverture (maladie, retraite, chômage) pour le salarié. Toujours exiger un contrat !"
+  },
+  {
+    "id": "SC-179",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quel organisme juge les conflits entre un salarié et son employeur ?",
+    "options": [
+      "Le conseil de prud’hommes",
+      "La mairie",
+      "La police",
+      "Le préfet"
+    ],
+    "correct": 0,
+    "why": "Le prud’hommes : juges salariés et employeurs à parts égales. Saisine gratuite — utile en cas de licenciement abusif ou de salaires impayés."
+  },
+  {
+    "id": "SC-180",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Peut-on licencier une femme parce qu’elle est enceinte ?",
+    "options": [
+      "Non : c’est strictement interdit et puni par la loi",
+      "Oui, librement",
+      "Oui, après 3 mois de grossesse",
+      "Oui, sans indemnités"
+    ],
+    "correct": 0,
+    "why": "Protection absolue de la grossesse (Code du travail). Un tel licenciement est nul et l’employeur peut être condamné."
+  },
+  {
+    "id": "SC-181",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Depuis 2021, la durée du congé paternité est de :",
+    "options": [
+      "28 jours au total (25 + 3 de congé de naissance)",
+      "3 jours",
+      "6 mois",
+      "1 an"
+    ],
+    "correct": 0,
+    "why": "Le congé paternité a été doublé pour accompagner bébé : les deux parents partagent l’éducation de l’enfant — c’est aussi ça, l’égalité !"
+  },
+  {
+    "id": "SC-182",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Une femme peut-elle créer son entreprise ?",
+    "options": [
+      "Oui, au même titre qu’un homme",
+      "Non",
+      "Avec l’accord de son mari",
+      "Seulement après 30 ans"
+    ],
+    "correct": 0,
+    "why": "Égalité totale en droit : travailler, créer une entreprise, ouvrir un compte bancaire, conduire, voter…"
+  },
+  {
+    "id": "SC-183",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Une personne étrangère en situation régulière peut-elle créer son entreprise en France ?",
+    "options": [
+      "Oui, sous conditions liées à son titre de séjour",
+      "Non, jamais",
+      "Oui, même sans titre",
+      "Seulement dans les grandes villes"
+    ],
+    "correct": 0,
+    "why": "Selon le titre de séjour, on peut entreprendre — la France encourage l’initiative économique de tous."
+  },
+  {
+    "id": "SC-184",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quel est l’âge de la majorité en France ?",
+    "options": [
+      "18 ans",
+      "16 ans",
+      "21 ans",
+      "15 ans"
+    ],
+    "correct": 0,
+    "why": "Majorité à 18 ans : on devient pleinement majeur civilement (droit de vote, contrats…). On peut travailler dès 16 ans avec accord des parents."
+  },
+  {
+    "id": "SC-185",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "À partir de quel âge un mineur peut-il travailler ?",
+    "options": [
+      "16 ans, avec l’accord de ses représentants légaux",
+      "10 ans",
+      "25 ans",
+      "Ne jamais travailler"
+    ],
+    "correct": 0,
+    "why": "Dès 16 ans avec accord parental (14 ans en vacances pour des jobs légers). Protection renforcée des jeunes travailleurs."
+  },
+  {
+    "id": "SC-186",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Qu’est-ce que l’aide juridictionnelle ?",
+    "options": [
+      "Une aide de l’État pour payer un avocat aux personnes à faibles revenus",
+      "Une taxe d’avocat",
+      "Un tribunal spécial",
+      "Une école de droit"
+    ],
+    "correct": 0,
+    "why": "L’accès à la justice pour tous : selon les revenus, l’État prend en charge tout ou partie des frais d’avocat."
+  },
+  {
+    "id": "SC-187",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Quelle aide permet d’avoir un avocat quand on a peu d’argent ?",
+    "options": [
+      "L’aide juridictionnelle",
+      "Le RSA",
+      "Les bourses d’école",
+      "La carte Vitale"
+    ],
+    "correct": 0,
+    "why": "On la demande au tribunal ou en ligne : le droit de se défendre ne dépend pas de ses revenus."
+  },
+  {
+    "id": "SC-188",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Se garer sur une place réservée aux personnes handicapées sans carte :",
+    "options": [
+      "C’est interdit : amende de 135 €",
+      "C’est toléré 5 minutes",
+      "C’est autorisé le dimanche",
+      "C’est autorisé la nuit"
+    ],
+    "correct": 0,
+    "why": "Ces places sont réservées aux titulaires de la Carte Mobilité Inclusion (CMI) : respecter, c’est permettre l’autonomie de chacun."
+  },
+  {
+    "id": "SC-189",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Une machine à laver cassée et hors d’usage peut être :",
+    "options": [
+      "Réparée, garantie, ou déposée gratuitement en déchèterie (ou reprise au 1 pour 1)",
+      "Jetée dans la rue",
+      "Brûlée au jardin",
+      "Jetée dans la nature"
+    ],
+    "correct": 0,
+    "why": "Jamais dans la rue (jusqu’à 1 500 € d’amende) ! Garantie légale 2 ans ; le vendeur reprend l’ancien appareil lors d’un nouvel achat."
+  },
+  {
+    "id": "SC-190",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Le locataire d’un logement peut, sans autorisation du propriétaire :",
+    "options": [
+      "Repeindre les murs, accrocher des cadres, disposer ses meubles",
+      "Abattre un mur porter",
+      "Sous-louer le logement",
+      "Changer la serrure sans rendre les clés"
+    ],
+    "correct": 0,
+    "why": "On se sent chez soi ! Mais abattre une cloison, sous-louer ou déménager des murs : autorisation écrite obligatoire."
+  },
+  {
+    "id": "SC-191",
+    "theme": "vivre",
+    "source": "site",
+    "themeOrigine": "Vie quotidienne",
+    "q": "Que faire si l’on est témoin de violences dans la rue ou chez un voisin ?",
+    "options": [
+      "Alerter la police (17) ou les secours : c’est un devoir citoyen",
+      "Ne rien dire, c’est « privé »",
+      "Intervenir seul physiquement",
+      "Filmer et publier en ligne"
+    ],
+    "correct": 0,
+    "why": "Signaler protège les victimes. En cas de danger direct : 17 (police) ou 112."
+  }
+]

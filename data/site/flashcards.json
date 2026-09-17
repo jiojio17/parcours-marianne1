@@ -1,0 +1,282 @@
+[
+  {
+    "front": "Liberté",
+    "back": "Pouvoir penser, croire ou ne pas croire, dans le respect de la loi.",
+    "theme": "Symboles"
+  },
+  {
+    "front": "Égalité",
+    "back": "La loi est la même pour toutes et tous.",
+    "theme": "Symboles"
+  },
+  {
+    "front": "Fraternité",
+    "back": "Vivre ensemble et respecter la dignité de chaque personne.",
+    "theme": "Symboles"
+  },
+  {
+    "front": "14 juillet",
+    "back": "La fête nationale française.",
+    "theme": "Symboles"
+  },
+  {
+    "front": "Liberté",
+    "back": "Croire, ne pas croire ou changer de conviction.",
+    "theme": "Laïcité"
+  },
+  {
+    "front": "Neutralité",
+    "back": "L’administration ne choisit aucune religion.",
+    "theme": "Laïcité"
+  },
+  {
+    "front": "Égalité",
+    "back": "Un service public traite les usagers de la même manière.",
+    "theme": "Laïcité"
+  },
+  {
+    "front": "1905",
+    "back": "La loi de séparation des Églises et de l’État.",
+    "theme": "Laïcité"
+  },
+  {
+    "front": "Un droit",
+    "back": "Une protection reconnue par la loi.",
+    "theme": "Droits et devoirs"
+  },
+  {
+    "front": "Un devoir",
+    "back": "Une responsabilité envers les autres et la collectivité.",
+    "theme": "Droits et devoirs"
+  },
+  {
+    "front": "École",
+    "back": "L’instruction est obligatoire de 3 à 16 ans.",
+    "theme": "Droits et devoirs"
+  },
+  {
+    "front": "Impôt",
+    "back": "Il finance des services utiles à toutes et tous.",
+    "theme": "Droits et devoirs"
+  },
+  {
+    "front": "Président",
+    "back": "Chef de l’État, élu pour cinq ans.",
+    "theme": "Institutions"
+  },
+  {
+    "front": "Gouvernement",
+    "back": "Dirigé par le Premier ministre.",
+    "theme": "Institutions"
+  },
+  {
+    "front": "Parlement",
+    "back": "Assemblée nationale et Sénat votent les lois.",
+    "theme": "Institutions"
+  },
+  {
+    "front": "1958",
+    "back": "Naissance de la Ve République.",
+    "theme": "Institutions"
+  },
+  {
+    "front": "18 ans",
+    "back": "Le droit de vote commence à la majorité.",
+    "theme": "Démocratie"
+  },
+  {
+    "front": "Inscription",
+    "back": "Il faut être inscrit sur les listes électorales.",
+    "theme": "Démocratie"
+  },
+  {
+    "front": "Isoloir",
+    "back": "Il protège le secret du choix.",
+    "theme": "Démocratie"
+  },
+  {
+    "front": "Municipales",
+    "back": "Le conseil municipal élit le maire.",
+    "theme": "Démocratie"
+  },
+  {
+    "front": "1789",
+    "back": "Révolution et Déclaration des droits.",
+    "theme": "Histoire"
+  },
+  {
+    "front": "1848",
+    "back": "Abolition de l’esclavage dans les colonies françaises.",
+    "theme": "Histoire"
+  },
+  {
+    "front": "1905",
+    "back": "Séparation des Églises et de l’État.",
+    "theme": "Histoire"
+  },
+  {
+    "front": "1944 / 1958",
+    "back": "Droit de vote des femmes / Ve République.",
+    "theme": "Histoire"
+  },
+  {
+    "front": "Capitale",
+    "back": "Paris est la capitale de la France.",
+    "theme": "Géographie"
+  },
+  {
+    "front": "Métropole",
+    "back": "La partie française située en Europe.",
+    "theme": "Géographie"
+  },
+  {
+    "front": "Outre-mer",
+    "back": "Des territoires français dans plusieurs océans.",
+    "theme": "Géographie"
+  },
+  {
+    "front": "Europe",
+    "back": "La France est un État européen.",
+    "theme": "Géographie"
+  },
+  {
+    "front": "27",
+    "back": "États membres de l’Union européenne.",
+    "theme": "Europe"
+  },
+  {
+    "front": "21",
+    "back": "Pays utilisent l’euro en 2026.",
+    "theme": "Europe"
+  },
+  {
+    "front": "12 étoiles",
+    "back": "Unité et perfection, pas le nombre de pays.",
+    "theme": "Europe"
+  },
+  {
+    "front": "9 mai",
+    "back": "Journée de l’Europe.",
+    "theme": "Europe"
+  },
+  {
+    "front": "15",
+    "back": "Urgence médicale, Samu.",
+    "theme": "Vie quotidienne"
+  },
+  {
+    "front": "17",
+    "back": "Police ou gendarmerie.",
+    "theme": "Vie quotidienne"
+  },
+  {
+    "front": "18",
+    "back": "Sapeurs-pompiers.",
+    "theme": "Vie quotidienne"
+  },
+  {
+    "front": "112",
+    "back": "Urgence européenne.",
+    "theme": "Vie quotidienne"
+  },
+  {
+    "front": "Contrat",
+    "back": "Il précise l’emploi et les conditions principales.",
+    "theme": "Travail"
+  },
+  {
+    "front": "Smic",
+    "back": "Un plancher légal de rémunération.",
+    "theme": "Travail"
+  },
+  {
+    "front": "35 heures",
+    "back": "La durée légale de référence d’un temps complet.",
+    "theme": "Travail"
+  },
+  {
+    "front": "Égalité",
+    "back": "Les discriminations dans l’emploi sont interdites.",
+    "theme": "Travail"
+  },
+  {
+    "front": "1944",
+    "back": "Droit de vote et d’éligibilité des femmes.",
+    "theme": "Égalité"
+  },
+  {
+    "front": "École",
+    "back": "Instruction obligatoire de 3 à 16 ans.",
+    "theme": "Égalité"
+  },
+  {
+    "front": "Choisir",
+    "back": "Chacun doit pouvoir choisir sa vie librement.",
+    "theme": "Égalité"
+  },
+  {
+    "front": "Protéger",
+    "back": "Violences et discriminations sont interdites.",
+    "theme": "Égalité"
+  },
+  {
+    "front": "S’exprimer",
+    "back": "Donner son opinion est une liberté encadrée par la loi.",
+    "theme": "Vivre ensemble"
+  },
+  {
+    "front": "Dignité",
+    "back": "Personne ne doit subir violence ou humiliation.",
+    "theme": "Vivre ensemble"
+  },
+  {
+    "front": "Solidarité",
+    "back": "Aider peut passer par une association ou un service public.",
+    "theme": "Vivre ensemble"
+  },
+  {
+    "front": "Réflexe",
+    "back": "Se mettre en sécurité puis alerter.",
+    "theme": "Vivre ensemble"
+  },
+  {
+    "front": "Idée",
+    "back": "Répondre directement en une phrase.",
+    "theme": "Entretien"
+  },
+  {
+    "front": "Exemple",
+    "back": "Relier la notion à une situation concrète.",
+    "theme": "Entretien"
+  },
+  {
+    "front": "Valeur",
+    "back": "Rappeler liberté, égalité, fraternité ou laïcité.",
+    "theme": "Entretien"
+  },
+  {
+    "front": "Posture",
+    "back": "Regarder, respirer, demander de répéter.",
+    "theme": "Entretien"
+  },
+  {
+    "front": "Avant",
+    "back": "Préparer les documents et vérifier la convocation.",
+    "theme": "Révision"
+  },
+  {
+    "front": "Pendant",
+    "back": "Lire jusqu’au bout et avancer si besoin.",
+    "theme": "Révision"
+  },
+  {
+    "front": "Méthode",
+    "back": "Une définition et un exemple par thème.",
+    "theme": "Révision"
+  },
+  {
+    "front": "Confiance",
+    "back": "Une question difficile ne définit pas ton parcours.",
+    "theme": "Révision"
+  }
+]

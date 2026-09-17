@@ -1,0 +1,9 @@
+Cloudflare Pages — 2026-09-17 17:50:06 UTC
+
+secret CLOUDFLARE_API_TOKEN présent : NON
+secret CLOUDFLARE_ACCOUNT_ID présent : NON
+variable CLOUDFLARE_PROJECT_NAME     : <non définie>
+
+→ Aucun déploiement : les identifiants Cloudflare ne sont pas dans ce dépôt.
+  Pour activer cette voie, ajouter les deux secrets dans
+  Settings → Secrets and variables → Actions.

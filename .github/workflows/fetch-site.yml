@@ -1,0 +1,226 @@
+name: Extraire le site parcours-marianne (Cloudflare Pages)
+
+# Récupère l'intégralité des fichiers publics du site
+# https://parcours-marianne-e1u.pages.dev/ (code, contenus pédagogiques,
+# catalogue vidéo et sous-titres des capsules) puis les commite dans
+# extraction/site/. Les runners GitHub ont un accès Internet complet,
+# contrairement au sandbox de l'agent.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/01a0aff8-parcours-marianne1
+    paths:
+      - '.github/workflows/fetch-site.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  extraire:
+    runs-on: ubuntu-latest
+    env:
+      BASE: https://parcours-marianne-e1u.pages.dev
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0aff8-parcours-marianne1
+          fetch-depth: 1
+
+      - name: Télécharger les fichiers applicatifs
+        run: |
+          set -euo pipefail
+          mkdir -p extraction/site
+          FILES="index.html style.css data.js lesson-extras.js exam-bank.js app.js \
+                 app-coach-online.js videos-catalog.js manifest.json manifest.webmanifest \
+                 downloads downloads.html _redirects _headers sw.js robots.txt \
+                 icons/icon.svg icons/icon-192.png icons/icon-512.png"
+          for f in $FILES; do
+            out="extraction/site/$f"
+            mkdir -p "$(dirname "$out")"
+            code=$(curl -sSL --retry 4 --retry-delay 3 -o "$out" -w '%{http_code}' "$BASE/$f" || echo 000)
+            size=$(stat -c%s "$out" 2>/dev/null || echo 0)
+            # le site est une SPA : un chemin inconnu renvoie la page HTML de l'application (code 200).
+            # On reconnaît cette page de repli à son marqueur <div id="app">, et non à tout contenu HTML
+            # (des pages légitimes comme downloads.html sont aussi du HTML).
+            if grep -q 'id="app"' "$out" 2>/dev/null && [ "$(basename "$f")" != "index.html" ]; then
+              echo "$f -> page de repli de la SPA (fichier inexistant), ignoré"
+              rm -f "$out"; continue
+            fi
+            echo "$f -> HTTP $code, $size octets"
+            if [ "$code" != "200" ] || [ "$size" -lt 20 ]; then
+              echo "  (non disponible, ignoré)"
+              rm -f "$out"
+            fi
+          done
+          echo "--- fichiers récupérés ---"
+          find extraction/site -type f | sort
+
+      - name: Télécharger les sous-titres des capsules (vidéos)
+        run: |
+          set -euo pipefail
+          mkdir -p extraction/site/videos
+          ok=0; ko=0
+          for n in $(seq -w 1 18); do
+            for kind in lesson qa; do
+              if [ "$kind" = "lesson" ]; then
+                url="$BASE/videos/lesson-$n/lecon-$n.vtt"; out="extraction/site/videos/lesson-$n.vtt"
+              else
+                url="$BASE/videos/qa-$n/qa-$n.vtt"; out="extraction/site/videos/qa-$n.vtt"
+              fi
+              code=$(curl -sSL --retry 2 -o "$out" -w '%{http_code}' "$url" || echo 000)
+              if [ "$code" = "200" ] && [ "$(stat -c%s "$out")" -gt 50 ] && head -1 "$out" | grep -qi webvtt; then ok=$((ok+1)); else rm -f "$out"; ko=$((ko+1)); fi
+            done
+          done
+          for n in 01 02 03 04; do
+            code=$(curl -sSL --retry 2 -o "extraction/site/videos/sit-$n.vtt" -w '%{http_code}' "$BASE/videos/sit-$n/sit-$n.vtt" || echo 000)
+            if [ "$code" = "200" ] && [ "$(stat -c%s "extraction/site/videos/sit-$n.vtt")" -gt 50 ] && head -1 "extraction/site/videos/sit-$n.vtt" | grep -qi webvtt; then ok=$((ok+1)); else rm -f "extraction/site/videos/sit-$n.vtt"; ko=$((ko+1)); fi
+          done
+          echo "Sous-titres récupérés : $ok (indisponibles : $ko)"
+          du -sh extraction/site/videos || true
+
+      - name: Rapport de complétude (service worker ↔ fichiers extraits)
+        run: |
+          set -uo pipefail
+          python3 - <<'PY'
+          import pathlib, re, json
+          sw = pathlib.Path("extraction/site/sw.js")
+          attendus = []
+          if sw.exists():
+              m = re.search(r"SHELL_FILES\s*=\s*\[(.*?)\]", sw.read_text(encoding="utf-8"), re.S)
+              if m:
+                  attendus = [x.strip().strip("'\"") for x in m.group(1).split(",")]
+          presents = {str(p.relative_to("extraction/site")) for p in pathlib.Path("extraction/site").rglob("*") if p.is_file()}
+          manquants, trouves = [], []
+          for f in attendus:
+              nom = f.lstrip("./")
+              if not nom or nom == "index.html":
+                  (trouves if "index.html" in presents else manquants).append(f)
+              elif nom in presents:
+                  trouves.append(f)
+              else:
+                  manquants.append(f)
+          rapport = {
+              "fichiers_du_service_worker": len(attendus),
+              "extraits": len(trouves),
+              "manquants": manquants,
+              "total_fichiers_extraits": len(presents),
+              "sous_titres": len([p for p in presents if p.endswith(".vtt")]),
+          }
+          pathlib.Path("extraction/COMPLETUDE.json").write_text(json.dumps(rapport, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          print(json.dumps(rapport, indent=2, ensure_ascii=False))
+          PY
+
+      - name: Vérifier le contenu extrait (rapport, non bloquant)
+        run: |
+          set -uo pipefail
+          node - <<'JS' 2>&1 | tee extraction/VERIFICATION.txt
+          const fs = require('fs');
+          const read = (f) => (fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '');
+          const evalData = (src, names) =>
+            new Function(src + ';return {' + names.map((n) => `'${n}': typeof ${n} !== 'undefined' ? ${n} : undefined`).join(',') + '};')();
+          const dir = 'extraction/site';
+          const rapport = [];
+          const stats = {};
+          const files = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
+          rapport.push('Fichiers récupérés : ' + files.join(', '));
+
+          for (const f of files.filter((f) => f.endsWith('.js'))) {
+            try { new Function(read(dir + '/' + f)); rapport.push('OK   syntaxe ' + f); }
+            catch (e) { rapport.push('ERREUR syntaxe ' + f + ' : ' + e.message); }
+          }
+
+          try {
+            const { EXAM_BANK, EXAM_SETTINGS } = evalData(read(dir + '/exam-bank.js'), ['EXAM_BANK', 'EXAM_SETTINGS']);
+            stats['questions exam-bank'] = EXAM_BANK.length;
+            stats['connaissances'] = EXAM_BANK.filter((q) => q.kind === 'connaissance').length;
+            stats['mises en situation'] = EXAM_BANK.filter((q) => q.kind === 'situation').length;
+            stats['thèmes (1 à 5)'] = [...new Set(EXAM_BANK.map((q) => q.theme))].sort().join(', ');
+            stats['sans explication'] = EXAM_BANK.filter((q) => !q.explanation).length;
+            stats['avec piège rédigé'] = EXAM_BANK.filter((q) => q.why).length;
+            stats['options ≠ 4'] = EXAM_BANK.filter((q) => !Array.isArray(q.options) || q.options.length !== 4).length;
+            stats['format annoncé'] = JSON.stringify(EXAM_SETTINGS || {});
+          } catch (e) { rapport.push('exam-bank.js illisible : ' + e.message); }
+
+          try {
+            const d = evalData(read(dir + '/data.js'), ['DAYS', 'QUESTIONS', 'FLASHCARDS', 'SITUATIONS']);
+            stats['leçons'] = d.DAYS.length;
+            stats['questions de leçons'] = d.QUESTIONS.length;
+            stats['cartes mémoire'] = d.FLASHCARDS.length;
+            stats['mises en situation (leçons)'] = d.SITUATIONS.length;
+          } catch (e) { rapport.push('data.js illisible : ' + e.message); }
+
+          try {
+            const x = evalData(read(dir + '/lesson-extras.js'), ['LESSON_EXTRAS']);
+            stats['enrichissements de leçon'] = Object.keys(x.LESSON_EXTRAS).length;
+          } catch (e) { rapport.push('lesson-extras.js illisible : ' + e.message); }
+
+          try {
+            const v = evalData(read(dir + '/videos-catalog.js'), ['VIDEO_CATALOG']);
+            stats['capsules'] = v.VIDEO_CATALOG.length;
+            stats['durée totale capsules (min)'] = Math.round(v.VIDEO_CATALOG.reduce((n, c) => n + (c.duration || 0), 0) / 60);
+            stats['questions traitées en capsules'] = v.VIDEO_CATALOG.reduce((n, c) => n + (c.count || 0), 0);
+          } catch (e) { rapport.push('videos-catalog.js illisible : ' + e.message); }
+
+          const vdir = dir + '/videos';
+          if (fs.existsSync(vdir)) {
+            const vtt = fs.readdirSync(vdir).filter((f) => f.endsWith('.vtt'));
+            stats['sous-titres VTT'] = vtt.length;
+            let lignes = 0, mots = 0;
+            for (const f of vtt) {
+              const t = fs.readFileSync(vdir + '/' + f, 'utf8');
+              lignes += t.split('\n').length;
+              mots += t.split(/\s+/).filter(Boolean).length;
+            }
+            stats['lignes de sous-titres'] = lignes;
+            stats['mots de sous-titres'] = mots;
+          }
+
+          rapport.push('', 'Statistiques :', JSON.stringify(stats, null, 2));
+          console.log(rapport.join('\n'));
+          fs.writeFileSync('extraction/STATS.json', JSON.stringify(stats, null, 2));
+
+      - name: Convertir le contenu extrait en données exploitables
+        run: |
+          set -euo pipefail
+          node tools/import-site.mjs
+
+      - name: Écrire le manifeste d'extraction
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, pathlib, datetime, json
+          root = pathlib.Path("extraction/site")
+          lignes = [
+              "# Extraction du site `parcours-marianne-e1u.pages.dev`",
+              "",
+              "Source : <https://parcours-marianne-e1u.pages.dev/>",
+              f"Récupéré le {datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC par GitHub Actions.",
+              "",
+              "| Fichier | Taille | SHA-256 (12 premiers) |",
+              "| --- | --- | --- |",
+          ]
+          for p in sorted(root.rglob("*")):
+              if p.is_file():
+                  h = hashlib.sha256(p.read_bytes()).hexdigest()[:12]
+                  lignes.append(f"| `{p.relative_to(root)}` | {p.stat().st_size} o | `{h}` |")
+          stats = pathlib.Path("extraction/STATS.json")
+          if stats.exists():
+              lignes += ["", "## Statistiques", "", "```json", stats.read_text(encoding="utf-8").strip(), "```"]
+          pathlib.Path("extraction/MANIFEST.md").write_text("\n".join(lignes) + "\n", encoding="utf-8")
+          print("\n".join(lignes[:20]))
+          PY
+
+      - name: Commit et push
+        run: |
+          set -euxo pipefail
+          git config user.name "arena-agent[bot]"
+          git config user.email "arena-agent[bot]@users.noreply.github.com"
+          git add extraction
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à commiter"
+          else
+            git commit -m "Extraction du site parcours-marianne (Cloudflare Pages) : code, contenus et capsules"
+            git push origin HEAD:arena/01a0aff8-parcours-marianne1
+          fi
