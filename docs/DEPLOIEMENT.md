@@ -16,6 +16,12 @@ Le site se publie ensuite **tout seul à chaque mise à jour** (workflow
 3. Ouvrir <https://github.com/jiojio17/parcours-marianne1/actions/workflows/pages.yml>
    et cliquer sur **Run workflow** → branche `arena/01a0aff8-parcours-marianne1` → **Run**.
 
+Le workflow se déclenche de toute façon **automatiquement à chaque mise à jour** du site.
+Tant que l'étape 2 n'est pas faite, il construit et vérifie le site, puis s'arrête
+proprement en affichant ce mode d'emploi (aucun échec, rien à nettoyer) — c'est vérifié :
+dernier passage en date du 17 septembre 2026, étape « Vérifier que GitHub Pages est
+activé » passée, publication ignorée comme prévu.
+
 L'adresse publique du site est indiquée en haut de l'exécution (et dans
 **Settings → Pages**) :
 
