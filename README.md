@@ -8,12 +8,16 @@ chronométrés** et révision par thème.
 
 | Fonction | Détail |
 | --- | --- |
+| **Parcours personnalisé** | bilan de départ (niveau, date d'examen, temps par jour, thèmes à renforcer) → programme quotidien, séance guidée et suivi thème par thème |
 | **Examens blancs** | 40 séries de **40 questions en 45 minutes** (chronomètre, seuil de réussite 32/40 = 80 %) |
 | **Tirage aléatoire** | un examen complet reconstruit à chaque partie, avec la répartition officielle (28 connaissances + 12 mises en situation) |
 | **Correction immédiate** | score global, score par thème, corrigé de chaque erreur avec l'explication de la règle |
 | **Révision par thème** | question par question, correction et explication après chaque réponse |
 | **Banque complète** | les 285 questions avec leurs quatre choix, la bonne réponse et le corrigé |
 | **Historique** | meilleur score et liste des tentatives, stockés dans le navigateur |
+
+Tout est enregistré **uniquement dans le navigateur** (profil, statistiques, historique) :
+aucune donnée n'est envoyée à un serveur, aucun compte n'est nécessaire.
 
 ## Contenu
 
@@ -42,6 +46,10 @@ tools/build-quiz.mjs     génère app/data/*.js à partir de data/quizzes/*.json
 tools/serve.mjs          serveur statique local
 tools/smoke-test.mjs     test de bout en bout du parcours (jsdom)
 docs/QUIZZ.md            documentation du quiz et du format officiel
+docs/BANQUE-QUESTIONS.md  les 285 questions corrigées, version imprimable
+docs/DEPLOIEMENT.md      mise en ligne sur Cloudflare Pages (paquet prêt à déposer)
+dist/                    paquet du site à déployer (généré par `npm run pack`)
+app/parcours             bilan de départ et programme personnalisé (dans app.js)
 ```
 
 ## Utilisation
@@ -49,8 +57,11 @@ docs/QUIZZ.md            documentation du quiz et du format officiel
 ```bash
 npm run build     # (re)génère app/data/questions.js et app/data/series.js
 npm start         # serveur local sur http://localhost:4173
-npm test          # parcours complet simulé (nécessite npm i -D jsdom)
+npm test          # parcours complet simulé, 36 vérifications (nécessite npm i -D jsdom)
+npm run pack      # crée dist/parcours-marianne-quiz.zip, prêt pour Cloudflare Pages
 ```
+
+Mise en ligne : voir `docs/DEPLOIEMENT.md`.
 
 Le site fonctionne aussi sans serveur : ouvrir `app/index.html` dans un navigateur.
 

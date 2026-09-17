@@ -8,7 +8,8 @@
     "build": "node tools/build-quiz.mjs && node tools/export-markdown.mjs",
     "start": "node tools/serve.mjs",
     "dev": "node tools/build-quiz.mjs && node tools/serve.mjs",
-    "test": "node tools/smoke-test.mjs"
+    "test": "node tools/smoke-test.mjs",
+    "pack": "python3 tools/pack.py"
   },
   "license": "MIT",
   "devDependencies": {

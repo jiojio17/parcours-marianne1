@@ -99,3 +99,44 @@ ok('40 séries listées', app.querySelectorAll('a.serie').length === 40);
 // 10. historique
 await nav('#/historique');
 ok('Historique affiché', app.innerHTML.includes('Historique'));
+
+/* ---------- 11. parcours personnalisé : bilan de départ, programme, séance guidée ---------- */
+window.localStorage.removeItem('pm.profil');
+window.localStorage.removeItem('pm.stats');
+await nav('#/');
+ok('Accueil sans profil : invitation au bilan', app.innerHTML.includes('bilan de départ'));
+
+await nav('#/bilan');
+ok('Bilan : étape 1 affichée', app.innerHTML.includes('Étape 1 / 3'));
+const btnNext = () => window.document.getElementById('btn-next');
+ok('Bilan : « Continuer » bloqué sans réponse', btnNext().disabled === true);
+click(window.document.querySelector('button[data-level="reperes"]'));
+ok('Bilan : niveau sélectionné', window.document.querySelector('button[data-level="reperes"]').classList.contains('selected'));
+ok('Bilan : « Continuer » débloqué', btnNext().disabled === false);
+click(btnNext());
+await tick();
+ok('Bilan : étape 2 (calendrier)', app.innerHTML.includes('Étape 2 / 3'));
+click(window.document.querySelector('button[data-min="20"]'));
+await tick();
+click(btnNext());
+await tick();
+ok('Bilan : étape 3 (priorités)', app.innerHTML.includes('Étape 3 / 3'));
+click(window.document.querySelector('button[data-theme="histoire"]'));
+await tick();
+click(btnNext());
+await tick();
+ok('Bilan terminé → programme', window.location.hash === '#/parcours', window.location.hash);
+ok('Programme : séance du jour proposée', app.innerHTML.includes('Ta séance du jour'));
+ok('Programme : plan affiché', app.innerHTML.includes('Ton plan'));
+ok('Profil enregistré', (window.localStorage.getItem('pm.profil') || '').includes('"minutes":20'));
+
+await nav('#/seance');
+const seanceCard = window.document.getElementById('qcard');
+ok('Séance guidée démarrée', !!seanceCard && seanceCard.querySelectorAll('.option').length === 4);
+click(seanceCard.querySelectorAll('.option')[0]);
+await tick();
+ok('Séance guidée : réponse enregistrée', window.document.querySelectorAll('.option.selected').length === 1);
+
+await nav('#/parcours');
+ok('Programme : statistiques mises à jour', app.innerHTML.includes('questions travaillées'));
+ok('Programme : thème prioritaire marqué', app.innerHTML.includes('prioritaire'));

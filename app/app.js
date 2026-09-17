@@ -52,6 +52,28 @@
   }
   function themeLabel(t) { return (THEMES[t] && THEMES[t].label) || t; }
 
+  var PROF_KEY = 'pm.profil';
+  var STATS_KEY = 'pm.stats';
+
+  function loadJSON(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; }
+  }
+  function saveJSON(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* stockage indisponible */ }
+  }
+  function getProfile() { return loadJSON(PROF_KEY, null); }
+  function getStats() { return loadJSON(STATS_KEY, {}); }
+  function bumpStats(theme, ok) {
+    var st = getStats();
+    st[theme] = st[theme] || { ok: 0, total: 0 };
+    st[theme].total++;
+    if (ok) st[theme].ok++;
+    saveJSON(STATS_KEY, st);
+  }
+  // Objectifs quotidiens conseillés selon le temps disponible (en minutes)
+  var SESSION_SIZE = { 10: 6, 15: 10, 20: 14, 30: 20, 45: 30, 60: 40 };
+  var THEME_ORDER = ['valeurs', 'institutions', 'droits', 'histoire', 'vivre'];
+
   /* ---------------- préparation d'un questionnaire ---------------- */
 
   function prepare(q) {
@@ -163,6 +185,9 @@
     if (!/^#\/revision\/\w+/.test(hash)) { revisionState = null; document.onkeydown = null; }
 
     if (hash === '#/' || hash === '') return renderHome();
+    if (hash === '#/bilan') return renderBilan();
+    if (hash === '#/parcours') return renderParcours();
+    if (hash === '#/seance') return renderSeance();
     if (hash === '#/series') return renderSeries();
     if (hash === '#/revision') return renderRevisionHome();
     if ((m = hash.match(/^#\/revision\/(\w+)/))) return renderRevisionTheme(m[1]);
@@ -185,6 +210,7 @@
 
   function renderHome() {
     stopTimer();
+    var profile = getProfile();
     var hist = loadHistory();
     var best = hist.reduce(function (m, h) { return Math.max(m, h.score); }, 0);
     var lastEntries = hist.slice(0, 5);
@@ -196,9 +222,13 @@
           META.exam.durationMin + ' minutes</strong>, correction immédiate, seuil de réussite à <strong>' +
           META.exam.pass + '/' + META.exam.questions + ' (80 %)</strong> — comme à l\'examen officiel de naturalisation.</p>' +
         '<div class="btn-row">' +
-          '<a class="btn" href="#/examen/aleatoire" data-random>Commencer un examen blanc</a>' +
-          '<a class="btn secondary" href="#/series">Choisir une série</a>' +
-          '<a class="btn ghost" href="#/revision">Réviser par thème</a>' +
+          (profile
+            ? '<a class="btn" href="#/seance">Lancer ma séance du jour</a>' +
+              '<a class="btn secondary" href="#/examen/aleatoire">Examen blanc (40 questions · 45 min)</a>' +
+              '<a class="btn ghost" href="#/bilan">Refaire mon bilan</a>'
+            : '<a class="btn" href="#/bilan">Faire mon bilan de départ (1 min)</a>' +
+              '<a class="btn secondary" href="#/examen/aleatoire">Examen blanc direct</a>' +
+              '<a class="btn ghost" href="#/revision">Réviser par thème</a>') +
         '</div>' +
       '</section>' +
 
@@ -208,6 +238,17 @@
         stat(META.exam.durationMin + ' min', 'chronométré') +
         stat(best ? best + '/' + META.exam.questions : '—', 'meilleur score') +
       '</div>' +
+
+      (profile
+        ? '<h2>Ton parcours</h2><div class="card"><p style="margin:0 0 10px">Ton programme est actif : ' +
+          esc((LEVELS.filter(function (l) { return l.id === profile.level; })[0] || LEVELS[1]).label) +
+          ' · ' + profile.minutes + ' min par jour' +
+          (profile.examDate ? ' · examen le ' + esc(new Date(profile.examDate + 'T00:00:00').toLocaleDateString('fr-FR')) : '') +
+          '.</p><div class="btn-row"><a class="btn secondary" href="#/parcours">Voir mon programme</a></div></div>'
+        : '<h2>Un parcours, pas juste un quiz</h2><div class="card"><p style="margin:0 0 10px">' +
+          'Réponds à 5 questions et Marianne construit ton programme : rythme quotidien, thèmes prioritaires, ' +
+          'objectifs jusqu\'au jour de l\'examen. Tout reste sur ton appareil.</p>' +
+          '<div class="btn-row"><a class="btn secondary" href="#/bilan">Faire mon bilan de départ</a></div></div>') +
 
       '<h2>Comment ça marche</h2>' +
       '<div class="grid cols-3">' +
@@ -281,12 +322,17 @@
       if (!s) { go('#/series'); return; }
       session = buildSession(s.questionIds, s.label);
     }
+    startExamUI(session.label, 'examen blanc · conditions réelles');
+  }
+
+  // Interface commune : examen blanc et séance guidée du parcours
+  function startExamUI(label, subtitle) {
     var total = session.items.length;
 
     app.innerHTML =
       '<div class="exam-bar">' +
-        '<div><strong>' + esc(session.label) + '</strong><div class="muted" style="margin:0">' +
-          total + ' questions · une seule bonne réponse · sans document</div></div>' +
+        '<div><strong>' + esc(label) + '</strong><div class="muted" style="margin:0">' +
+          total + ' questions · ' + esc(subtitle) + ' · une seule bonne réponse</div></div>' +
         '<div class="timer" id="timer">--:--</div>' +
         '<div class="btn-row"><button class="btn secondary" id="btn-finish">Terminer l\'examen</button></div>' +
       '</div>' +
@@ -398,6 +444,7 @@
       var chosen = session.answers[i];
       var ok = chosen === item.correct;
       if (ok) score++;
+      bumpStats(q.theme, ok);
       byTheme[q.theme] = byTheme[q.theme] || { ok: 0, total: 0 };
       byTheme[q.theme].total++;
       if (ok) byTheme[q.theme].ok++;
@@ -578,6 +625,7 @@
       var ok = pos === prep.correct;
       revisionState.done++;
       if (ok) revisionState.score++;
+      bumpStats(question.theme, ok);
       Array.prototype.forEach.call(opts.querySelectorAll('.option'), function (b) {
         var p = parseInt(b.getAttribute('data-pos'), 10);
         b.disabled = true;
@@ -609,6 +657,275 @@
       }
     };
     void focus;
+  }
+
+
+  /* ---------- bilan de départ et parcours personnalisé ---------- */
+
+  var bilan = null;
+
+  var LEVELS = [
+    { id: 'debut', label: 'Je découvre', help: 'Je pars de zéro ou presque.' },
+    { id: 'reperes', label: 'J\'ai quelques repères', help: 'Je connais certaines notions.' },
+    { id: 'consolider', label: 'Je veux consolider', help: 'Je comprends déjà l\'essentiel.' }
+  ];
+  var MINUTES = [10, 15, 20, 30, 45, 60];
+
+  function renderBilan() {
+    stopTimer();
+    if (!bilan) {
+      var p = getProfile();
+      bilan = {
+        step: 0,
+        level: p ? p.level : null,
+        examDate: p && p.examDate ? p.examDate : '',
+        minutes: p ? p.minutes : 30,
+        priorities: p ? p.priorities.slice() : []
+      };
+    }
+    var b = bilan;
+    var card = document.getElementById('bilan-card');
+    var html = '';
+
+    if (b.step === 0) {
+      html = '<div class="question-meta"><span>Étape 1 / 3 · ton point de départ</span></div>' +
+        '<div class="question-text">Comment te sens-tu aujourd\'hui ?</div><div class="options">' +
+        LEVELS.map(function (l) {
+          return '<button class="option' + (b.level === l.id ? ' selected' : '') + '" data-level="' + l.id + '">' +
+            '<span class="key">' + (b.level === l.id ? '✓' : '') + '</span><span><strong>' + esc(l.label) +
+            '</strong><br><span class="muted">' + esc(l.help) + '</span></span></button>';
+        }).join('') + '</div>';
+    } else if (b.step === 1) {
+      html = '<div class="question-meta"><span>Étape 2 / 3 · ton calendrier</span></div>' +
+        '<div class="question-text">Combien de temps peux-tu donner par jour ?</div>' +
+        '<p class="muted">Et, si tu en as une, indique la date de ton examen : le programme s\'y adaptera.</p>' +
+        '<div class="chips">' + MINUTES.map(function (m) {
+          return '<button class="chip' + (b.minutes === m ? ' active' : '') + '" data-min="' + m + '">' + m + ' min</button>';
+        }).join('') + '</div>' +
+        '<p style="margin-top:16px"><label class="muted" for="exam-date">Date de l\'examen (facultative)</label><br>' +
+        '<input id="exam-date" type="date" value="' + esc(b.examDate) + '" style="padding:10px;border:1px solid var(--gris-300);border-radius:8px;font-family:inherit;font-size:1rem"></p>';
+    } else {
+      html = '<div class="question-meta"><span>Étape 3 / 3 · tes priorités</span></div>' +
+        '<div class="question-text">Quels thèmes veux-tu renforcer ?</div>' +
+        '<p class="muted">Tu peux en choisir plusieurs. Laisse vide si tu n\'as pas de préférence : le programme te guidera.</p>' +
+        '<div class="chips">' + THEME_ORDER.map(function (t) {
+          var on = b.priorities.indexOf(t) >= 0;
+          return '<button class="chip' + (on ? ' active' : '') + '" data-theme="' + t + '">' + esc(THEMES[t].short) + '</button>';
+        }).join('') + '</div>' +
+        '<label class="muted" style="display:flex;gap:8px;align-items:flex-start;margin-top:16px">' +
+        '<input type="checkbox" checked disabled> Tes réponses servent uniquement à construire le programme sur cet appareil ; rien n\'est envoyé ni conservé ailleurs.</label>';
+    }
+
+    var canNext = (b.step === 0 && b.level) || b.step === 1 || b.step === 2;
+
+    app.innerHTML = '<div class="card" id="bilan-card">' +
+      '<div class="progress-line"><i style="width:' + ((b.step + 1) / 3 * 100) + '%"></i></div>' +
+      html +
+      '<div class="btn-row" style="margin-top:18px">' +
+        (b.step > 0 ? '<button class="btn ghost" id="btn-back">← Retour</button>' : '') +
+        '<button class="btn" id="btn-next"' + (canNext ? '' : ' disabled') + '>' +
+        (b.step === 2 ? 'Créer mon parcours personnalisé' : 'Continuer →') + '</button>' +
+      '</div></div>' +
+      '<p class="muted" style="margin-top:12px">Bilan de départ · 1 minute · gratuit et sans compte</p>';
+
+    card = document.getElementById('bilan-card');
+    card.addEventListener('click', function (e) {
+      var lvl = e.target.closest('button[data-level]');
+      var min = e.target.closest('button[data-min]');
+      var th = e.target.closest('button[data-theme]');
+      if (lvl) { bilan.level = lvl.getAttribute('data-level'); renderBilan(); }
+      if (min) {
+        bilan.minutes = parseInt(min.getAttribute('data-min'), 10);
+        var dateEl = document.getElementById('exam-date');
+        if (dateEl) bilan.examDate = dateEl.value;
+        renderBilan();
+      }
+      if (th) {
+        var t = th.getAttribute('data-theme');
+        var i = bilan.priorities.indexOf(t);
+        if (i >= 0) bilan.priorities.splice(i, 1); else bilan.priorities.push(t);
+        var dateEl2 = document.getElementById('exam-date');
+        if (dateEl2) bilan.examDate = dateEl2.value;
+        renderBilan();
+      }
+    });
+    var dateInput = document.getElementById('exam-date');
+    if (dateInput) dateInput.addEventListener('change', function () { bilan.examDate = dateInput.value; });
+    document.getElementById('btn-back') && document.getElementById('btn-back').addEventListener('click', function () {
+      var d = document.getElementById('exam-date'); if (d) bilan.examDate = d.value;
+      bilan.step--; renderBilan();
+    });
+    document.getElementById('btn-next').addEventListener('click', function () {
+      var d = document.getElementById('exam-date'); if (d) bilan.examDate = d.value;
+      if (bilan.step < 2) { bilan.step++; renderBilan(); return; }
+      saveJSON(PROF_KEY, {
+        level: bilan.level || 'reperes',
+        examDate: bilan.examDate || '',
+        minutes: bilan.minutes,
+        priorities: bilan.priorities.slice(),
+        createdAt: new Date().toISOString()
+      });
+      bilan = null;
+      go('#/parcours');
+    });
+  }
+
+  function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    var d = new Date(dateStr + 'T00:00:00');
+    if (isNaN(d.getTime())) return null;
+    return Math.ceil((d - new Date()) / 86400000);
+  }
+
+  function sessionSize(minutes) {
+    return SESSION_SIZE[minutes] || Math.max(6, Math.round(minutes * 0.7));
+  }
+
+  // Ordre de travail : thèmes choisis au bilan, puis les thèmes les moins maîtrisés.
+  function orderedThemes(profile) {
+    var stats = getStats();
+    var prio = profile.priorities.filter(function (t) { return THEME_ORDER.indexOf(t) >= 0; });
+    var rest = THEME_ORDER.filter(function (t) { return prio.indexOf(t) < 0; });
+    rest.sort(function (a, b) {
+      var ra = stats[a] && stats[a].total ? stats[a].ok / stats[a].total : -1;
+      var rb = stats[b] && stats[b].total ? stats[b].ok / stats[b].total : -1;
+      return ra - rb;
+    });
+    return prio.concat(rest);
+  }
+
+  // Séance du jour : questions des thèmes prioritaires + quelques mises en situation.
+  function buildDailySession(profile) {
+    var size = sessionSize(profile.minutes);
+    var themes = orderedThemes(profile).slice(0, 3);
+    var sitsCount = Math.max(2, Math.round(size * 0.2));
+    var ids = [];
+    var sitIds = shuffle(QUESTIONS.filter(function (q) { return q.theme === 'situation'; }))
+      .slice(0, sitsCount).map(function (q) { return q.id; });
+    var remaining = size - sitIds.length;
+    var perTheme = Math.ceil(remaining / themes.length);
+    themes.forEach(function (t) {
+      if (ids.length >= remaining) return;
+      var pool = shuffle(QUESTIONS.filter(function (q) { return q.theme === t && !q.dupOf; }));
+      pool.slice(0, Math.min(perTheme, remaining - ids.length)).forEach(function (q) { ids.push(q.id); });
+    });
+    var all = ids.concat(sitIds);
+    while (all.length < size) {
+      var extra = shuffle(QUESTIONS.filter(function (q) { return !q.dupOf && all.indexOf(q.id) < 0; }))[0];
+      if (!extra) break;
+      all.push(extra.id);
+    }
+    return buildSession(shuffle(all), 'Séance du jour');
+  }
+
+  function renderSeance() {
+    var profile = getProfile();
+    if (!profile) { go('#/bilan'); return; }
+    session = buildDailySession(profile);
+    // pas de chronomètre serré en séance d'entraînement : on chronomètre sur la base d'une minute par question
+    session.durationMin = session.items.length;
+    session.remaining = session.items.length * 60;
+    startExamUI('Séance du jour', 'entraînement guidé');
+  }
+
+  function renderParcours() {
+    stopTimer();
+    var profile = getProfile();
+    if (!profile) {
+      app.innerHTML = '<h1>Mon parcours</h1>' +
+        '<div class="card"><p>Pour te proposer un programme adapté (rythme, priorités, révisions), commence par le ' +
+        '<strong>bilan de départ</strong> : une minute, cinq questions, sans compte.</p>' +
+        '<div class="btn-row"><a class="btn" href="#/bilan">Faire mon bilan de départ</a>' +
+        '<a class="btn ghost" href="#/examen/aleatoire">Passer directement un examen blanc</a></div></div>';
+      return;
+    }
+
+    var stats = getStats();
+    var hist = loadHistory();
+    var totalAnswered = Object.keys(stats).reduce(function (n, t) { return n + stats[t].total; }, 0);
+    var totalOk = Object.keys(stats).reduce(function (n, t) { return n + stats[t].ok; }, 0);
+    var rate = totalAnswered ? Math.round(totalOk / totalAnswered * 100) : 0;
+    var best = hist.reduce(function (m, h) { return Math.max(m, h.score); }, 0);
+    var days = daysUntil(profile.examDate);
+    var size = sessionSize(profile.minutes);
+    var themes = orderedThemes(profile);
+    var levelLabel = (LEVELS.filter(function (l) { return l.id === profile.level; })[0] || LEVELS[1]).label;
+
+    var plan = themes.map(function (t) {
+      var st = stats[t] || { ok: 0, total: 0 };
+      var p = st.total ? Math.round(st.ok / st.total * 100) : 0;
+      var prio = profile.priorities.indexOf(t) >= 0;
+      return '<tr><td>' + esc(THEMES[t].label) + (prio ? ' <span class="tag">prioritaire</span>' : '') +
+        '</td><td>' + st.ok + '/' + st.total + '</td>' +
+        '<td><div class="progress-line" style="margin:0"><i style="width:' + p + '%;background:' +
+        (st.total === 0 ? 'var(--gris-300)' : p >= 80 ? 'var(--vert)' : p >= 50 ? 'var(--orange)' : 'var(--rouge)') +
+        '"></i></div></td><td><a href="#/revision/' + t + '">réviser</a></td></tr>';
+    }).join('');
+
+    var countdown = days === null
+      ? 'Date d\'examen non fixée : on travaille le socle, thème par thème.'
+      : days > 1 ? 'J−' + days + ' avant ton examen. Vise 36/40 aux examens blancs pour avoir de la marge.'
+      : days === 1 ? 'C\'est demain ! Aujourd\'hui : une révision légère et une bonne nuit.'
+      : 'Jour J. Respire, lis bien chaque question, réponds à tout.';
+
+    var strategy = profile.level === 'debut'
+      ? 'Tu démarres : enchaîne d\'abord des séances courtes de révision, puis un examen blanc par semaine. L\'objectif n\'est pas le score mais la régularité.'
+      : profile.level === 'reperes'
+        ? 'Tu as des bases : alterne une séance d\'entraînement et un examen blanc, et relis systématiquement l\'explication de chaque erreur.'
+        : 'Tu maîtrises l\'essentiel : vise la vitesse. Un examen blanc chronométré tous les deux jours, et ne révise que les thèmes sous 80 %.';
+
+    var recommended = [];
+    if (days !== null && days <= 7) {
+      recommended.push('Un examen blanc chronométré (45 min) chaque jour jusqu\'au jour J.');
+      recommended.push('Le jour précédent : pas de nouvel examen, relis tes erreurs et dors tôt.');
+    } else {
+      recommended.push('Une séance guidée de ' + size + ' questions par jour (environ ' + profile.minutes + ' min).');
+      recommended.push('Un examen blanc complet tous les 3 jours pour mesurer ta progression.');
+    }
+    if (themes.length) recommended.push('Priorité de révision : ' + themes.slice(0, 3).map(function (t) { return THEMES[t].short; }).join(', ') + '.');
+
+    app.innerHTML =
+      '<div class="card">' +
+        '<div class="question-meta"><span class="tag">Mon parcours</span><span>niveau : ' + esc(levelLabel) +
+        '</span><span>' + profile.minutes + ' min / jour</span></div>' +
+        '<h1>Ta séance du jour</h1>' +
+        '<p class="muted">' + esc(countdown) + '</p>' +
+        '<div class="btn-row">' +
+          '<a class="btn" href="#/seance">Lancer ' + size + ' questions guidées</a>' +
+          '<a class="btn secondary" href="#/examen/aleatoire">Examen blanc (40 questions · 45 min)</a>' +
+          '<a class="btn ghost" href="#/bilan">Refaire mon bilan</a>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="grid cols-4" style="margin-top:16px">' +
+        stat(totalAnswered, 'questions travaillées') +
+        stat(rate + ' %', 'taux de réussite') +
+        stat(best ? best + '/40' : '—', 'meilleur examen blanc') +
+        stat(days === null ? '—' : (days + ' j'), 'avant l\'examen') +
+      '</div>' +
+
+      '<h2>Ton plan</h2>' +
+      '<div class="card"><ul style="margin:0;padding-left:20px">' +
+        recommended.map(function (r) { return '<li style="margin-bottom:6px">' + esc(r) + '</li>'; }).join('') +
+      '</ul><p class="muted" style="margin:12px 0 0">' + esc(strategy) + '</p></div>' +
+
+      '<h2>Où tu en es, thème par thème</h2>' +
+      '<div class="card"><table><thead><tr><th>Thème</th><th>Score</th><th>Maîtrise</th><th></th></tr></thead>' +
+      '<tbody>' + plan + '</tbody></table>' +
+      '<p class="muted" style="margin:12px 0 0">Les thèmes sous 80 % sont proposés en priorité dans ta séance du jour.</p></div>' +
+
+      (hist.length > 1 ? '<p style="margin-top:16px"><a href="#/historique">Voir l\'historique de mes examens blancs →</a></p>' : '') +
+      '<p class="muted" style="margin-top:12px">Ton profil reste sur cet appareil (aucune donnée envoyée). ' +
+      '<button class="btn ghost" id="btn-reset" style="padding:4px 10px;font-size:.82rem">Effacer mon profil</button></p>';
+
+    var reset = document.getElementById('btn-reset');
+    reset && reset.addEventListener('click', function () {
+      if (confirm('Effacer ton profil et tes statistiques ?')) {
+        try { localStorage.removeItem(PROF_KEY); localStorage.removeItem(STATS_KEY); } catch (e) { /* ignore */ }
+        bilan = null;
+        render();
+      }
+    });
   }
 
   /* ---------- banque complète ---------- */
