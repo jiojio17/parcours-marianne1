@@ -1,0 +1,75 @@
+name: Publier le site (GitHub Pages)
+
+# Construit le site (aucune dépendance) et le publie sur GitHub Pages.
+# Prérequis, une seule fois : Settings → Pages → Source = « GitHub Actions ».
+# Ensuite, chaque push sur cette branche met le site à jour automatiquement.
+
+on:
+  push:
+    branches:
+      - arena/01a0aff8-parcours-marianne1
+      - main
+    paths:
+      - 'app/**'
+      - 'data/**'
+      - 'tools/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Construire la banque et les séries
+        run: npm run build
+
+      - name: Contrôles du site
+        run: |
+          set -euo pipefail
+          test -f app/index.html
+          test -f app/manifest.webmanifest
+          test -f app/sw.js
+          test -f app/icons/icon-192.png
+          test -f app/icons/icon-512.png
+          node -e "
+            const fs=require('fs');
+            const q=fs.readFileSync('app/data/questions.js','utf8');
+            const s=fs.readFileSync('app/data/series.js','utf8');
+            const n=(q.match(/\"id\":/g)||[]).length;
+            const series=(s.match(/serie-/g)||[]).length;
+            console.log('questions dans la banque :', n);
+            console.log('séries :', series);
+            if (n < 400 || series < 40) process.exit(1);
+          "
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app
+
+  deployer:
+    needs: construire
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

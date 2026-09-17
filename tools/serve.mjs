@@ -22,6 +22,9 @@ const TYPES = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
+  '.vtt': 'text/vtt; charset=utf-8',
+  '.zip': 'application/zip',
   '.md': 'text/markdown; charset=utf-8',
 };
 
@@ -36,8 +39,10 @@ createServer(async (req, res) => {
 
     const info = await stat(file).catch(() => null);
     if (!info || info.isDirectory()) {
+      const page404 = join(ROOT, '404.html');
+      const existe = await stat(page404).catch(() => null);
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end('<h1>404</h1><p>Page introuvable. <a href="/">Retour à l\'accueil</a></p>');
+      res.end(existe ? await readFile(page404) : '<h1>404</h1><p>Page introuvable. <a href="/">Retour à l\'accueil</a></p>');
       return;
     }
 

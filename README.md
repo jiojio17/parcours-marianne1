@@ -68,6 +68,14 @@ dist/                    paquet du site à déployer (généré par `npm run pac
 app/parcours             bilan de départ et programme personnalisé (dans app.js)
 ```
 
+## Sur tous les appareils
+
+L'application est une **PWA** : elle s'installe sur l'écran d'accueil d'un téléphone
+(icône, plein écran, **fonctionnement hors-ligne**) et s'adapte du petit téléphone au
+grand écran — menu défilant, cibles tactiles de 44 px, chronomètre toujours visible,
+tableaux défilants, navigation au clavier, impression propre des fiches. Détail complet
+dans `docs/DEPLOIEMENT.md`.
+
 ## Utilisation
 
 ```bash
@@ -77,7 +85,8 @@ npm test          # parcours complet simulé, 36 vérifications (nécessite npm 
 npm run pack      # crée dist/parcours-marianne-quiz.zip, prêt pour Cloudflare Pages
 ```
 
-Mise en ligne : voir `docs/DEPLOIEMENT.md`.
+Mise en ligne : voir `docs/DEPLOIEMENT.md` (GitHub Pages en 3 clics, ou dépôt du paquet
+sur Cloudflare Pages).
 
 Le site fonctionne aussi sans serveur : ouvrir `app/index.html` dans un navigateur.
 

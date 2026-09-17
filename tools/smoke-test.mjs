@@ -23,7 +23,7 @@ const ok = (label, cond, extra = '') => console.log((cond ? '✅' : '❌') + ' '
 
 // 1. accueil
 ok('Accueil rendu', app.innerHTML.includes('examen civique'));
-ok('Statistiques affichées', app.innerHTML.includes('285'));
+ok('Statistiques affichées', app.innerHTML.includes('472'), 'total de questions');
 
 // 2. examen blanc
 await nav('#/examen/aleatoire');

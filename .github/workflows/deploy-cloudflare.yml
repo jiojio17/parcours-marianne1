@@ -1,0 +1,56 @@
+name: Publier le site sur Cloudflare Pages (facultatif)
+
+# Déploie le site sur Cloudflare Pages à chaque push, sans passer par le tableau de bord.
+# Prérequis, une seule fois pour toi :
+#   Settings → Secrets and variables → Actions → New repository secret
+#     CLOUDFLARE_API_TOKEN   (jeton « Cloudflare Pages : Edit »)
+#     CLOUDFLARE_ACCOUNT_ID  (identifiant de compte, visible dans le tableau de bord)
+#   puis, facultatif : la variable de dépôt CLOUDFLARE_PROJECT_NAME (par défaut :
+#   parcours-marianne) pour cibler un projet existant (par exemple parcours-marianne-e1u).
+# Sans ces secrets, le travail est simplement ignoré : rien ne casse.
+
+on:
+  push:
+    branches:
+      - arena/01a0aff8-parcours-marianne1
+      - main
+    paths:
+      - 'app/**'
+      - 'data/**'
+      - 'tools/**'
+      - '.github/workflows/deploy-cloudflare.yml'
+  workflow_dispatch:
+
+jobs:
+  deployer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier la configuration
+        id: verif
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "pret=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pret=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Cloudflare non configuré::Ajoute les secrets CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID pour activer ce déploiement. Voir docs/DEPLOIEMENT.md."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.verif.outputs.pret == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.verif.outputs.pret == 'true'
+        with:
+          node-version: '22'
+
+      - name: Construire
+        if: steps.verif.outputs.pret == 'true'
+        run: npm run build
+
+      - name: Déployer sur Cloudflare Pages
+        if: steps.verif.outputs.pret == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy app --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME || 'parcours-marianne' }} --branch=main

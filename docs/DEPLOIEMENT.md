@@ -1,76 +1,101 @@
-# Mettre le site en ligne (Cloudflare Pages)
+# Mettre le site en ligne
 
-Le site est **100 % statique** : un dossier de fichiers, aucune installation, aucun serveur.
-Le paquet prêt à déployer est `dist/parcours-marianne-quiz.zip` (contenu du dossier `app/`).
-
-Il y a trois façons de le mettre en ligne, de la plus simple à la plus « automatique ».
+Le site est **100 % statique**, **installable sur téléphone** (PWA) et fonctionne
+**hors-ligne** une fois visité. Trois voies possibles, de la plus rapide à la plus
+automatique.
 
 ---
 
-## Option A — Déposer le paquet (2 minutes, immédiat)
+## Option 0 — GitHub Pages : 3 clics, une seule fois ⭐ (recommandée)
+
+Le site se publie ensuite **tout seul à chaque mise à jour** (workflow
+`.github/workflows/pages.yml`, déjà dans le dépôt).
+
+1. Ouvrir <https://github.com/jiojio17/parcours-marianne1/settings/pages>
+2. Dans **Source**, choisir **GitHub Actions** (pas « Deploy from a branch »).
+3. Ouvrir <https://github.com/jiojio17/parcours-marianne1/actions/workflows/pages.yml>
+   et cliquer sur **Run workflow** → branche `arena/01a0aff8-parcours-marianne1` → **Run**.
+
+L'adresse publique du site est indiquée en haut de l'exécution (et dans
+**Settings → Pages**) :
+
+```
+https://jiojio17.github.io/parcours-marianne1/
+```
+
+Cette adresse fonctionne sur **n'importe quel appareil** : téléphone, tablette,
+ordinateur, à la maison comme ailleurs. Sur téléphone, le navigateur propose
+« Ajouter à l'écran d'accueil » : l'application s'ouvre alors en plein écran, avec son
+icône, et reste utilisable **sans réseau**.
+
+### Pourquoi ce n'est pas déjà activé
+
+L'activation de GitHub Pages demande les droits d'administration du dépôt, que l'agent
+n'a pas (jeton limité à l'écriture de code : l'API répond « Resource not accessible by
+integration »). Le workflow, lui, est prêt et testé : il ne manque que ce clic.
+
+---
+
+## Option 1 — Cloudflare Pages : dépôt du paquet (2 minutes)
 
 1. Ouvrir <https://dash.cloudflare.com> → **Workers & Pages**.
-2. **Soit** ouvrir le projet existant `parcours-marianne-e1u` → onglet **Deployments** →
-   **Create new deployment** → **Upload assets**, puis glisser `dist/parcours-marianne-quiz.zip`.
-   Le site reste à la même adresse : <https://parcours-marianne-e1u.pages.dev/>.
-   **Soit** créer un nouveau projet (**Create application → Pages → Upload assets**) pour garder
-   l'ancienne version en ligne à côté ; le site aura alors une nouvelle adresse
-   `xxx.pages.dev`.
-3. Attendre 10 secondes : c'est en ligne.
+2. Ouvrir le projet `parcours-marianne-e1u` → **Deployments** → **Create new deployment**
+   → **Upload assets**, puis glisser `dist/parcours-marianne-quiz.zip`.
+   → Le site reste à l'adresse habituelle : <https://parcours-marianne-e1u.pages.dev/>
+   → Cloudflare conserve l'historique : **Rollback** en un clic si besoin.
 
-> ⚠️ Déployer dans le projet existant **remplace** la version actuelle du site.
-> Cloudflare conserve tout l'historique : en cas de besoin, on revient à l'ancienne version
-> en un clic depuis **Deployments → … → Rollback**.
+   *(Pour garder l'ancienne version en ligne à côté, créer un nouveau projet :
+   **Create application → Pages → Upload assets** ; le site aura une nouvelle adresse
+   `xxx.pages.dev`.)*
 
-Pour régénérer le paquet après une modification des questions :
+3. Pour régénérer le paquet après une modification :
 
 ```bash
-npm run build && npm run pack      # → dist/parcours-marianne-quiz.zip
+npm run build && npm run pack     # → dist/parcours-marianne-quiz.zip
 ```
 
 ---
 
-## Option B — Connexion au dépôt GitHub (mise à jour automatique)
+## Option 2 — Cloudflare Pages : déploiement automatique
 
-À faire une seule fois :
+Le workflow `.github/workflows/deploy-cloudflare.yml` déploie à chaque push, sans
+tableau de bord. Configuration unique :
 
-1. Fusionner la branche de travail dans `main` (voir la *pull request* ouverte sur le dépôt
-   `jiojio17/parcours-marianne1`).
-2. Dashboard Cloudflare → **Workers & Pages** → **Create application** → **Pages** →
-   **Connect to Git** → autoriser GitHub → choisir le dépôt `parcours-marianne1`.
-3. Réglages de construction :
-   - **Production branch** : `main`
-   - **Framework preset** : `None`
-   - **Build command** : *(laisser vide)*
-   - **Build output directory** : `app`
-4. **Save and Deploy**.
+1. Créer un jeton Cloudflare **« Cloudflare Pages : Edit »**
+   (<https://dash.cloudflare.com/profile/api-tokens>).
+2. Dans le dépôt : **Settings → Secrets and variables → Actions** →
+   ajouter les secrets `CLOUDFLARE_API_TOKEN` et `CLOUDFLARE_ACCOUNT_ID`.
+3. Facultatif : ajouter la variable `CLOUDFLARE_PROJECT_NAME` pour cibler un projet
+   existant (par défaut `parcours-marianne` ; mets `parcours-marianne-e1u` pour mettre à
+   jour le site actuel).
 
-Chaque `git push` sur `main` redéploie alors le site automatiquement.
+Sans ces secrets, le workflow ne fait rien : aucun échec, rien à nettoyer.
 
 ---
 
-## Option C — Ajouter seulement les quiz au site existant
+## Comment le site s'adapte à chaque appareil
 
-Si tu veux **garder** le site actuel (`parcours-marianne-e1u.pages.dev`) et y ajouter
-uniquement les quiz, il faut son **code source** (le projet qui a servi à le déployer) :
-
-- soit le dossier du projet en `.zip` (il sera intégré : questions, moteur de quiz,
-  examens blancs, bilan de départ) ;
-- soit un dépôt GitHub contenant ce code.
-
-Sans ce code source, la seule solution est de republier le site reconstruit ici
-(options A ou B) : il reprend la même logique (bilan de départ → parcours personnalisé,
-mêmes thèmes, même esprit) avec les quiz en plus.
+| Appareil | Ce qui a été prévu |
+| --- | --- |
+| **Téléphone** (≤ 700 px) | menu qui défile horizontalement, boutons pleine largeur, cibles tactiles de 44 px minimum, chronomètre d'examen toujours visible en haut, tableaux qui défilent au lieu d'être écrasés, marges adaptées aux encoches (iPhone et Android) |
+| **Tablette** (701–1024 px) | grilles en deux colonnes, marges élargies |
+| **Ordinateur** (≥ 1025 px) | largeur de lecture confortable (980 px), grilles en trois ou quatre colonnes |
+| **Grand écran** (≥ 1400 px) | colonne de lecture limitée à 1100 px et texte légèrement agrandi |
+| **Téléphone en paysage** | barre d'examen non collante pour libérer la hauteur |
+| **Clavier** | navigation complète (Tab, touches 1 à 4 pour répondre, flèches, Entrée) avec contour de focus visible |
+| **Impression** | les menus et boutons disparaissent, les fiches et la banque s'impriment proprement |
+| **Mouvement réduit** | les animations se désactivent si le système le demande |
+| **Hors-ligne** | installation sur l'écran d'accueil, consultation des fiches, des capsules et des questions déjà visitées |
 
 ---
 
 ## À propos du dépôt `parcours-marianne` (sans le « 1 »)
 
 Ce dépôt existe sur GitHub mais il est **vide** (aucun commit). Pour que le site y soit
-hébergé, il faut y transférer le code — deux solutions simples :
+hébergé :
 
-- **Renommer** : GitHub → *Settings* → *Rename* du dépôt `parcours-marianne1`, puis créer un
-  nouveau `parcours-marianne1` si besoin ;
+- **Renommer** : GitHub → *Settings* → *Rename* du dépôt `parcours-marianne1`, puis créer
+  un nouveau `parcours-marianne1` si besoin ;
 - **Pousser le code** depuis un ordinateur :
   ```bash
   git clone https://github.com/jiojio17/parcours-marianne1.git
@@ -79,3 +104,14 @@ hébergé, il faut y transférer le code — deux solutions simples :
   git push autre main:main --force
   ```
   (le dépôt `parcours-marianne` étant vide, rien ne peut être écrasé).
+
+---
+
+## Adresses utiles
+
+| Quoi | Où |
+| --- | --- |
+| Code et historique | <https://github.com/jiojio17/parcours-marianne1> |
+| Propositions de fusion | <https://github.com/jiojio17/parcours-marianne1/pulls> |
+| Dépôts automatiques | <https://github.com/jiojio17/parcours-marianne1/actions> |
+| Site d'origine (Cloudflare) | <https://parcours-marianne-e1u.pages.dev/> |

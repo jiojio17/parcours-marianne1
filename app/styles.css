@@ -21,6 +21,20 @@
 
 * { box-sizing: border-box; }
 
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* tableau tactile confortable et défilement horizontal des tableaux larges */
+.card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* les tableaux ne doivent jamais casser la mise en page */
+table { min-width: 100%; }
+
+/* zones cliquables suffisamment grandes (recommandation tactile : 44 px) */
+.btn, .option, .chip, .serie { min-height: 44px; }
+
+/* anneau de focus visible au clavier, sans gêne au doigt */
+:focus-visible { outline: 3px solid var(--bleu-clair); outline-offset: 2px; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -35,6 +49,8 @@ a { color: var(--bleu); }
 
 /* ---------- barre supérieure ---------- */
 .topbar {
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
   display: flex; flex-wrap: wrap; gap: 16px;
   align-items: center; justify-content: space-between;
   padding: 14px 20px;
@@ -193,12 +209,90 @@ details.qa ol { margin: 10px 0 0; padding-left: 22px; font-size: .94rem; }
 details.qa li.ok { color: var(--vert); font-weight: 600; }
 details.qa .src { margin-top: 8px; font-size: .8rem; color: var(--gris-500); }
 
-.footer { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; font-size: .82rem; color: var(--gris-500); }
+.footer { max-width: 980px; margin: 0 auto; padding: 24px 16px calc(48px + env(safe-area-inset-bottom)); font-size: .82rem; color: var(--gris-500); }
 .footer a { color: var(--bleu); }
 
-@media (max-width: 640px) {
-  .topbar { position: static; }
+/* ---------- téléphones et petits écrans ---------- */
+@media (max-width: 700px) {
+  .topbar { position: static; padding: 12px 14px; gap: 10px; }
+  .brand small { display: none; }
+  .topnav {
+    width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap; gap: 4px; padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .topnav::-webkit-scrollbar { display: none; }
+  .topnav a { white-space: nowrap; padding: 9px 12px; }
+
+  main { padding: 16px 12px 48px; }
+  h1 { font-size: 1.42rem; }
+  h2 { font-size: 1.14rem; margin-top: 22px; }
+  h3 { font-size: 1rem; }
+  .card { padding: 14px; }
+
+  /* la barre d'examen reste visible : le chronomètre doit rester sous les yeux */
+  .exam-bar {
+    position: sticky; top: 0; padding: 10px 12px; gap: 8px;
+    align-items: flex-start; border-radius: 0 0 var(--rayon) var(--rayon);
+  }
+  .exam-bar > div:first-child { font-size: .9rem; }
+  .exam-bar .muted { display: none; }
+  .exam-bar .btn { padding: 8px 12px; font-size: .85rem; }
+  .timer { font-size: 1.05rem; }
+
+  .question-card { padding: 16px 14px; }
+  .question-text { font-size: 1.05rem; line-height: 1.45; }
+  .option { padding: 12px 13px; font-size: .96rem; }
+  .option .key { flex: 0 0 24px; height: 24px; font-size: .78rem; }
+
+  .grid-nav { grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 6px; }
+  .grid-nav button { min-height: 40px; font-size: .85rem; }
+
+  .btn-row .btn { flex: 1 1 auto; }
+  .btn { padding: 12px 16px; font-size: .95rem; }
+
+  /* les tableaux larges défilent au lieu d'être écrasés */
+  table { font-size: .88rem; }
+  th, td { padding: 8px 8px; }
+  .score-ring { width: 150px; height: 150px; }
+  .score-ring .inner { width: 122px; height: 122px; }
+  .score-ring b { font-size: 1.9rem; }
+  details.qa { padding: 12px; }
+  details.qa summary { font-size: .97rem; }
+}
+
+/* ---------- tablettes ---------- */
+@media (min-width: 701px) and (max-width: 1024px) {
+  main { padding: 20px 18px 56px; }
+  .grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+}
+
+/* ---------- très grands écrans : on garde une lecture confortable ---------- */
+@media (min-width: 1400px) {
+  main { max-width: 1100px; }
+  .footer { max-width: 1100px; }
+  body { font-size: 17px; }
+}
+
+/* ---------- téléphone en paysage : la barre d'examen ne doit pas manger l'écran ---------- */
+@media (max-height: 500px) and (orientation: landscape) {
   .exam-bar { position: static; }
-  .question-text { font-size: 1.02rem; }
-  .grid-nav { grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); }
+  .question-card { padding: 14px; }
+  .question-text { font-size: 1rem; }
+}
+
+/* ---------- préférences d'accessibilité ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- impression : réviser sur papier ---------- */
+@media print {
+  .topbar, .topnav, .footer, .btn-row, .btn, .exam-bar, .grid-nav, .progress-line { display: none !important; }
+  body { background: #fff; font-size: 12pt; }
+  main { max-width: none; padding: 0; }
+  .card, details.qa, .question-card { border: 1px solid #999; box-shadow: none; break-inside: avoid; }
+  details.qa[open] summary, details.qa > summary { font-weight: 700; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
 }
