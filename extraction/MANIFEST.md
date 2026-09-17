@@ -1,7 +1,7 @@
 # Extraction du site `parcours-marianne-e1u.pages.dev`
 
 Source : <https://parcours-marianne-e1u.pages.dev/>
-Récupéré le 2026-09-17 16:37 UTC par GitHub Actions.
+Récupéré le 2026-09-17 16:38 UTC par GitHub Actions.
 
 | Fichier | Taille | SHA-256 (12 premiers) |
 | --- | --- | --- |
@@ -59,13 +59,24 @@ Récupéré le 2026-09-17 16:37 UTC par GitHub Actions.
 
 ```json
 {
-  "leçons": 2,
-  "questions de leçon": 52,
-  "cartes mémo (facts)": 14,
+  "questions exam-bank": 228,
+  "connaissances": 191,
+  "mises en situation": 37,
+  "thèmes (1 à 5)": "1, 2, 3, 4, 5",
+  "sans explication": 0,
+  "avec piège rédigé": 9,
+  "options ≠ 4": 0,
+  "format annoncé": "{\"total\":40,\"duration\":45,\"passing\":32}",
+  "leçons": 14,
+  "questions de leçons": 46,
+  "cartes mémoire": 56,
+  "mises en situation (leçons)": 6,
+  "enrichissements de leçon": 14,
   "capsules": 22,
   "durée totale capsules (min)": 105,
-  "enrichissements de leçon": 14,
+  "questions traitées en capsules": 228,
   "sous-titres VTT": 36,
-  "lignes de sous-titres": 1338
+  "lignes de sous-titres": 1338,
+  "mots de sous-titres": 13225
 }
 ```
