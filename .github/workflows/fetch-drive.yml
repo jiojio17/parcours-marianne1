@@ -1,0 +1,125 @@
+name: Fetch Drive documents
+
+# Récupère les documents du dossier Google Drive partagé
+# « Exercices renouvellement » et les commite dans documents/exercices-renouvellement/
+# (les runners GitHub ont un accès Internet complet, contrairement au sandbox de l'agent).
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/01a0aff8-parcours-marianne1
+    paths:
+      - '.github/workflows/fetch-drive.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0aff8-parcours-marianne1
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install gdown
+        run: pip install --quiet gdown
+
+      - name: Download folder from Drive
+        run: |
+          set -euxo pipefail
+          mkdir -p /tmp/dl
+          gdown --folder --remaining-ok \
+            "https://drive.google.com/drive/folders/1DERlcp5UxYtl7E-7hEIAqE3VzALwrZY_" \
+            -O /tmp/dl || echo "gdown terminé avec des erreurs, on complète en direct"
+
+      - name: Fallback direct download by file id
+        run: |
+          set -euxo pipefail
+          declare -A IDS=(
+            [1789657471668.jpg]=1ngo_qXTbCE9gLo9hOzQXJinY1zPX3oHn
+            [1789657471675.jpg]=1hJH6ctI2YAKKUjWuuwWKr2bmYIBJQDbp
+            [1789657471681.jpg]=10SEk_zsPO1g16Vc3PNrHAjW3Di5FNrxh
+            [1789657471689.jpg]=1diDP2ZhWnbZjikxK2q3h6qp-RBVZW1oL
+            [1789657471698.jpg]=10etjqGwOutEZeL13cnHrfGDmfNcgg-fF
+            [1789657471705.jpg]=1Fir61wjxT2xbfFzAsr-HNqcl89kEkuDz
+            [1789657471714.jpg]=17fKEb2kQSG47eNumN66w0uxvUehXFNJU
+            [1789657471721.jpg]=1CuDn7rBhGWlnT2LRAcPCsjvvp6b0ouyf
+            [1789657471730.jpg]=1LaAcordUEz5N9Vo-JTJgU01XECWQ1s-X
+            [1789657471738.jpg]=1ca53FSykdpl6_qfWJ3KBb6kGKM99wpnF
+            [1789657471746.jpg]=1aTAblypDSsDDMol2wqe0OoibLdUtDzGY
+          )
+          for name in "${!IDS[@]}"; do
+            existing="$(find /tmp/dl -type f -name "$name" -size +100k | head -n1 || true)"
+            if [ -n "$existing" ]; then
+              echo "OK (gdown): $name"
+              continue
+            fi
+            echo "Téléchargement direct: $name"
+            curl -sSL --retry 4 --retry-delay 3 \
+              -o "/tmp/dl/$name" \
+              "https://drive.usercontent.google.com/download?id=${IDS[$name]}&export=download&confirm=t" || true
+          done
+
+      - name: Collecter les fichiers
+        run: |
+          set -euxo pipefail
+          mkdir -p documents/exercices-renouvellement
+          find /tmp/dl -type f -name '*.jpg' -exec cp -n {} documents/exercices-renouvellement/ \;
+          ls -la documents/exercices-renouvellement/
+
+      - name: Vérifier le compte de fichiers
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys
+          d = pathlib.Path("documents/exercices-renouvellement")
+          files = sorted(p for p in d.glob("*.jpg") if p.stat().st_size > 100_000)
+          print(f"{len(files)} fichier(s) JPG valide(s) :")
+          for p in files:
+              print(f"  - {p.name}  {p.stat().st_size/1048576:.1f} MB")
+          if len(files) != 11:
+              print("ATTENTION: nombre de fichiers attendu = 11", file=sys.stderr)
+              sys.exit(1)
+          PY
+
+      - name: Écrire le manifeste
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          import hashlib, pathlib, datetime
+          d = pathlib.Path("documents/exercices-renouvellement")
+          lines = [
+              "# Dossier Drive « Exercices renouvellement »",
+              "",
+              "Source : https://drive.google.com/drive/folders/1DERlcp5UxYtl7E-7hEIAqE3VzALwrZY_",
+              "",
+              f"Récupéré le {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC via GitHub Actions.",
+              "",
+              "| Fichier | Taille | SHA-256 (12 premiers) |",
+              "| --- | --- | --- |",
+          ]
+          for p in sorted(d.glob("*.jpg")):
+              h = hashlib.sha256(p.read_bytes()).hexdigest()[:12]
+              lines.append(f"| {p.name} | {p.stat().st_size/1048576:.1f} MB | `{h}` |")
+          (d.parent / "MANIFEST.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          print("\n".join(lines))
+          PY
+
+      - name: Commit et push
+        run: |
+          set -euxo pipefail
+          git config user.name "arena-agent[bot]"
+          git config user.email "arena-agent[bot]@users.noreply.github.com"
+          git add documents
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à commiter"
+          else
+            git commit -m "Ajout des documents du dossier Drive « Exercices renouvellement »"
+            git push origin HEAD:arena/01a0aff8-parcours-marianne1
+          fi
