@@ -1,0 +1,152 @@
+name: Extraire le site parcours-marianne (Cloudflare Pages)
+
+# Récupère l'intégralité des fichiers publics du site
+# https://parcours-marianne-e1u.pages.dev/ (code, contenus pédagogiques,
+# catalogue vidéo et sous-titres des capsules) puis les commite dans
+# extraction/site/. Les runners GitHub ont un accès Internet complet,
+# contrairement au sandbox de l'agent.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/01a0aff8-parcours-marianne1
+    paths:
+      - '.github/workflows/fetch-site.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  extraire:
+    runs-on: ubuntu-latest
+    env:
+      BASE: https://parcours-marianne-e1u.pages.dev
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0aff8-parcours-marianne1
+          fetch-depth: 1
+
+      - name: Télécharger les fichiers applicatifs
+        run: |
+          set -euo pipefail
+          mkdir -p extraction/site
+          FILES="index.html style.css data.js lesson-extras.js exam-bank.js app.js \
+                 app-coach-online.js videos-catalog.js manifest.json manifest.webmanifest \
+                 downloads.html sw.js robots.txt icons/icon.svg"
+          for f in $FILES; do
+            out="extraction/site/$f"
+            mkdir -p "$(dirname "$out")"
+            code=$(curl -sSL --retry 4 --retry-delay 3 -o "$out" -w '%{http_code}' "$BASE/$f" || echo 000)
+            size=$(stat -c%s "$out" 2>/dev/null || echo 0)
+            echo "$f -> HTTP $code, $size octets"
+            if [ "$code" != "200" ] || [ "$size" -lt 20 ]; then
+              echo "  (non disponible, ignoré)"
+              rm -f "$out"
+            fi
+          done
+          echo "--- fichiers récupérés ---"
+          find extraction/site -type f | sort
+
+      - name: Télécharger les sous-titres des capsules (vidéos)
+        run: |
+          set -euo pipefail
+          mkdir -p extraction/site/videos
+          ok=0; ko=0
+          for n in $(seq -w 1 18); do
+            for kind in lesson qa; do
+              if [ "$kind" = "lesson" ]; then
+                url="$BASE/videos/lesson-$n/lecon-$n.vtt"; out="extraction/site/videos/lesson-$n.vtt"
+              else
+                url="$BASE/videos/qa-$n/qa-$n.vtt"; out="extraction/site/videos/qa-$n.vtt"
+              fi
+              code=$(curl -sSL --retry 2 -o "$out" -w '%{http_code}' "$url" || echo 000)
+              if [ "$code" = "200" ] && [ "$(stat -c%s "$out")" -gt 50 ]; then ok=$((ok+1)); else rm -f "$out"; ko=$((ko+1)); fi
+            done
+          done
+          for n in 01 02 03 04; do
+            code=$(curl -sSL --retry 2 -o "extraction/site/videos/sit-$n.vtt" -w '%{http_code}' "$BASE/videos/sit-$n/sit-$n.vtt" || echo 000)
+            if [ "$code" = "200" ] && [ "$(stat -c%s "extraction/site/videos/sit-$n.vtt")" -gt 50 ]; then ok=$((ok+1)); else rm -f "extraction/site/videos/sit-$n.vtt"; ko=$((ko+1)); fi
+          done
+          echo "Sous-titres récupérés : $ok (indisponibles : $ko)"
+          du -sh extraction/site/videos || true
+
+      - name: Vérifier le contenu extrait
+        run: |
+          set -euo pipefail
+          echo "=== syntaxe des fichiers JavaScript ==="
+          for f in extraction/site/*.js; do
+            node --check "$f" && echo "OK  $f" || { echo "ERREUR de syntaxe : $f"; exit 1; }
+          done
+          echo "=== statistiques de contenu ==="
+          node - <<'JS'
+          const fs = require('fs');
+          const read = (f) => fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '';
+          const stats = {};
+          const bank = read('extraction/site/exam-bank.js');
+          if (bank) {
+            const m = bank.match(/"kind"\s*:\s*"/g) || [];
+            stats['questions exam-bank'] = m.length;
+            fs.writeFileSync('/tmp/exam.json', JSON.stringify(
+              eval(bank.replace(/^\s*const EXAM_BANK\s*=/, '').replace(/;\s*$/, '')), null, 0));
+          }
+          const data = read('extraction/site/data.js');
+          if (data) {
+            const days = (data.match(/\{id:\d+,videoMin/g) || []).length;
+            stats['leçons (DAYS)'] = days;
+            stats['dates/faits'] = (data.match(/facts:\[/g) || []).length;
+          }
+          const vtt = fs.readdirSync('extraction/site/videos').filter((f) => f.endsWith('.vtt'));
+          stats['sous-titres VTT'] = vtt.length;
+          let lignes = 0;
+          for (const f of vtt) lignes += fs.readFileSync('extraction/site/videos/' + f, 'utf8').split('\n').length;
+          stats['lignes de sous-titres'] = lignes;
+          const cat = read('extraction/site/videos-catalog.js');
+          if (cat) stats['capsules cataloguées'] = (cat.match(/"slug"/g) || []).length;
+          console.log(JSON.stringify(stats, null, 2));
+          fs.writeFileSync('extraction/STATS.json', JSON.stringify(stats, null, 2));
+          if (!stats['questions exam-bank'] || stats['questions exam-bank'] < 100) {
+            console.error('Banque d’examen incomplète — extraction à revoir.');
+            process.exit(1);
+          }
+          JS
+
+      - name: Écrire le manifeste d'extraction
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, pathlib, datetime, json
+          root = pathlib.Path("extraction/site")
+          lignes = [
+              "# Extraction du site `parcours-marianne-e1u.pages.dev`",
+              "",
+              "Source : <https://parcours-marianne-e1u.pages.dev/>",
+              f"Récupéré le {datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC par GitHub Actions.",
+              "",
+              "| Fichier | Taille | SHA-256 (12 premiers) |",
+              "| --- | --- | --- |",
+          ]
+          for p in sorted(root.rglob("*")):
+              if p.is_file():
+                  h = hashlib.sha256(p.read_bytes()).hexdigest()[:12]
+                  lignes.append(f"| `{p.relative_to(root)}` | {p.stat().st_size} o | `{h}` |")
+          stats = pathlib.Path("extraction/STATS.json")
+          if stats.exists():
+              lignes += ["", "## Statistiques", "", "```json", stats.read_text(encoding="utf-8").strip(), "```"]
+          pathlib.Path("extraction/MANIFEST.md").write_text("\n".join(lignes) + "\n", encoding="utf-8")
+          print("\n".join(lignes[:20]))
+          PY
+
+      - name: Commit et push
+        run: |
+          set -euxo pipefail
+          git config user.name "arena-agent[bot]"
+          git config user.email "arena-agent[bot]@users.noreply.github.com"
+          git add extraction
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à commiter"
+          else
+            git commit -m "Extraction du site parcours-marianne (Cloudflare Pages) : code, contenus et capsules"
+            git push origin HEAD:arena/01a0aff8-parcours-marianne1
+          fi
