@@ -4,6 +4,20 @@ Entraînement à l'**examen civique** français (naturalisation, carte de résid
 carte de séjour pluriannuelle) : banque de questions corrigées, **examens blancs
 chronométrés** et révision par thème.
 
+## Mettre le site en ligne (2 clics, puis c'est automatique)
+
+1. https://github.com/jiojio17/parcours-marianne1/settings/pages
+2. **Source** → **GitHub Actions** → **Save**
+
+Le workflow `pages.yml` publie ensuite tout seul : à chaque modification et
+**toutes les 30 minutes**. Adresse : `https://jiojio17.github.io/parcours-marianne1/`.
+GitHub interdit à un robot de créer le site (403 sur l'API, même avec
+`pages: write`) : ces 2 clics sont la seule étape manuelle possible.
+
+**Sans rien activer** : `dist/parcours-marianne-complet.html` (358 Ko) est le site
+entier en **un seul fichier** — il s'ouvre par double-clic sur téléphone, tablette
+ou ordinateur, même sans connexion. `npm run mono` le régénère.
+
 ## Ce que fait le site
 
 | Fonction | Détail |
