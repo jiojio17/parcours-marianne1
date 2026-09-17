@@ -3,7 +3,7 @@
  * export-markdown.mjs — produit docs/BANQUE-QUESTIONS.md : la banque complète
  * (énoncés, quatre choix, bonne réponse, explication) en Markdown imprimable.
  */
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,16 +19,20 @@ const THEMES = {
   situation: 'Mises en situation (format officiel)',
 };
 
-const bank = [];
-for (const file of readdirSync(SRC).filter((f) => f.endsWith('.json')).sort()) {
-  bank.push(...JSON.parse(readFileSync(join(SRC, file), 'utf8')));
-}
+// banque déjà fusionnée et dédoublonnée par tools/build-quiz.mjs
+const built = readFileSync(join(ROOT, 'app', 'data', 'questions.js'), 'utf8');
+const sandbox = {};
+const bank = new Function('window', built + '\n;return window.QUIZ_DATA.questions;')(sandbox).filter((q) => !q.dupOf);
+const sources = bank.reduce((acc, q) => { const k = q.source || 'sujet'; acc[k] = (acc[k] || 0) + 1; return acc; }, {});
+console.log('Sources de la banque :', sources);
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 let out = `# Banque de questions corrigées — examen civique
 
-**${bank.length} questions** : 255 tirées des sujets d'entraînement du dossier Drive
-« Exercices renouvellement » et 30 mises en situation au format officiel.
+**${bank.length} questions** issues de deux corpus fusionnés et dédoublonnés :
+les sujets d'entraînement du dossier Drive « Exercices renouvellement » (255 questions
+transcrites, complétées de 30 mises en situation) et la banque du site
+« Marianne · Examen civique » (228 questions importées).
 
 Chaque question comporte **quatre choix, une seule bonne réponse** (marquée ✔) et une
 **explication**. Généré par \`tools/export-markdown.mjs\` — ne pas modifier à la main.
@@ -58,6 +62,7 @@ for (const theme of Object.keys(THEMES)) {
     });
     out += `\n**Réponse : ${LETTERS[q.correct]}.** ${q.why}\n`;
     if (q.page) out += `\n*Source : sujet d'entraînement, page ${q.page}.*\n`;
+    else if (q.source === 'site') out += `\n*Source : banque du site Marianne · Examen civique (${q.themeOrigine || q.theme}).*\n`;
     out += '\n';
   });
 }

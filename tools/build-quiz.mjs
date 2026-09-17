@@ -55,6 +55,48 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.json')).sort()) {
 
 const byId = new Map(bank.map((q) => [q.id, q]));
 if (byId.size !== bank.length) throw new Error('Identifiants de questions en doublon');
+
+/* ---------- dédoublonnage entre les sources ----------
+   Les questions des sujets d'entraînement (source « sujet ») et celles importées
+   du site Marianne (source « site ») portent souvent sur la même notion.
+   On conserve la première (nos sujets), en récupérant l'apport de la seconde. */
+const norm = (s) => s.toLowerCase()
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, ' ')
+  .trim();
+
+function apport(existing, autre) {
+  let texte = (autre.why || '').trim();
+  if (!texte) return;
+  const dejaLa = norm(existing.why || '').includes(norm(texte).slice(0, 40));
+  if (dejaLa) return;
+  if (norm(existing.q) === norm(autre.q)) {
+    const court = (existing.why || '').length < texte.length;
+    existing.why = court
+      ? `\u00c0 retenir : ${texte}` + (existing.why ? ` ${existing.why}` : '')
+      : `${existing.why} Compl\u00e9ment : ${texte}`;
+  }
+}
+
+const vus = new Map();
+const conservees = [];
+let doublons = 0, enrichies = 0;
+for (const q of bank) {
+  const cle = norm(q.q);
+  const jumelle = vus.get(cle);
+  if (jumelle && q.theme !== 'situation' && jumelle.theme !== 'situation') {
+    doublons++;
+    const avant = jumelle.why;
+    apport(jumelle, q);
+    if (jumelle.why !== avant) enrichies++;
+    continue;
+  }
+  vus.set(cle, q);
+  conservees.push(q);
+}
+if (doublons) console.log(`Dédoublonnage : ${doublons} question(s) en double écartée(s), ${enrichies} explication(s) enrichie(s).`);
+bank.length = 0;
+bank.push(...conservees);
 const byTheme = (t) => bank.filter((q) => q.theme === t && !q.dupOf);
 const situations = byTheme('situation');
 
@@ -114,6 +156,7 @@ function interleave(a, b) {
 }
 
 /* ---------- écriture ---------- */
+const sources = bank.reduce((acc, q) => { const k = q.source || 'sujet'; acc[k] = (acc[k] || 0) + 1; return acc; }, {});
 const payload = {
   meta: {
     exam: EXAM,
@@ -121,6 +164,7 @@ const payload = {
     generatedAt: new Date().toISOString().slice(0, 10),
     counts: Object.fromEntries(Object.keys(THEMES).map((t) => [t, byTheme(t).length])),
     total: bank.length,
+    sources,
   },
   questions: bank,
 };
@@ -134,4 +178,5 @@ writeFileSync(join(OUT, 'series.js'),
 
 const counts = payload.meta.counts;
 console.log(`Banque : ${bank.length} questions`, counts);
+console.log('Origine :', sources);
 console.log(`Séries générées : ${series.length} × ${EXAM.questions} questions (${EXAM.durationMin} min, seuil ${EXAM.pass}/${EXAM.questions})`);

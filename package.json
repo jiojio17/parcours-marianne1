@@ -5,7 +5,7 @@
   "description": "Entraînement à l'examen civique français : banque de questions, examens blancs chronométrés et révision par thème.",
   "type": "module",
   "scripts": {
-    "build": "node tools/build-quiz.mjs && node tools/export-markdown.mjs",
+    "build": "node tools/import-site.mjs && node tools/build-quiz.mjs && node tools/export-markdown.mjs",
     "start": "node tools/serve.mjs",
     "dev": "node tools/build-quiz.mjs && node tools/serve.mjs",
     "test": "node tools/smoke-test.mjs",

@@ -1,0 +1,62 @@
+[
+  {
+    "q": "Une personne est blessée dans la rue. Que fais-tu ?",
+    "options": [
+      "Je me mets en sécurité, je protège si possible et j’appelle les secours",
+      "Je filme pour demander conseil sur un réseau social",
+      "Je pars sans prévenir"
+    ],
+    "ok": 0,
+    "why": "Protéger sans se mettre en danger, alerter puis rester disponible."
+  },
+  {
+    "q": "Un contenu appelle à la haine sur un réseau social. Que faire ?",
+    "options": [
+      "Le signaler à la plateforme et, si nécessaire, à Pharos",
+      "Le partager pour le dénoncer",
+      "Répondre par une insulte"
+    ],
+    "ok": 0,
+    "why": "La haine n’est pas protégée par la liberté d’expression."
+  },
+  {
+    "q": "Une collègue subit une discrimination au travail. Que conseiller ?",
+    "options": [
+      "Demander conseil à la hiérarchie, au syndicat ou au Défenseur des droits",
+      "Démissionner sans rien dire",
+      "Se venger en ligne"
+    ],
+    "ok": 0,
+    "why": "Il existe des recours et des interlocuteurs pour faire respecter l’égalité."
+  },
+  {
+    "q": "Un enfant semble perdu dans la rue. Que faire ?",
+    "options": [
+      "Rester avec lui dans un lieu sûr et appeler la police si besoin",
+      "Le laisser seul",
+      "Publier sa photo en ligne"
+    ],
+    "ok": 0,
+    "why": "On rassure, on reste à proximité et on demande l’aide appropriée."
+  },
+  {
+    "q": "Une question d’entretien te semble difficile. Quelle posture ?",
+    "options": [
+      "Respirer, demander de répéter et répondre avec un exemple",
+      "Répondre au hasard très vite",
+      "Refuser de parler"
+    ],
+    "ok": 0,
+    "why": "La clarté et le calme comptent plus que la vitesse."
+  },
+  {
+    "q": "Un voisin brûle des déchets et la fumée entre chez toi. Que faire ?",
+    "options": [
+      "Lui parler calmement puis signaler la situation si elle continue",
+      "Brûler ses déchets aussi",
+      "Entrer chez lui"
+    ],
+    "ok": 0,
+    "why": "Le dialogue puis le signalement protègent le voisinage et l’environnement."
+  }
+]

@@ -11,6 +11,7 @@ const { window } = dom;
 window.confirm = () => true;
 const run = (f) => window.eval(readFileSync('/home/user/parcours-marianne1/app/' + f, 'utf8'));
 run('data/questions.js');
+run('data/site.js');
 run('data/series.js');
 run('app.js');
 
@@ -90,7 +91,7 @@ ok('Révision : bouton suivant activé', !window.document.getElementById('btn-ne
 
 // 8. banque complète
 await nav('#/questions');
-ok('Banque complète listée', window.document.querySelectorAll('details.qa').length === 285);
+ok('Banque complète listée', window.document.querySelectorAll('details.qa').length === 472, window.document.querySelectorAll('details.qa').length + ' questions');
 
 // 9. liste des séries
 await nav('#/series');
@@ -140,3 +141,18 @@ ok('Séance guidée : réponse enregistrée', window.document.querySelectorAll('
 await nav('#/parcours');
 ok('Programme : statistiques mises à jour', app.innerHTML.includes('questions travaillées'));
 ok('Programme : thème prioritaire marqué', app.innerHTML.includes('prioritaire'));
+
+/* ---------- 12. contenus repris du site Marianne ---------- */
+await nav('#/fiches');
+ok('Fiches : 14 fiches listées', window.document.querySelectorAll('details.qa').length === 14, window.document.querySelectorAll('details.qa').length + '');
+ok('Fiches : texte d’écoute présent', app.innerHTML.includes('À écouter'));
+ok('Fiches : cartes mémoire présentes', app.innerHTML.includes('Cartes mémoire'));
+ok('Fiches : piège fréquent repris', app.innerHTML.includes('Piège fréquent'));
+
+await nav('#/capsules');
+ok('Capsules : 22 capsules listées', window.document.querySelectorAll('table tbody tr').length >= 22, window.document.querySelectorAll('table tbody tr').length + ' lignes');
+ok('Capsules : lien vidéo externe', app.innerHTML.includes('parcours-marianne-e1u.pages.dev/videos/'));
+ok('Capsules : fonctionnalités du site documentées', app.innerHTML.includes('Coach Marianne') || app.innerHTML.includes('Bilan de départ'));
+
+await nav('#/parcours');
+ok('Parcours fonctionne encore après import', app.innerHTML.includes('Mon parcours') || app.innerHTML.includes('Ta séance du jour') || app.innerHTML.includes('bilan de départ'));

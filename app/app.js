@@ -192,6 +192,8 @@
     if (hash === '#/revision') return renderRevisionHome();
     if ((m = hash.match(/^#\/revision\/(\w+)/))) return renderRevisionTheme(m[1]);
     if (hash === '#/questions') return renderQuestions();
+    if (hash === '#/fiches') return renderFiches();
+    if (hash === '#/capsules') return renderCapsules();
     if ((m = hash.match(/^#\/examen\/([\w-]+)/))) return renderExam(m[1]);
     if (hash === '#/resultat') return renderResult();
     if (hash === '#/historique') return renderHistorique();
@@ -255,6 +257,12 @@
         card('1. Choisissez un format', 'Examen complet de 40 questions chronométré, ou révision libre question par question.') +
         card('2. Répondez', '4 réponses possibles par question, une seule est correcte. Vous pouvez naviguer et revenir en arrière.') +
         card('3. Corrigez-vous', 'Score, détail par thème et explication de chaque réponse, avec rappel de la règle de droit.') +
+      '</div>' +
+
+      '<h2>Fiches et capsules</h2>' +
+      '<div class="grid cols-2">' +
+        '<a class="serie" href="#/fiches"><span>14 fiches de révision<small>Objectif, texte d\'écoute, cartes mémoire, mise en situation et piège fréquent</small></span><span>→</span></a>' +
+        '<a class="serie" href="#/capsules"><span>22 capsules vidéo<small>18 révisions éclair + 4 mises en situation, avec sous-titres</small></span><span>→</span></a>' +
       '</div>' +
 
       '<h2>Ce que contient la banque</h2>' +
@@ -926,6 +934,95 @@
         render();
       }
     });
+  }
+
+
+  /* ---------- fiches et capsules du site Marianne ---------- */
+
+  function siteData() { return window.SITE_DATA || null; }
+
+  function renderFiches() {
+    stopTimer();
+    var d = siteData();
+    if (!d) {
+      app.innerHTML = '<h1>Fiches</h1><div class="card">Les fiches ne sont pas disponibles : relance <code>npm run build</code>.</div>';
+      return;
+    }
+    app.innerHTML =
+      '<h1>Les 14 fiches du parcours</h1>' +
+      '<p class="muted">Reprises du site <a href="' + esc(d.origine) + '" target="_blank" rel="noopener">Marianne · Examen civique</a> : ' +
+        'pour chaque journée, l\'objectif, le texte d\'écoute, quatre cartes mémoire, un rappel actif, ' +
+        'une mise en situation et le piège fréquent.</p>' +
+      '<div class="btn-row" style="margin-bottom:16px">' +
+        '<a class="btn secondary" href="#/capsules">Voir les 22 capsules vidéo</a></div>' +
+      d.lecons.map(function (l) {
+        return '<details class="qa"><summary>' +
+            '<span class="tag">Fiche ' + l.id + '</span> ' + esc(l.title) +
+            ' <span class="muted">· ' + esc(l.theme) + ' · ' + l.videoMin + ' min de vidéo</span>' +
+          '</summary>' +
+          '<p class="muted" style="margin:10px 0 4px"><strong>Objectif :</strong> ' + esc(l.objective) + '</p>' +
+          '<p style="margin:0 0 10px"><em>' + esc(l.intro) + '</em></p>' +
+          '<h3 style="margin:10px 0 6px">À écouter</h3>' +
+          '<p style="margin:0 0 12px">' + esc(l.listen) + '</p>' +
+          '<h3 style="margin:10px 0 6px">Cartes mémoire</h3>' +
+          '<table><tbody>' + l.facts.map(function (f) {
+            return '<tr><th style="width:32%">' + esc(f.front) + '</th><td>' + esc(f.back) + '</td></tr>';
+          }).join('') + '</tbody></table>' +
+          (l.warmup ? '<h3 style="margin:14px 0 6px">Rappel actif</h3><p style="margin:0">' + esc(l.warmup) + '</p>' : '') +
+          (l.retain ? '<p class="explanation" style="margin-top:10px"><strong>À retenir :</strong> ' + esc(l.retain) + '</p>' : '') +
+          (l.scenario ? '<h3 style="margin:14px 0 6px">Mise en situation</h3><p style="margin:0 0 8px">' + esc(l.scenario) + '</p>' +
+            '<ol type="A">' + l.scenarioOptions.map(function (o, i) {
+              return '<li class="' + (i === l.scenarioCorrect ? 'ok' : '') + '">' + esc(o) + (i === l.scenarioCorrect ? ' ✔' : '') + '</li>';
+            }).join('') + '</ol>' : '') +
+          '<h3 style="margin:14px 0 6px">Question de contrôle</h3>' +
+          '<p style="margin:0 0 8px"><strong>' + esc(l.quiz.q) + '</strong></p>' +
+          '<ol type="A">' + l.quiz.options.map(function (o, i) {
+            return '<li class="' + (i === l.quiz.correct ? 'ok' : '') + '">' + esc(o) + (i === l.quiz.correct ? ' ✔' : '') + '</li>';
+          }).join('') + '</ol>' +
+          '<p class="muted" style="margin:8px 0 0">' + esc(l.quiz.why) + '</p>' +
+          (l.confusion ? '<p class="muted" style="margin:8px 0 0"><strong>Piège fréquent :</strong> ' + esc(l.confusion) + '</p>' : '') +
+          '<p style="margin:12px 0 0"><a href="' + esc(l.video) + '" target="_blank" rel="noopener">▶ Voir la capsule « ' +
+            esc(l.videoTitle) + ' »</a></p>' +
+        '</details>';
+      }).join('') +
+      '<p class="muted" style="margin-top:16px">Contenus repris du site d\'origine, sans modification.</p>';
+  }
+
+  function renderCapsules() {
+    stopTimer();
+    var d = siteData();
+    if (!d) { app.innerHTML = '<h1>Capsules</h1><div class="card">Catalogue indisponible.</div>'; return; }
+    var groupes = [
+      { kind: 'qa', titre: 'Révisions éclair', desc: 'Une capsule par série de questions, avec la correction commentée.' },
+      { kind: 'sit', titre: 'Mises en situation', desc: 'Des scènes concrètes : quel est le bon réflexe ?' }
+    ];
+    var total = d.capsules.reduce(function (n, c) { return n + c.durationMin; }, 0);
+    app.innerHTML =
+      '<h1>Les capsules vidéo</h1>' +
+      '<p class="muted">' + d.capsules.length + ' capsules (environ ' + Math.round(total) + ' minutes), hébergées sur ' +
+        '<a href="' + esc(d.origine) + '" target="_blank" rel="noopener">' + esc(d.origine.replace(/^https?:\/\//, '')) + '</a>. ' +
+        'Chaque capsule existe en vidéo et en sous-titres. Les 36 fichiers de sous-titres sont aussi archivés dans le dépôt ' +
+        '(<code>extraction/site/videos/</code>) pour la recherche et la révision écrite.</p>' +
+      groupes.map(function (g) {
+        var liste = d.capsules.filter(function (c) { return c.kind === g.kind; });
+        if (!liste.length) return '';
+        return '<h2>' + esc(g.titre) + ' <span class="muted">(' + liste.length + ')</span></h2>' +
+          '<p class="muted">' + esc(g.desc) + '</p>' +
+          '<div class="card"><table><thead><tr><th>Capsule</th><th>Thèmes</th><th>Questions</th><th>Durée</th><th>Liens</th></tr></thead><tbody>' +
+          liste.map(function (c) {
+            return '<tr><td><strong>' + esc(c.title) + '</strong></td>' +
+              '<td>' + esc(c.themes.join(', ')) + '</td>' +
+              '<td>' + c.count + '</td>' +
+              '<td>' + c.durationMin + ' min</td>' +
+              '<td><a href="' + esc(c.mp4) + '" target="_blank" rel="noopener">▶ vidéo</a> · ' +
+                  '<a href="' + esc(c.vtt) + '" target="_blank" rel="noopener">sous-titres</a></td></tr>';
+          }).join('') + '</tbody></table></div>';
+      }).join('') +
+      '<h2>Ce que fait le site d\'origine</h2>' +
+      '<div class="card"><ul style="margin:0;padding-left:20px">' +
+        d.fonctionnalites.map(function (f) { return '<li style="margin-bottom:6px">' + esc(f) + '</li>'; }).join('') +
+      '</ul></div>' +
+      '<p style="margin-top:16px"><a href="#/fiches">← Voir les 14 fiches</a></p>';
   }
 
   /* ---------- banque complète ---------- */

@@ -34,18 +34,18 @@ jobs:
           mkdir -p extraction/site
           FILES="index.html style.css data.js lesson-extras.js exam-bank.js app.js \
                  app-coach-online.js videos-catalog.js manifest.json manifest.webmanifest \
-                 downloads.html sw.js robots.txt icons/icon.svg"
+                 downloads.html sw.js robots.txt icons/icon.svg icons/icon-192.png icons/icon-512.png"
           for f in $FILES; do
             out="extraction/site/$f"
             mkdir -p "$(dirname "$out")"
             code=$(curl -sSL --retry 4 --retry-delay 3 -o "$out" -w '%{http_code}' "$BASE/$f" || echo 000)
             size=$(stat -c%s "$out" 2>/dev/null || echo 0)
-            # le site est une SPA : un chemin inconnu renvoie la page HTML avec un code 200
-            if head -c 200 "$out" 2>/dev/null | grep -qiE '<!doctype|<html'; then
-              if [ "${f%%.*}" != "index" ] && [ "$(basename "$f")" != "index.html" ]; then
-                echo "$f -> page HTML de repli (fichier inexistant), ignoré"
-                rm -f "$out"; continue
-              fi
+            # le site est une SPA : un chemin inconnu renvoie la page HTML de l'application (code 200).
+            # On reconnaît cette page de repli à son marqueur <div id="app">, et non à tout contenu HTML
+            # (des pages légitimes comme downloads.html sont aussi du HTML).
+            if grep -q 'id="app"' "$out" 2>/dev/null && [ "$(basename "$f")" != "index.html" ]; then
+              echo "$f -> page de repli de la SPA (fichier inexistant), ignoré"
+              rm -f "$out"; continue
             fi
             echo "$f -> HTTP $code, $size octets"
             if [ "$code" != "200" ] || [ "$size" -lt 20 ]; then
@@ -78,6 +78,38 @@ jobs:
           done
           echo "Sous-titres récupérés : $ok (indisponibles : $ko)"
           du -sh extraction/site/videos || true
+
+      - name: Rapport de complétude (service worker ↔ fichiers extraits)
+        run: |
+          set -uo pipefail
+          python3 - <<'PY'
+          import pathlib, re, json
+          sw = pathlib.Path("extraction/site/sw.js")
+          attendus = []
+          if sw.exists():
+              m = re.search(r"SHELL_FILES\s*=\s*\[(.*?)\]", sw.read_text(encoding="utf-8"), re.S)
+              if m:
+                  attendus = [x.strip().strip("'\"") for x in m.group(1).split(",")]
+          presents = {str(p.relative_to("extraction/site")) for p in pathlib.Path("extraction/site").rglob("*") if p.is_file()}
+          manquants, trouves = [], []
+          for f in attendus:
+              nom = f.lstrip("./")
+              if not nom or nom == "index.html":
+                  (trouves if "index.html" in presents else manquants).append(f)
+              elif nom in presents:
+                  trouves.append(f)
+              else:
+                  manquants.append(f)
+          rapport = {
+              "fichiers_du_service_worker": len(attendus),
+              "extraits": len(trouves),
+              "manquants": manquants,
+              "total_fichiers_extraits": len(presents),
+              "sous_titres": len([p for p in presents if p.endswith(".vtt")]),
+          }
+          pathlib.Path("extraction/COMPLETUDE.json").write_text(json.dumps(rapport, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          print(json.dumps(rapport, indent=2, ensure_ascii=False))
+          PY
 
       - name: Vérifier le contenu extrait (rapport, non bloquant)
         run: |
