@@ -1,10 +1,10 @@
 name: Publier le site (GitHub Pages)
 
 # Construit le site (aucune dépendance) et le publie sur GitHub Pages.
-#
-# Prérequis, une seule fois : Settings → Pages → Source = « GitHub Actions ».
-# Tant que ce n'est pas fait, ce workflow s'arrête proprement en affichant la marche
-# à suivre (aucun échec). Ensuite, chaque mise à jour du site le publie automatiquement.
+# `enablement: true` demande à l'action « configure-pages » de CRÉER le site Pages
+# si nécessaire : normalement, aucun clic préalable dans Settings n'est requis.
+# Si l'activation automatique est refusée par GitHub, le workflow s'arrête proprement en
+# expliquant la seule action manuelle possible (Settings → Pages → Source : GitHub Actions).
 
 on:
   push:
@@ -58,47 +58,48 @@ jobs:
             if (n < 400 || series < 40) { console.error('Contenu incomplet'); process.exit(1); }
           "
 
-      - name: Vérifier que GitHub Pages est activé
-        id: verif
-        run: |
-          code=$(curl -s -o /tmp/pages.json -w '%{http_code}' \
-            -H "Authorization: Bearer ${{ github.token }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pages")
-          echo "Réponse de l’API Pages : HTTP $code"
-          if [ "$code" = "200" ]; then
-            echo "actif=true" >> "$GITHUB_OUTPUT"
-            echo "GitHub Pages est activé : publication en cours."
-          else
-            echo "actif=false" >> "$GITHUB_OUTPUT"
-            {
-              echo "## ⚙️ GitHub Pages doit être activé (une seule fois)"
-              echo
-              echo "1. Ouvrir **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
-              echo "2. Dans **Source**, choisir **GitHub Actions** (et non « Deploy from a branch »)."
-              echo "3. Revenir ici et relancer ce workflow (**Run workflow**)."
-              echo
-              echo "L’adresse publique du site sera : **https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
-              echo
-              echo "En attendant, le site est consultable via l’aperçu de travail et le paquet"
-              echo "\`dist/parcours-marianne-quiz.zip\` peut être déposé sur Cloudflare Pages."
-            } >> "$GITHUB_STEP_SUMMARY"
-            echo "::notice title=GitHub Pages non activé::Settings → Pages → Source = « GitHub Actions », puis relancer ce workflow."
-          fi
+      - name: Activer GitHub Pages (création du site si besoin)
+        id: pages
+        continue-on-error: true
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
-      - uses: actions/configure-pages@v5
-        if: steps.verif.outputs.actif == 'true'
+      - name: Repli si l'activation a été refusée
+        if: steps.pages.outcome == 'failure'
+        run: |
+          {
+            echo "## ⚙️ Une seule action manuelle est nécessaire"
+            echo
+            echo "GitHub a refusé l'activation automatique : seuls les administrateurs du dépôt"
+            echo "peuvent créer le site Pages."
+            echo
+            echo "1. Ouvrir **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
+            echo "2. Dans **Source**, choisir **GitHub Actions**."
+            echo "3. Relancer ce workflow (**Run workflow**)."
+            echo
+            echo "Adresse publique : **https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
+            echo
+            echo "En attendant, une adresse publique de secours est disponible :"
+            echo "celle du CDN jsDelivr (voir \`docs/DEPLOIEMENT.md\`)."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning title=Activation manuelle requise::Settings → Pages → Source = « GitHub Actions », puis relancer ce workflow. En attendant, le site reste accessible via l'aperçu de travail, le paquet dist/ et le CDN jsDelivr."
 
       - uses: actions/upload-pages-artifact@v3
-        if: steps.verif.outputs.actif == 'true'
+        if: steps.pages.outcome == 'success'
         with:
           path: app
 
       - id: deployment
-        if: steps.verif.outputs.actif == 'true'
+        if: steps.pages.outcome == 'success'
         uses: actions/deploy-pages@v4
 
       - name: Adresse du site
-        if: steps.verif.outputs.actif == 'true'
+        if: steps.pages.outcome == 'success'
         run: |
           echo "Site publié : ${{ steps.deployment.outputs.page_url }}"
+          {
+            echo "## ✅ Site publié"
+            echo
+            echo "Adresse publique : ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"
