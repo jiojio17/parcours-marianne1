@@ -641,7 +641,11 @@
 
     var btn = document.getElementById('btn-clear');
     if (btn) btn.addEventListener('click', function () {
-      if (confirm('Effacer tout l\'historique ?')) { localStorage.removeItem(HIST_KEY); render(); }
+      if (confirm('Effacer tout l\'historique ?')) {
+        localStorage.removeItem(HIST_KEY);
+        localStorage.removeItem(SEEN_KEY);
+        render();
+      }
     });
   }
 
