@@ -1,0 +1,26 @@
+{
+  "name": "Parcours Marianne — Examen civique",
+  "short_name": "Marianne",
+  "description": "Entraînement à l'examen civique français : parcours personnalisé, fiches, capsules et examens blancs chronométrés.",
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f6f6f6",
+  "theme_color": "#000091",
+  "categories": ["education", "reference"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Examen blanc (45 min)", "short_name": "Examen blanc", "url": "./#/examen/aleatoire" },
+    { "name": "Ma séance du jour", "short_name": "Séance", "url": "./#/seance" },
+    { "name": "Réviser par thème", "short_name": "Réviser", "url": "./#/revision" },
+    { "name": "Fiches", "short_name": "Fiches", "url": "./#/fiches" }
+  ]
+}

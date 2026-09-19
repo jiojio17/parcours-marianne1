@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Parcours Marianne">
+  <title>Parcours Marianne</title>
+  <rect x="51" y="51" width="410" height="410" rx="102" fill="#000091"/>
+  <rect x="188" y="51" width="136" height="410" fill="#ffffff"/>
+  <rect x="324" y="51" width="137" height="410" rx="0" fill="#e1000f"/>
+  <rect x="51" y="51" width="410" height="410" rx="102" fill="none" stroke="#0a0a3c" stroke-width="6"/>
+  <rect x="324" y="51" width="137" height="410" rx="0" fill="#e1000f"/>
+  <path d="M324 51h35a102 102 0 0 1 102 102v206a102 102 0 0 1-102 102h-35z" fill="#e1000f"/>
+</svg>

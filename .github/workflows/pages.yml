@@ -1,0 +1,127 @@
+name: Publier le site (GitHub Pages)
+
+# Construit le site (aucune dépendance) et le publie sur GitHub Pages.
+#
+# Deux façons de publier :
+#   1. à chaque fois que le contenu change (app/, data/, tools/) ;
+#   2. toutes les 30 minutes (tâche planifiée) : dès que le site Pages existe,
+#      la publication se fait automatiquement, sans aucune action de personne.
+#
+# GitHub interdit à un workflow de CRÉER le site Pages (l'API répond 403
+# « Resource not accessible by integration », même avec pages: write).
+# La création se fait donc en 2 clics par le propriétaire du dépôt :
+#   Settings → Pages → Source = « GitHub Actions ».
+# Ensuite, plus rien à faire : ce workflow publie à chaque changement.
+
+on:
+  push:
+    branches:
+      - arena/01a0bb35-parcours-marianne1
+      - arena/01a0aff8-parcours-marianne1
+      - main
+    paths:
+      - 'app/**'
+      - 'data/**'
+      - 'tools/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Construire la banque de questions
+        run: npm run build
+
+      - name: Contrôles du site
+        run: |
+          set -euo pipefail
+          for f in app/index.html app/manifest.webmanifest app/sw.js \
+                   app/icons/icon-192.png app/icons/icon-512.png app/404.html; do
+            test -f "$f" || { echo "Fichier manquant : $f"; exit 1; }
+          done
+          node -e "
+            const fs = require('fs');
+            const q = fs.readFileSync('app/data/questions.js', 'utf8');
+            const s = fs.readFileSync('app/data/series.js', 'utf8');
+            const n = (q.match(/\"id\":/g) || []).length;
+            console.log('questions dans la banque :', n);
+            console.log('séries figées restantes :', /\bserie-\d+/.test(s) ? 'présentes (INATTENDU)' : 'aucune — tirage aléatoire actif');
+            if (n < 400) { console.error('Contenu incomplet'); process.exit(1); }
+          "
+
+      - name: Vérifier si GitHub Pages existe
+        id: etat
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          code=$(curl -s -o /tmp/pages.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          echo "HTTP $code"
+          if [ "$code" = "200" ]; then
+            echo "existe=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "existe=non" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Activer GitHub Pages (sans effet si déjà fait)
+        id: pages
+        if: steps.etat.outputs.existe == 'oui'
+        continue-on-error: true
+        uses: actions/configure-pages@v5
+
+      - name: Mode d'emploi (2 clics) si le site n'existe pas encore
+        if: steps.etat.outputs.existe != 'oui'
+        run: |
+          {
+            echo "## ⚙️ Deux clics et c'est publié"
+            echo
+            echo "GitHub réserve la création du site à son propriétaire (l'API répond 403"
+            echo "pour tout workflow, même avec la permission \`pages: write\`)."
+            echo
+            echo "1. Ouvre **Settings → Pages** : https://github.com/${{ github.repository }}/settings/pages"
+            echo "2. Sous **Source**, choisis **GitHub Actions** (puis **Save**)."
+            echo
+            echo "C'est tout : ce workflow publie ensuite automatiquement, y compris via la"
+            echo "tâche planifiée toutes les 30 minutes. Aucune autre manipulation."
+            echo
+            echo "Adresse du site une fois publié :"
+            echo "**https://${{ github.repository_owner }}.github.io/\${GITHUB_REPOSITORY##*/}/**"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning title=2 clics : Settings → Pages → Source = GitHub Actions::La publication suivante sera automatique (toutes les 30 min)."
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.pages.outcome == 'success'
+        with:
+          path: app
+
+      - id: deployment
+        if: steps.pages.outcome == 'success'
+        uses: actions/deploy-pages@v4
+
+      - name: Adresse du site
+        if: steps.pages.outcome == 'success'
+        run: |
+          echo "Site publié : ${{ steps.deployment.outputs.page_url }}"
+          {
+            echo "## ✅ Site publié"
+            echo
+            echo "Adresse publique : ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"

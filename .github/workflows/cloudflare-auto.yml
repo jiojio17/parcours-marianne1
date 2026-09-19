@@ -1,0 +1,90 @@
+name: Publier sur Cloudflare Pages (auto si les secrets existent)
+
+# Publie le site sur Cloudflare Pages dès que les secrets du dépôt sont
+# présents (Settings → Secrets and variables → Actions) :
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+# et, en variable facultative, CLOUDFLARE_PROJECT_NAME.
+#
+# Le workflow écrit son rapport dans docs/cloudflare-rapport.txt (committé),
+# car les journaux de runs ne sont pas toujours lisibles via l'API.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cloudflare-auto.yml'
+      - 'app/**'
+      - 'tools/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Diagnostiquer puis publier si possible
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_PROJET: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -uo pipefail
+          RAPPORT=docs/cloudflare-rapport.txt
+          mkdir -p docs
+          {
+            echo "Cloudflare Pages — $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            echo
+            echo "secret CLOUDFLARE_API_TOKEN présent : $([ -n "${CF_TOKEN:-}" ] && echo OUI || echo NON)"
+            echo "secret CLOUDFLARE_ACCOUNT_ID présent : $([ -n "${CF_ACCOUNT:-}" ] && echo OUI || echo NON)"
+            echo "variable CLOUDFLARE_PROJECT_NAME     : ${CF_PROJET:-<non définie>}"
+            echo
+          } > "$RAPPORT"
+
+          if [ -z "${CF_TOKEN:-}" ] || [ -z "${CF_ACCOUNT:-}" ]; then
+            {
+              echo "→ Aucun déploiement : les identifiants Cloudflare ne sont pas dans ce dépôt."
+              echo "  Pour activer cette voie, ajouter les deux secrets dans"
+              echo "  Settings → Secrets and variables → Actions."
+            } >> "$RAPPORT"
+            cat "$RAPPORT"
+            git config user.name "arena-agent[bot]"
+            git config user.email "arena-agent[bot]@users.noreply.github.com"
+            git add "$RAPPORT"
+            git commit -q -m "ci: rapport Cloudflare (identifiants absents)" || true
+            git push || true
+            exit 0
+          fi
+
+          PROJET="${CF_PROJET:-parcours-marianne-quiz}"
+          echo "→ Déploiement vers le projet « $PROJET »…" >> "$RAPPORT"
+
+          npx --yes wrangler@3.90.0 pages project create "$PROJET" \
+            --production-branch=main >> "$RAPPORT" 2>&1 || echo "(le projet existait déjà)" >> "$RAPPORT"
+
+          npx --yes wrangler@3.90.0 pages deploy app \
+            --project-name="$PROJET" \
+            --branch=main \
+            --commit-dirty=true >> "$RAPPORT" 2>&1 || true
+
+          # vérifie que le site répond
+          sleep 20
+          for url in "https://$PROJET.pages.dev/" "https://$PROJET.pages.dev/index.html"; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -m 15 "$url" || echo 000)
+            echo "→ $url : HTTP $code" >> "$RAPPORT"
+          done
+
+          git config user.name "arena-agent[bot]"
+          git config user.email "arena-agent[bot]@users.noreply.github.com"
+          git add "$RAPPORT"
+          git commit -q -m "ci: rapport de déploiement Cloudflare Pages" || true
+          git push || true
+          cat "$RAPPORT"

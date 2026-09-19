@@ -1,0 +1,9 @@
+{
+  "fichiers_du_service_worker": 12,
+  "extraits": 11,
+  "manquants": [
+    "./downloads.html"
+  ],
+  "total_fichiers_extraits": 49,
+  "sous_titres": 36
+}
